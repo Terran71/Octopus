@@ -16,6 +16,8 @@
 !/log/.keep
 /tmp
 
+echo log >> .gitignore
+
 /config/database.yml
 
 # Ignore IDE artifacts
