@@ -1,7 +1,7 @@
 class RoundupJob < ActiveJob::Base
 	# queue_as :mailers
   def self.perform(timeline)
-    if 
+    
         participants_in_active_projects = Participant.joins(:project).where(project: {status: "active"})
         participants_in_active_projects.each do |participant|
         events = Attendees.includes(:event).where(participant_id: participant.id).accepted.by_timeline(timeline)
@@ -11,9 +11,11 @@ class RoundupJob < ActiveJob::Base
                 e
              elsif participant.is_helper?
                 email_kind = EmailKind.user_emails.roundups("participant.project.category, #{timeline}-roundup", "HelperParticipantRole")
-          else
-            #weddings
+             else
+                #weddings
+             end
           end
+
 
 
         # participants_in_active_projects
@@ -23,10 +25,10 @@ class RoundupJob < ActiveJob::Base
         puts "logged email #{email_kind.subject} "
    
 
+    end
+
+
   end
 
 
 end
-
-
-

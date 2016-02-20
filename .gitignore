@@ -16,6 +16,11 @@
 !/log/.keep
 /tmp
 
+/log/*
+!/log/.keep
+/tmp
+/log
+
 echo log >> .gitignore
 
 /config/database.yml
