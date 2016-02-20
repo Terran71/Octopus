@@ -553,7 +553,6 @@ ActiveRecord::Schema.define(version: 20160217152409) do
     t.time     "time_end"
     t.datetime "prep_start_datetime"
     t.datetime "prep_end_datetime"
-    t.string   "in_honor"
     t.integer  "form_progress"
     t.integer  "participants_count"
     t.integer  "guests_count"
