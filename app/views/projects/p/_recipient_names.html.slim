@@ -1,0 +1,6 @@
+- if @project.honored_guests.invited.present?
+  = @project.honored_guests.invited.map{ |r| link_to(r.completed_name,project_participant_path(project_id: r.project_id, id: r.participant.id))}.join(" & ").html_safe
+- if @project.honored_guests.passive.present? && @project.honored_guests.passive.present?
+  |  &  
+- if @project.honored_guests.passive.present?
+  = @project.honored_guests.passive.map{ |r| r.completed_name }.join(" & ")

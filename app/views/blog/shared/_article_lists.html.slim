@@ -1,0 +1,21 @@
+/ article
+/   h2
+/     = article.title
+/   .lead
+/     = article.body.truncate(200).html_safe
+/     = link_to blog_article_path(article)
+/       |more
+
+
+      
+.col-md-6.col-lg-4
+  article
+    / = image_tag article.image
+    = image_tag "default-hero.jpg"
+    .preview-tile-box
+      .title.preview-tiles-title
+        = article.title
+      .preview-tiles
+        = article.body.truncate(80).html_safe
+        = link_to blog_article_path(article)
+          |more

@@ -1,0 +1,2 @@
+pg:backups capture DATABASE --confirm %s-prod
+run rake db:migrate --trace

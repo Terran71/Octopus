@@ -1,0 +1,24 @@
+.container
+  h3.heavy.text-center.pt20
+    |Great! You Selected
+    span.dk-aqua
+      = @project.subcategory_name
+    = link_to  project_kinds_path
+      sup
+        i.fa.fa-pencil
+  
+  .panel-row.panel-row-700
+    .panel.panel-octopus style="border: 2px solid #eee; float:left"
+      div width="50%" style="border: 2px solid #eee; float:left"
+        h4
+          strong
+            |Organizer
+        = link_to new_project_path(project_type_code: params[:project_type_code], participant_role_code: 1)
+           = image_tag 'https://s3-us-west-2.amazonaws.com/makeparty/app/roles/organizer.png', alt: 'Organizer', width: '75px'
+      div width="50%" style="border: 2px solid #eee; float:left"
+        h4
+          strong
+            |Organizer/Recipient
+        = link_to new_project_path(project_type_code:  params[:project_type_code] , participant_role_code: 2)
+           = image_tag 'https://s3-us-west-2.amazonaws.com/makeparty/app/roles/org-recip.png', alt: 'Organizer/Recipient', width: '75px'
+   

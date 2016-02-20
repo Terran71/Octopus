@@ -1,0 +1,7 @@
+|Your appointment request for 
+=@event.start_date_and_time
+- if @response == "reschedule"
+| has been 
+  | DENIED.  Please choose another date/time.
+- if @response == "approved"
+  | APPROVED!

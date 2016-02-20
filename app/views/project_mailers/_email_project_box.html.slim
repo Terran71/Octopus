@@ -1,0 +1,9 @@
+- if @project.is_meal_delivery?
+  strong
+    = @project.full_title
+  p
+    = @project.prep_times
+  p 
+    = @project.default_address
+- else
+  |NOT MEAL DELIVERY

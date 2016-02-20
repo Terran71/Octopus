@@ -1,0 +1,102 @@
+ @import 'blog_variables';
+ @import 'footer';
+
+ // @import '/assets/stylesheets/variables';
+
+body, body .blog  {
+  background:  #e9eaed;
+  font-family:  $blog-font-stack;
+  overflow-x: hidden;
+  padding: 0px 0px 0px 0px;
+}
+
+a, a:hover, a:active, a:visited {
+  text-decoration:none;
+  outline:0;  
+}
+
+a { 
+  color: $md_aqua;
+
+}
+
+a:hover { 
+  color:  $md_orange;
+
+}
+
+h1 {font-size: 48px}
+
+text {
+  text-decoration:none;
+  outline:0;  
+  font:  $blog-font-size $font-stack;
+  color: $text_gray;
+}
+
+#blog-footer {
+// clear:both;
+background:#fff;
+text-align: center;
+padding: 20px
+}
+
+.white-bg {background: #fff; border: 1px solid $xlt_gray}
+.title {font-weight: 700; font-size: 18px; text-transform: uppercase}
+.blog header {background: #fff}
+.blog header .blog-title { font-family: $fontScript; color: $dk_red;
+  font-size: 6em; text-align: center; width: 100%}
+.blog header .section-bar {width:100%; max-width: 900px; margin-left: auto; margin-right: auto}
+.blog header .section-bar li {border: solid $lt_aqua 2px; background: #fff; text-transform: uppercase;
+                              text-align:center; padding: 8px; margin: 5px 2px; }
+.blog header .section-bar li .active {background:$lt_aqua; color: #fff }
+.navbar-pretty-handy {margin-bottom: 0; background: #333; border-radius: 0}
+.navbar-nav > li > a {padding-top:5px !important; padding-bottom:5px !important;}
+.navbar {min-height:32px !important}
+.navbar-brand {padding-top:5px !important; padding-bottom:0 !important; height: 30px; }
+
+.sidebar {min-width: 320px; border-left: solid 1px $lt_gray; padding-left: 20px; }
+
+.title .article-title, .title .article-title a {font-weight: 800; text-transform: uppercase; color: $dk_aqua}
+.blog .container {max-width: 1000px; margin-bottom: 30px }
+.widget {border: solid 2px $lt_aqua; background: #fff; padding: 10px; text-align: center; margin: 15px 0}
+.ad-widget {border: none; padding: 0px; text-align: center; min-width: 300px}
+
+.related-widget {
+
+}
+
+.related-widget .tabs {}
+
+.related-widget .tabs li {width: 30%; height: 30px }
+.related-widget .tab-panel .link-list li {padding: 20px 10px}
+
+
+.widget .social-row {width: 30px; height: 30px; }
+.widget .social-row  li i { font-size: 24px;}
+
+.sidebar .about-us, .sidebar .about-us a {font-weight: 800; font-size: 36px; text-transform: uppercase}
+.social i{ font-size: 42px; color: $lt_aqua}
+
+.category-badge li, .category-badge li a{text-transform: uppercase; color: $lt_gray; font-size: 12px; background: #fff}
+
+.tag-badge li, .tag-badge li a {text-transform: uppercase; background: $lt_gray; color: #fff; font-size: 10px}
+.blog .author, .blog .author a { font-weight: 300; font-size: 14px; font-style: italic; color: $md_gray}
+.blog .published, .blog .published i  {font-size: 12px; color: $md_gray}
+
+.blog .article-lead, .blog .article-body,  .blog .article-body {  text-align: justify;
+                                            text-justify: inter-word; color: #555; letter-spacing: 1.7; 
+                                            font-family: $font-stack; }
+.blog .article-lead a:hover, .blog .article-body a:hover {text-decoration: underline}
+
+.blog .article-lead { font-size: 22px; margin-bottom: 20px; line-height:28px;}
+.blog .article-body { font-size: 16px; line-height: 28px;}
+
+.blog  .preview-tile-box {height: 120px}
+.blog .preview-tiles {text-align: justify; font-size: 14px; line-height: 18px;
+                                            text-justify: inter-word; color: #555; letter-spacing: 1.5; 
+                                            font-family: $font-stack;}
+
+// #comments
+
+#comments {}

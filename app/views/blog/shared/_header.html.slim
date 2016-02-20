@@ -1,0 +1,9 @@
+header
+  .blog-title 
+    = link_to blog_root_path
+      |Pretty Handy
+  ul.list-inline.section-bar
+    - BlogSection.all.each do |section|
+      li
+        = link_to blog_section_path(section)
+          = section.title

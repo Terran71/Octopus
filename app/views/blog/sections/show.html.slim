@@ -1,0 +1,7 @@
+.container style="max-width: 1200px"
+  .row
+    .col-md-8
+      - @articles.each do |article|
+        = render "blog/shared/article_lists", article: article
+    .col-md-4
+      = render "blog/shared/sidebar"

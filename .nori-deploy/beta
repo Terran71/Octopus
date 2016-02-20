@@ -1,0 +1,3 @@
+pg:copy %s-prod::DATABASE DATABASE --confirm %s-beta
+restart
+run rake db:migrate --trace
