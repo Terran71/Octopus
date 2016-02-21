@@ -681,6 +681,7 @@ DEPENDENCIES
   rails_12factor
   rails_admin
   rails_admin_import (~> 1.0.0)
+  redis
   remotipart (~> 1.2.1)
   responders (~> 2.1.0)
   rest-client
@@ -697,7 +698,6 @@ DEPENDENCIES
   spring-commands-rspec
   sprockets-rails (~> 3.0, >= 3.0.1)
   therubyracer
-  thin
   timecop
   turbolinks
   twitter
@@ -707,4 +707,4 @@ DEPENDENCIES
   wysiwyg-rails (~> 1.2.8)
 
 BUNDLED WITH
-   1.10.6
+   1.11.2
