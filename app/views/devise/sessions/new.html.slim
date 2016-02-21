@@ -1,37 +1,14 @@
-/ css:
-/   / .panel-signin, .panel-sign-up {width: 500px; margin-left: auto; margin-right:auto}
 
-/ .container
-/   .panel.panel-octopus.panel-signin.mt50
-/     h2
-/       |Log In
-/     .panel-body
-
-/       = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-/         .form-inputs
-/           = f.input :email, required: false, autofocus: true 
-/           = f.input :password, required: false 
-/           = f.input :remember_me, as: :boolean if devise_mapping.rememberable? 
-
-/         .form-actions
-/           = f.button :submit, "Log in", class: 'btn btn-aqua btn-block'
-
-/     .text-left
-/       = render "devise/shared/links"
 .container
   section.page-signup.mt50
-    / a href=("#/"} {{main.brand}) 
-
-  
-   
     .form-container
       = image_tag 'branding/octopus-logo-lg.png', alt: 'Octopus', style: "padding: 0 50px"
       hr/
       = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
         = f.error_notification
         - if devise_mapping.omniauthable? 
-          - resource_class.omniauth_providers.each do |provider| 
-            / = link_to "Sign in with #{provider.to_s.titleize}", omniauth_authorize_path(resource_name, provider) 
+          / - resource_class.omniauth_providers.each do |provider| 
+          /   / = link_to "Sign in with #{provider.to_s.titleize}", omniauth_authorize_path(resource_name, provider) 
           .form-group
             = link_to user_omniauth_authorize_path(:facebook), class: 'btn btn-facebook btn-block btn-lg'
               |Sign in with Facebook
@@ -52,8 +29,6 @@
                 span.input-group-addon
                   i.fa.fa-lock.fa-lg
                 = f.password_field :password, required: false , label: false, class: 'form-control', placeholder: 'PASSWORD'
-
-            .form-group
             .form-group
               = f.button :submit, "Log in", class: 'btn btn-aqua btn-block btn-lg'
 

@@ -13,14 +13,32 @@ Rails.application.routes.draw do
   #Omniauth
   
 
-  devise_for :users, path: 'auth', :controllers => { :registrations => 'users/registrations',   :confirmations => 'users/confirmations', :sessions => 'users/sessions', :passwords => 'users/passwords', omniauth_callbacks: "users/omniauth_callbacks"}
+  # devise_for :users, path: 'auth', :controllers => { :registrations => 'users/registrations',   
+  #   :confirmations => 'users/confirmations', :sessions => 'users/sessions', 
+  #   :passwords => 'users/passwords', omniauth_callbacks: "users/omniauth_callbacks"}
+
+  # devise_scope :user do
+  #   patch "auth/confirm" => "users/confirmations#confirm"
+  #   delete "auth/sign_out" => "users/sessions#destroy"
+  #   get "auth/sign_up", to: 'users/registrations#new'
+  #   get '/devise/registrations/signup_success', to: 'users/registrations#signup_success', as: :signup_success
+  #   delete 'sign_out', :to => 'users/sessions#destroy'
+  #   get ':provider/callback', to: 'users/sessions#create'
+  #   get 'failure', to: redirect('/')
+  #   get 'signout', to: 'users/sessions#destroy', as: 'signout'
+
+  # end
+
+  devise_for :users, path: 'auth', :controllers => { :registrations => 'users/registrations',   
+    :confirmations => 'users/confirmations', :sessions => 'users/sessions', 
+    :passwords => 'users/passwords', omniauth_callbacks: "users/omniauth_callbacks"}
 
   devise_scope :user do
-    patch "auth/confirm" => "users/confirmations#confirm"
-    delete "auth/sign_out" => "users/sessions#destroy"
-    get "auth/sign_up", to: 'users/registrations#new'
+    patch "confirm" => "users/confirmations#confirm"
+    delete "sign_out" => "users/sessions#destroy"
+    get "sign_up", to: 'users/registrations#new'
     get '/devise/registrations/signup_success', to: 'users/registrations#signup_success', as: :signup_success
-    delete 'sign_out', :to => 'users/sessions#destroy'
+    delete 'auth/sign_out', :to => 'users/sessions#destroy'
     get ':provider/callback', to: 'users/sessions#create'
     get 'failure', to: redirect('/')
     get 'signout', to: 'users/sessions#destroy', as: 'signout'

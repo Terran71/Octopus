@@ -39,8 +39,12 @@ class ApplicationController < ActionController::Base
   # end
 
   def after_sign_in_path_for(resource)
-    session[:previous_url] || projects_path
-    projects_path
+    # if request.referer == sign_in_url
+    #   super
+    # else
+ stored_location_for(resource) || request.referer || projects_path
+      # session[:previous_url] || projects_path
+    # end
   end
 
   def store_location

@@ -46,7 +46,8 @@ html
       #topwrapper
         section
           #pagecontent.mainpanel
-            = render  partial: 'shared/sidebar_signed_out' 
+            / = render  partial: 'shared/sidebar_signed_out' 
+        
             = render  partial: 'shared/header_signed_out'  
             - if @hide_flash == false
               = render partial: 'shared/alerts', flash: flash

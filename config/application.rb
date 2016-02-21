@@ -62,5 +62,8 @@ module Octopus
 
     config.exceptions_app = self.routes
 
+    config.edo_variables = ENV["EDO"] = "OMG EDO" || "NOPE"
+ 
+
   end
 end
