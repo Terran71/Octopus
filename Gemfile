@@ -94,7 +94,7 @@ end
 
 group :production do
   gem 'rails_12factor'
-  gem 'thin'
+  gem 'redis'
   gem 'newrelic_rpm'
   gem 'airbrake'
 end
