@@ -11,6 +11,13 @@ Bundler.require(*Rails.groups)
 module Octopus
   class Application < Rails::Application
     # config.time_zone = 'Central Time (US & Canada)'
+      env_file = Rails.root.join("config", 'environment_variables.yml').to_s
+
+      if File.exists?(env_file)
+        YAML.load_file(env_file)[Rails.env].each do |key, value|
+          ENV[key.to_s] = value
+        end # end YAML.load_file
+      end # end if File.exists?
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
@@ -43,12 +50,12 @@ module Octopus
     config.google_id = ENV['GOOGLE_CLIENT_ID'] || "GooClixxxxxxxxxxxxx" 
     config.google_secret = ENV['GOOGLE_CLIENT_SECRET'] || "GooSecxxxxxxxxSecret" 
 
-     config.new_relic_license_key = ENV["NEW_RELIC_LICENSE_KEY"] || "newrlxxxxx"
+    config.new_relic_license_key = ENV["NEW_RELIC_LICENSE_KEY"] || "newrlxxxxx"
 
 
     config.oct_env = ENV['OCT_ENV']
     config.rails_env = ENV['RAILS_ENV']
-    config.is_production_environment = (config.rails_env=='production' && config.oct_env.blank?)
+    config.is_production_environment = (config.rails_env=='production' && config.oct_env.blank? && config.oct_env != "alpha")
     # end
     config.is_development_environment =config.rails_env=='development'
 
@@ -62,7 +69,7 @@ module Octopus
 
     config.exceptions_app = self.routes
 
-    config.edo_variables = ENV["EDO"] = "OMG EDO" || "NOPE"
+    config.edo_variables = ENV["EDO"] || "NOPE"
  
 
   end

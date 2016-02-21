@@ -37,6 +37,7 @@ echo log >> .gitignore
 
 
 /config/local_environment_variables.rb
+/config/environment_variables.yml
 
 
 

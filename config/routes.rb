@@ -29,17 +29,21 @@ Rails.application.routes.draw do
 
   # end
 
-  devise_for :users, path: 'auth', :controllers => { :registrations => 'users/registrations',   
+  devise_for :users, path: '', :controllers => { :registrations => 'users/registrations',   
     :confirmations => 'users/confirmations', :sessions => 'users/sessions', 
     :passwords => 'users/passwords', omniauth_callbacks: "users/omniauth_callbacks"}
+
+
 
   devise_scope :user do
     patch "confirm" => "users/confirmations#confirm"
     delete "sign_out" => "users/sessions#destroy"
+    post "sign_in" => "users/sessions#create"
+
     get "sign_up", to: 'users/registrations#new'
     get '/devise/registrations/signup_success', to: 'users/registrations#signup_success', as: :signup_success
     delete 'auth/sign_out', :to => 'users/sessions#destroy'
-    get ':provider/callback', to: 'users/sessions#create'
+    # get ':provider/callback', to: 'users/sessions#create'
     get 'failure', to: redirect('/')
     get 'signout', to: 'users/sessions#destroy', as: 'signout'
 
