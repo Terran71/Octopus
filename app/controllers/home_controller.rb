@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
   before_action :store_location
-  if !Rails.configuration.is_production_environment 
+  if !Rails.configuration.is_production_environment
     before_action :authenticate_user! 
   end #remove launch 
   

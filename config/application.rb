@@ -49,9 +49,8 @@ module Octopus
     config.oct_env = ENV['OCT_ENV']
     config.rails_env = ENV['RAILS_ENV']
     config.is_production_environment = (config.rails_env=='production' && config.oct_env.blank?)
-    config.is_production_environment = is_production_environment?
     # end
-    config.is_development_environment = is_development_environment?
+    config.is_development_environment =config.rails_env=='development'
 
     # Make sure to load things that we've placed in subfolders
 
