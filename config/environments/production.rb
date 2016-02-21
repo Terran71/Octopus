@@ -117,7 +117,7 @@ Rails.application.configure do
     aws_secret_access_key: ENV['AWS_SECRET_ACCESS_KEY']
   }
 
-  config.s3_bucket = "oct-" + (ENV['OCTO_ENV'] || 'prod').downcase
+  config.s3_bucket = "oct-" + (ENV['OCT_ENV'] || 'prod').downcase
 
   CarrierWave.configure do |carrierwave_config|
     carrierwave_config.fog_credentials = config.s3_credentials.merge({provider: 'AWS'})

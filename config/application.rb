@@ -46,18 +46,9 @@ module Octopus
      config.new_relic_license_key = ENV["NEW_RELIC_LICENSE_KEY"] || "newrlxxxxx"
 
 
-      def is_production_environment?
-        if  ENV['OCT_ENV'] && ENV['OCT_ENV'].downcase == "production"
-          true
-        end
-      end
-
-      #only call in config
-      def is_development_environment?
-        if ENV['OCT_ENV'].blank? or ENV['OCT_ENV'].downcase == "development" 
-          true
-        end
-      end
+    config.oct_env = ENV['OCT_ENV']
+    config.rails_env = ENV['RAILS_ENV']
+    config.is_production_environment = (config.rails_env=='production' && config.oct_env.blank?)
     config.is_production_environment = is_production_environment?
     # end
     config.is_development_environment = is_development_environment?
