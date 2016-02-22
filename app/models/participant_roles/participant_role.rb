@@ -27,6 +27,8 @@ class ParticipantRole < ActiveRecord::Base
   def name
     '???'
   end
+
+
   def code
     "?"
   end

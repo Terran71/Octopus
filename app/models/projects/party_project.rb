@@ -3,7 +3,8 @@ class PartyProject < Project
   def self.types
     [
       PartyProject,
-     
+      WeddingProject,
+      # ShowerProject
       
     ]
   end

@@ -79,7 +79,7 @@ Rails.application.routes.draw do
   end
   # get '/page/:page_id' => 'site#page', as: :site_page
 
-  resources :projects, except: [:new]
+  resources :projects, except: [:new, :show]
   resources :new_baby_meal_delivery_projects, :controller => 'projects', except: [:new]
   get 'projects/kinds', to: 'projects#kinds', as: :project_kinds
 

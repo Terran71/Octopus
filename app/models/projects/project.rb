@@ -6,7 +6,6 @@ class Project < ActiveRecord::Base
     [
       MealDeliveryProject.types,
       PartyProject.types,
-      
       ].flatten
   end
 

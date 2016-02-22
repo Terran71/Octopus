@@ -20,14 +20,14 @@ css:
                     a data-parent="#accordion" data-toggle="collapse" href="#collapseOne"  Parties
           #collapseOne.panel-collapse.collapse
             .panel-body
-              - if @kinds.parties.blank?
+              - if party_kinds.blank?
                 | Coming soon...
               - else
                 ul.list-unstyled
-                  - @kinds.parties.each do |k|
+                  - party_kinds.each do |type|
                     li
-                      = link_to role_project_path(project_code: k.id) 
-                        = k.title
+                      = link_to role_project_path(project_type_code: type.new_project.code) 
+                        = type.new_project.subcategory_name
           
       .panel.panel-default.panel-templates
         .panel-heading
@@ -41,12 +41,12 @@ css:
                   a data-parent="#accordion" data-toggle="collapse" href="#collapseTwo"  Meal Deliveries
         #collapseTwo.panel-collapse.collapse
           .panel-body
-            - if @kinds.meal_deliveries.blank?
+            - if meal_delivery_kinds.blank?
               | Coming soon...
             - else
                ul.list-unstyled
-                 - @kinds.meal_deliveries.each do |k|
-                  li
-                    = link_to role_project_path(project_code: code.id) 
-                      = k.title
+                 - meal_delivery_kinds.each do |type|
+                  li 
+                    = link_to role_project_path(project_type_code: type.new_project.code) 
+                      = type.new_project.subcategory_name
           

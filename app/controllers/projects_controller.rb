@@ -10,7 +10,7 @@ class ProjectsController < DashboardController
     before_action :set_source, except: [:new, :index, :create, :available_dates]
     [Project,  ParticipantRole, Role] if Rails.env == 'development'
   # include ProjectsHelper
-  before_action :set_current_user_participation,  except: [:new, :index, :create, :available_dates, :roles, :recipients]
+  before_action :set_current_user_participation,  except: [:new, :index, :create, :available_dates, :roles, :recipients, :kinds]
 
   # before_action :include_all_forms, only: [:meals_info, :meals_new_restrictions, :view_meals,  :meals_edit_info, :meals_edit_date_range, :new_party]
   # before_action :include_timepicker, only: [:meals_info, :meals_edit_info, :meals_edit_date_range, :new_party]
@@ -126,19 +126,9 @@ class ProjectsController < DashboardController
     end
   end
 
- #  def update_date_range
- #    if @project.update(project_params)
- #      @project.edit_date_range_dates(current_user.id)
-   
- #      redirect_to  project_path(id: @project.id)
- #    else
- #     redirect_to  project_edit_date_range_path(project_id: @project.id, source: @source)
- #   end
- # end
-
 
   def kinds
-    @kinds = all_project_kinds
+    
   end
 
   def recipients

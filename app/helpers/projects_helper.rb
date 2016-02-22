@@ -4,6 +4,12 @@ module ProjectsHelper
     return Country.find_by(name: "United States").id
   end
 
+ def sample_particpant_role(type)
+    ParticipantRole.new(type: type)
+  end
+
+  # 
+
   def parsing_roles(participant_role)
     # participant_role = participant_role
     if participant_role == 1
@@ -13,6 +19,21 @@ module ProjectsHelper
     elsif participant_role == 3
       'RecipientParticipantRole'
     elsif participant_role == 4
+      'HelperParticipantRole'
+    else
+      'HelperParticipantRole'
+    end
+  end
+
+  def participant_code_to_type(code)
+    # participant_role = participant_role
+    if code == 1
+       'OrganizerParticipantRole'
+     elsif code == 2
+      'RecipientOrganizerParticipantRole'
+    elsif code == 3
+      'RecipientParticipantRole'
+    elsif code == 4
       'HelperParticipantRole'
     else
       'HelperParticipantRole'
@@ -108,6 +129,22 @@ end
 
 def meal_delivery_kinds
   MealDeliveryProject.subclasses
+end
+
+def party_kinds
+  PartyProject.subclasses
+end
+
+def wedding_kinds
+  PartyProject.subclasses #add qualifier
+end
+
+def shower_kinds
+  PartyProject.subclasses #add qualifier
+end
+
+def other_party_kinds
+  PartyProject.subclasses #add qualifier
 end
 
 def setup(source, project)

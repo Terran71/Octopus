@@ -3,7 +3,7 @@ class DashboardController < ApplicationController
   before_action :store_location
   before_action :authenticate_user!
   before_action :set_nested_project, only: [:index]
-  before_action :set_project_details, only: []
+  # before_action :set_project_details, only: []
   before_action :set_current_user_participation, only: [:index]
 
   # before_action :authenticate_participation

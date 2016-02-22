@@ -10,7 +10,7 @@ css:
     
     = f.error_notification
     = f.hidden_field :status, value: "active"
-    - if @project.is_new?
+    / - if @project.is_new?
       / = f.hidden_field :type, value: @kind.project_type
       / = f.fields_for :participants do |ff|
       /   = ff.hidden_field :email, value: current_user.email
@@ -33,7 +33,7 @@ css:
           | Meal Deliveries for
         = current_user.name
         = f.simple_fields_for :honored_guests do |ff|
-          = render partial: '/projects/forms/honored_guest_field', locals: {f: ff, recipient: true}
+          = render partial: '/projects/forms/honored_guest_field', locals: {f: ff}
         = 
       - else
         label.control
@@ -41,7 +41,7 @@ css:
           abbr title="required"
             | *
         = f.simple_fields_for :honored_guests do |ff|
-          = render partial: '/projects/forms/honored_guest_field', locals: {f: ff, recipient: false}
+          = render partial: '/projects/forms/honored_guest_field', locals: {f: ff}
         .links
           = link_to_add_association 'add honored guest', f, :honored_guests,
       partial: '/projects/forms/honored_guest_field', class: 'btn btn-xs btn-default mt10'
