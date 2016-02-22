@@ -19,20 +19,29 @@ css:
             .fa.fa-envelope-o
             = @list.name
       .panel-body
-        - if @guest_lists.present?
-          |INSERT TABLE
-        - else
-          = link_to new_list_path, class: 'btn btn-orange btn-block btn-lg upcase'
-            i.fa.fa-plus
-            |  add  
-            = @list.recipient_name.pluralize
-          fieldset.add-recipients
+        fieldset.add-recipients
+          |UPLOAD CUSTOM CSV
+          = form_tag  import_lists_path(list_id: @list.id), multipart: true 
             .form-group
-              |UPLOAD CSV
+
+              = file_field_tag :file
             .form-group
-              = form_tag  import_lists_path(list_id: @list.id), multipart: true 
-                = file_field_tag :file
-                = submit_tag "Import CSV"
+
+              = check_box_tag 'auto_add_to_list', 'yes', true
+              label
+                |AUTOMATICALLY ADD TO GUEST LIST 
+            .form-group
+              / = hidden_field_tag :auto_add_to_list, value: true #TODO make into checkbox
+              = submit_tag "Import CSV", class: 'btn btn-success mt20'
+
+        - if @list.guests.present?
+          = render partial: "recipients_table"
+        - if current_user.contacts.present?
+          = render partial: "/lists/contacts_table"
+        = link_to new_list_path, class: 'btn btn-orange btn-block btn-lg upcase'
+          i.fa.fa-plus
+          |  add  list
+          = @list.recipient_name.pluralize
 
 
 

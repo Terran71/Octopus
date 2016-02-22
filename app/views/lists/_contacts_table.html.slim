@@ -1,0 +1,31 @@
+ table
+    thead
+      th width= '90px'
+        |Name
+      th 
+        |Address
+      th width= '130px'
+        | Updated
+      th width= '110px'
+        |Edited by
+      / th width= '90px'
+      /   | Status
+   
+      tbody
+
+        - current_user.contacts.each do |contact|
+          tr
+            td
+              = contact.name
+            td
+              small
+                = contact.default_address
+            td
+              small
+                em
+                  = contact.updated_at.strftime("%D at %l:%M %P ")
+            / td
+            /   small
+            /     em
+            /       = contact.editor
+       

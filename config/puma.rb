@@ -7,11 +7,8 @@ https://devcenter.heroku.com/articles/deploying-rails-applications-with-the-puma
 =end
 
 
-# Heroku says "With a typical Rails memory footprint, you can expect
-# to run 2-4 Puma worker processes on a free, hobby or standard-1x
-# dyno." but we typically use 2X dynos, so I'm going to guess 5 here.
-
-workers Integer(ENV['WEB_CONCURRENCY'] || 5)
+# Move up to 5 when on 2x Dynos
+workers Integer(ENV['WEB_CONCURRENCY'] || 2)
 
 
 # Not sure how to set the threads so we'll leave in the defaults

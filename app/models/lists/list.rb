@@ -1,7 +1,8 @@
 class List < ActiveRecord::Base
   belongs_to :project
   belongs_to :user
-  has_many :list_recipients
+  has_many :list_recipients, dependent: :destroy
+  has_many :guests, through: :list_recipients
 
 
   #make sure to archive after project archived

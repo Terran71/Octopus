@@ -3,6 +3,7 @@ class CreateGuests < ActiveRecord::Migration
     create_table :guests do |t|
       t.references :list_recipient, index: true
       t.references :contact, index: true
+      
       t.integer :meal_option_id
       t.integer :guest_household_id
       t.text :note

@@ -129,7 +129,9 @@ Rails.application.routes.draw do
 
 
   resources :feedbacks, only: [:new, :create]
-  resources :lists, except: [:show]
+  resources :lists, :controller => 'lists', except: [:show]
+  get 'lists/:id', to: 'lists#show', as: :mailing_list
+
   resources :lists, except: [:show] do
     collection { post :import }
   end

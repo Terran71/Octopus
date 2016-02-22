@@ -151,6 +151,7 @@ class User < ActiveRecord::Base
   has_many :managed_social_shares, through: :social_account_authorizations, source: 'social_shares'
   has_many :email_lists, dependent: :destroy
   has_many :lists,  through: :projects_organized
+  has_many :contacts, dependent: :destroy
 
   # has_many :profile_socials, through: :profiles
   # has_many :profiles_edited,  class_name: "Profile",  foreign_key: "editor_user_id"

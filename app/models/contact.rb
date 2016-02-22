@@ -5,7 +5,9 @@ class Contact < ActiveRecord::Base
   has_many :guests
   has_many :list_recipients, through: :guests
   has_many :addresses, class_name: "Address", foreign_type: "Contact", foreign_key: 'owner_id', dependent: :destroy
-
+  has_one :contact_household
+  has_one :household, through: :contact_household
+  belongs_to :user_editor, class_name: "User",  foreign_key: "user_id"
 
 def self.import(file, set_list_id)
   
@@ -23,53 +25,92 @@ def self.import(file, set_list_id)
 end
 
 
-def self.import(file, set_list_id, current_user_id)
-    CSV.foreach(file.path, headers: true) do |row|
-      import_hash = row.to_hash
-      puts "#{import_hash["last_name"]}" * 50
-      puts "#{import_hash["address_1"]}" * 50
+def self.import(file, set_list_id, current_user_id, auto_add_to_list)
+  csv_source = "custom"
+    UploadCsvJob.perform(file, set_list_id, current_user_id, csv_source, auto_add_to_list)#put category
+    # CSV.foreach(file.path, headers: true) do |row|
+    #   import_hash = row.to_hash
+    #   puts "#{import_hash["last_name"]}" * 50
+    #   puts "#{import_hash["address_1"]}" * 50
 
-      # address_hash = {}
-      # address = Address.new
-      # contact_hash.each { |k, v| address_hash[k] = contact_hash.delete(k) if address.respond_to?(k) }    
+    #   # address_hash = {}
+    #   # address = Address.new
+    #   # contact_hash.each { |k, v| address_hash[k] = contact_hash.delete(k) if address.respond_to?(k) }    
 
-      contact = Contact.where(first_name: "fuck dis", last_name: import_hash["last_name"] ).first
-      if contact.present?
-        contact.first.update_attributes(contact_hash)
-      else
-        contact = Contact.create(user_id: current_user_id, first_name: import_hash["first_name"], last_name: import_hash["last_name"] )
-        contact.save!
-      end
-        address = Address.create(address_1:  import_hash["address_1"], address_2:  import_hash["address_2"],
-                                 city:  import_hash["city"], postal_code:  import_hash["zip"],
-          )
+    #   contact = Contact.where(first_name: import_hash["first_name"], last_name: import_hash["last_name"] ).first
+    #   if contact.present?
+    #     contact.first.update_attributes(contact_hash)
+    #   else
+    #     contact = Contact.create(user_id: current_user_id, first_name: import_hash["first_name"], last_name: import_hash["last_name"] )
+    #     contact.save!
+    #   end
+    #     address = Address.create(address_1:  import_hash["address_1"], address_2:  import_hash["address_2"],
+    #                              city:  import_hash["city"], postal_code:  import_hash["zip"],
+    #       )
 
-        # us_state_code = USState.where(code: import_hash["state_code"])
-        # us_state_codee_id = us_state_code.id || 1
+    #     # us_state_code = USState.where(code: import_hash["state_code"])
+    #     # us_state_codee_id = us_state_code.id || 1
 
-        # country_code = Country.where(code: import_hash["country"])
-        # country_code_id = country_code.id || 1
-        # address.update_attributes(us_state_code_id: state_code_id, country_code_id: country_code_id  )
-        address.owner_type = "Contact"
-        address.owner_id = contact.id
-        address.save!
-        contact.add_contact_to_guest_list(set_list_id)
-    end
+    #     # country_code = Country.where(code: import_hash["country"])
+    #     # country_code_id = country_code.id || 1
+    #     # address.update_attributes(us_state_code_id: state_code_id, country_code_id: country_code_id  )
+    #     address.owner_type = "Contact"
+    #     address.owner_id = contact.id
+    #     address.save!
+    #     contact.add_contact_to_guest_list(set_list_id)
+    # end
   end
 
 def add_contact_to_guest_list(list_id)
-  guest = Guest.create(contact_id: self.id)
-  guest.save!
-  ListRecipient.create!(list_id: list_id, guest_id: guest.id)
+  # guest = Guest.create(contact_id: self.id)
+  # guest.save!
+  # ListRecipient.create!(list_id: list_id, guest_id: guest.id)
+  AddContactToGuestListJob.perform(self, list_id)
 end
 
-def self.open_spreadsheet(file)
-  case File.extname(file.original_filename)
-  when ".csv" then Csv.new(file.path, nil, :ignore)
-  when ".xls" then Excel.new(file.path, nil, :ignore)
-  when ".xlsx" then Excelx.new(file.path, nil, :ignore)
-  else raise "Unknown file type: #{file.original_filename}"
+def editor
+  user_editor.name 
+end
+
+# def self.open_spreadsheet(file)
+#   case File.extname(file.original_filename)
+#   when ".csv" then Csv.new(file.path, nil, :ignore)
+#   when ".xls" then Excel.new(file.path, nil, :ignore)
+#   when ".xlsx" then Excelx.new(file.path, nil, :ignore)
+#   else raise "Unknown file type: #{file.original_filename}"
+#   end
+# end
+
+def primary_household_address
+  if household.present? && household.addresses.present?
+    household.addresses.primary.first.full_address
+  else
+    self.primary_address
   end
 end
+
+def primary_address
+    self.addresses.primary.first.full_address
+end
+
+  def default_address
+    if     self.addresses.primary.first.present?
+          self.addresses.primary.first.full_address
+    else
+          self.addresses.first.full_address
+    end
+  end
+
+  def default_address_id
+    if    self.default_address.present?
+          self.default_address.id
+    else
+      nil
+    end
+  end
+
+  def name
+    first_name + " " + last_name rescue first_name + "" rescue "" + last_name rescue "User"
+  end
   
 end

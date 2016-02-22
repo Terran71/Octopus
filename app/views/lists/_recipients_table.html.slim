@@ -1,0 +1,31 @@
+ table
+    thead
+      th width= '90px'
+        |Name
+      th 
+        |Address
+      th width= '130px'
+        | Updated
+      th width= '110px'
+        |Edited by
+      / th width= '90px'
+      /   | Status
+   
+      tbody
+
+        - @list.guests.each do |guest|
+          tr
+            td
+              = guest.name
+            td
+              small
+                = guest.contact.default_address
+            td
+              small
+                em
+                  = guest.updated_at.strftime("%D at %l:%M %P ")
+            / td
+            /   small
+            /     em
+            /       = contact.editor
+       
