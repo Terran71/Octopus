@@ -1,7 +1,7 @@
 class UpcomingSocialSharesJob < ActiveJob::Base
 	# queue_as :mailers
   def self.perform(timeline)
-    email_kind =  EmailKind.justcategorylabel("AdminEmailKind", "social-shares", "upcoming-#{timeline}")
+    email_kind =  EmailKind.type_category_label("AdminEmailKind", "social-shares", "upcoming-#{timeline}")
 
     social_account_users = SocialAccountAuthorization.includes(:user).select(:user_id).uniq
 
@@ -27,7 +27,7 @@ class UpcomingSocialSharesJob < ActiveJob::Base
       else
         if timeline == "this_week"
           #suggest they add shares
-          email_kind =  EmailKind.justcategorylabel("AdminEmailKind", "social-shares", "no-upcoming-this_week}")
+          email_kind =  EmailKind.type_category_label("AdminEmailKind", "social-shares", "no-upcoming-this_week}")
 
           AdminMailer.warning(saa.user, email_kind, @upcoming)
         end

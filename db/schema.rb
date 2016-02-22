@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160222032505) do
+ActiveRecord::Schema.define(version: 20160222124706) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -256,6 +256,9 @@ ActiveRecord::Schema.define(version: 20160222032505) do
     t.datetime "updated_at",                 null: false
   end
 
+  add_index "blog_taggings", ["blog_post_id"], name: "index_blog_taggings_on_blog_post_id", using: :btree
+  add_index "blog_taggings", ["blog_tag_id"], name: "index_blog_taggings_on_blog_tag_id", using: :btree
+
   create_table "blog_tags", force: :cascade do |t|
     t.string   "name"
     t.string   "slug"
@@ -268,6 +271,34 @@ ActiveRecord::Schema.define(version: 20160222032505) do
 
   add_index "blog_tags", ["name"], name: "index_blog_tags_on_name", using: :btree
   add_index "blog_tags", ["slug"], name: "index_blog_tags_on_slug", using: :btree
+
+  create_table "contact_households", force: :cascade do |t|
+    t.integer  "contact_id"
+    t.integer  "household_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "contact_households", ["contact_id"], name: "index_contact_households_on_contact_id", using: :btree
+  add_index "contact_households", ["household_id"], name: "index_contact_households_on_household_id", using: :btree
+
+  create_table "contacts", force: :cascade do |t|
+    t.integer  "editor_user_id"
+    t.integer  "user_id"
+    t.string   "prefix"
+    t.string   "first_name"
+    t.string   "middle_name"
+    t.string   "last_name"
+    t.string   "work_phone"
+    t.string   "home_phone"
+    t.string   "mobile_phone"
+    t.integer  "home_address_id"
+    t.integer  "work_address_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "contacts", ["user_id"], name: "index_contacts_on_user_id", using: :btree
 
   create_table "countries", force: :cascade do |t|
     t.string   "name"
@@ -363,6 +394,27 @@ ActiveRecord::Schema.define(version: 20160222032505) do
   add_index "feedbacks", ["project_id"], name: "index_feedbacks_on_project_id", using: :btree
   add_index "feedbacks", ["viewed"], name: "index_feedbacks_on_viewed", using: :btree
 
+  create_table "guest_households", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "guests", force: :cascade do |t|
+    t.integer  "guest_list_id"
+    t.integer  "contact_id"
+    t.integer  "meal_option_id"
+    t.integer  "guest_household_id"
+    t.text     "note"
+    t.integer  "guest_category_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  add_index "guests", ["contact_id"], name: "index_guests_on_contact_id", using: :btree
+  add_index "guests", ["guest_category_id"], name: "index_guests_on_guest_category_id", using: :btree
+  add_index "guests", ["guest_list_id"], name: "index_guests_on_guest_list_id", using: :btree
+
   create_table "honored_guests", force: :cascade do |t|
     t.integer  "project_id"
     t.string   "name"
@@ -377,6 +429,20 @@ ActiveRecord::Schema.define(version: 20160222032505) do
   add_index "honored_guests", ["participant_id"], name: "index_honored_guests_on_participant_id", using: :btree
   add_index "honored_guests", ["participant_title_id"], name: "index_honored_guests_on_participant_title_id", using: :btree
   add_index "honored_guests", ["project_id"], name: "index_honored_guests_on_project_id", using: :btree
+
+  create_table "households", force: :cascade do |t|
+    t.integer  "editor_user_id"
+    t.integer  "user_id_id"
+    t.string   "name",                 default: "",     null: false
+    t.integer  "default_address_id"
+    t.string   "default_address_name", default: "Home"
+    t.string   "second_address_name",  default: "Home"
+    t.integer  "second__address_id"
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+  end
+
+  add_index "households", ["default_address_id"], name: "index_households_on_default_address_id", using: :btree
 
   create_table "kinds", force: :cascade do |t|
     t.string   "project_type"
@@ -393,6 +459,39 @@ ActiveRecord::Schema.define(version: 20160222032505) do
     t.datetime "created_at",                            null: false
     t.datetime "updated_at",                            null: false
   end
+
+  create_table "list_recipients", force: :cascade do |t|
+    t.integer  "guest_id"
+    t.integer  "list_id"
+    t.integer  "household_id"
+    t.string   "status"
+    t.date     "addressed_date"
+    t.date     "send_date"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "list_recipients", ["guest_id"], name: "index_list_recipients_on_guest_id", using: :btree
+  add_index "list_recipients", ["household_id"], name: "index_list_recipients_on_household_id", using: :btree
+  add_index "list_recipients", ["list_id"], name: "index_list_recipients_on_list_id", using: :btree
+
+  create_table "lists", force: :cascade do |t|
+    t.integer  "editor_participant_id"
+    t.integer  "user_id"
+    t.integer  "project_id"
+    t.string   "type"
+    t.string   "custom_name"
+    t.boolean  "has_limit",             default: false
+    t.integer  "limit"
+    t.integer  "status"
+    t.boolean  "rsvp_needed",           default: true
+    t.boolean  "has_meals",             default: true
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+  end
+
+  add_index "lists", ["project_id"], name: "index_lists_on_project_id", using: :btree
+  add_index "lists", ["user_id"], name: "index_lists_on_user_id", using: :btree
 
   create_table "meta_properties", force: :cascade do |t|
     t.integer  "editor_user_id",            default: 1

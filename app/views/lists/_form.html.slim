@@ -1,0 +1,37 @@
+
+= simple_form_for @list, multipart: true do |f|
+
+  .panel-body
+    
+    = f.error_notification
+    = f.hidden_field :status, value: "active"
+    / - if project?
+    / = f.hidden_field :editor_participant_id #set later
+
+    .form-group
+      = f.label :type, label: 'What Kind of types are You Making?', id: 'list_type'
+      = f.select(:type, list_types { },  {},  { multiple: false , class: " chosen-select-default form-control ", id: 'list_names_menu'   })
+  
+    .form-group
+      = f.input :custom_name, label: "Do you Want a custom name for your list?"
+    
+    .form-group
+      = f.input :has_limit, label: "Does your list have a maximum amount of recipients?"
+      = f.input :limit, label: "Enter Limit"
+
+     
+    / add rsvp & meals in future
+   
+  .panel-footer
+    = f.button :submit, value: 'SAVE LIST', :class => 'btn btn-aqua btn-lg btn-block '
+    br/
+    = link_to 'CANCEL',  projects_path, :class => 'btn btn-default mt5 '
+
+
+
+
+
+
+
+
+/ = render 'shared/chosen_select'

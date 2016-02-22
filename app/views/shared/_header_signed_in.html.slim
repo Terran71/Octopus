@@ -35,7 +35,7 @@
             a#drop1.dropdown-toggle-octo href="#" role="button" data-toggle="dropdown"
               i.fa.fa-plus
                 strong
-                  |New Project
+                  |  New Project
                 b.caret
             ul.dropdown-menu.custom-drop role="menu" aria-labelledby="drop1" style=""
               - meal_delivery_kinds.each do |k|
@@ -54,7 +54,7 @@
               a#drop1.dropdown-toggle-octo href="#" role="button" data-toggle="dropdown"
                 i.fa.fa-heart
                   strong
-                    |My Projects
+                    |  My Projects
                   b.caret
               ul.dropdown-menu.custom-drop role="menu" aria-labelledby="drop2" 
                 - current_user.all_projects.accepted.each do |p|
@@ -65,6 +65,25 @@
                 li
                   = link_to projects_path
                     |My Current Projects 
+          li.dropdown
+                a#drop1.dropdown-toggle-octo href="#" role="button" data-toggle="dropdown"
+                  i.fa.fa-gavel
+                    strong
+                      |  Toolbox
+                    b.caret
+                ul.dropdown-menu.custom-drop role="menu" aria-labelledby="drop1" style=""
+                  li
+                    = link_to lists_path
+                      |Mailing Lists
+                  li
+                    = link_to new_list_path
+                      |New Mailing List
+                  
+                  / li.divider
+                  / li
+                  /   = link_to project_kinds_path
+                  /     i.fa.fa-start
+                  /     |All Tools
           li.dropdown
             = link_to root_path
               |Our Picks

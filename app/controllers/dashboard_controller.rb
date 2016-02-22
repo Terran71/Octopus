@@ -12,6 +12,10 @@ class DashboardController < ApplicationController
     @project_dates = @project.project_dates.all.page params[:page]
   end
 
+  # def lists
+
+  # end
+
   
 
   def set_project_details

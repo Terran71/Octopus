@@ -39,7 +39,7 @@
 }
 
 .panel-octopus .panel-title {
-  font-size: 37px;
+  font-size: 28px;
   color: $text_aqua;
   font-family: 'Open Sans', 'Lucida Grande', 'Lucida Sans Unicode', Helvetica, sans-serif;
   text-decoration: none;
@@ -50,6 +50,8 @@
 .panel-octopus .panel-title i {
   margin-right: 5px;
 }
+
+ .panel-octopus .panel-title .small-panel-title {font-size: 20px}
 
 .panel-octopus .panel-body, .panel-inside .panel-body {
   padding: 30px;
@@ -81,6 +83,12 @@
   font-weight: normal;
   margin-left: 5px;
 }
+
+.panel-body .new-project label{color: $md_aqua; }
+.panel-body .new-project .subgroup-address{background: #999; padding: 10px; width: 100%}
+.ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
+
+  
 .panel-row {margin-right: auto; margin-left: auto}
 .panel-row-300 {
   max-width: 300px;

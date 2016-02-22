@@ -6,10 +6,10 @@ class BlogPostSocialSharingDraftWarningJob < ActiveJob::Base
     email_kind = EmailKind.admin_emails.warnings("BlogPostSocialSharingDraftWarningJob")
     mailing_lists = EmailList.where(email_kind_id: email_kind.id) 
 
-    notification_list = AdminNotificationList.by_label(email_kind_id)
+    notification_lists = AdminNotificationList.where(email_kind_id: email_kind.id) 
 
-    notification_list.each do |user|
-     AdminNotification.create!(kind: 8, user_id: user.id, text: AdminNotification.kind_text(8, @social_shares.count))
+    notification_lists.each do |notification_list|
+     AdminNotification.create!(kind: 8, user_id: notification_list.user.id, text: AdminNotification.kind_text(8, @social_shares.count))
     end
 
     mailing_lists.each do |mailing_list|

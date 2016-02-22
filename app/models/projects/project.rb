@@ -14,7 +14,6 @@ class Project < ActiveRecord::Base
 
   belongs_to :user
 
-  # belongs_to :organizer, class_name: "Participant",  foreign_key: "organizer_participant_id"
   has_many :participants, dependent: :destroy
   has_many :honored_guests, dependent: :destroy
 
@@ -25,6 +24,9 @@ class Project < ActiveRecord::Base
 
   has_many :project_restrictions, dependent: :delete_all
   has_many :restrictions,  through: :project_restrictions
+  has_many :lists, dependent: :destroy
+  has_many :guest_lists,  through: :lists
+  has_many :guests,  through: :guest_lists
 
   has_one :organizer_participant, class_name: "Participant",  foreign_key: "organizer_participant_id", dependent: :destroy
   # has_many :recipients, class_name: "RecipientParticipantRole",  foreign_key: "project_id", dependent: :destroy
@@ -43,7 +45,10 @@ class Project < ActiveRecord::Base
   accepts_nested_attributes_for :participant_roles, allow_destroy: true, reject_if: proc { |a| a["participant_id"].blank? }
   accepts_nested_attributes_for :honored_guests, allow_destroy: true, reject_if: proc { |a| a["name"].blank? }
 
- # accepts_nested_attributes_for :tasks, allow_destroy: true
+ accepts_nested_attributes_for :lists, allow_destroy: true
+  accepts_nested_attributes_for :guest_lists, allow_destroy: true
+ accepts_nested_attributes_for :guests, allow_destroy: true
+
  # accepts_nested_attributes_for :milestones, allow_destroy: true
  # accepts_nested_attributes_for :guests, allow_destroy: true, reject_if: :all_blank
  # accepts_nested_attributes_for :guest_tables, allow_destroy: true, reject_if: :all_blank
