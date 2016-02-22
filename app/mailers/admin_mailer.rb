@@ -23,7 +23,21 @@ class AdminMailer < ActionMailer::Base
         template_name: 
         'warning.html',
         )
-      
+     
+    end
+
+  def roundup(recipient, email_kind, date_since )
+      @recipient = recipient
+      @email_kind = email_kind
+      @date_since = date_since
+      @projects = Project.where("created_at >= ?", date_since)
+      @users = User.where("created_at >= ?", date_since)
+      mail(to: @recipient.email, 
+        subject: @email_kind.subject, 
+        template_path: '/admin_mailers', 
+        template_name: 
+        'roundup.html',
+        )
      
     end
 

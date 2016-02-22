@@ -38,8 +38,8 @@ class User < ActiveRecord::Base
         user.accept_terms = true
         user.avatar = auth.extra.raw_info.picture
         user.birth_date = auth.extra.raw_info.birthday
-        user.gender = auth.extra.info.gender
-        user.locale = auth.extra.info.locale
+        user.gender = auth.extra.raw_info.gender
+        user.locale = auth.extra.raw_info.locale
         user.level = "tester"
 
         # user.password = Devise.friendly_token[0,20]

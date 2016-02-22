@@ -7,10 +7,9 @@ class RoundupJob < ActiveJob::Base
         events = Attendees.includes(:event).where(participant_id: participant.id).accepted.by_timeline(timeline)
           if participant.project.is_meal_delivery?
             if participant.is_recipient? 
-                email_kind = EmailKind.user_emails.roundups("participant.project.category, #{timeline}-roundup", "RecipientParticipantRole")
-                e
+                # email_kind = EmailKind.user_emails.roundups("participant.project.category, #{timeline}-roundup", "RecipientParticipantRole")
              elsif participant.is_helper?
-                email_kind = EmailKind.user_emails.roundups("participant.project.category, #{timeline}-roundup", "HelperParticipantRole")
+                # email_kind = EmailKind.user_emails.roundups("participant.project.category, #{timeline}-roundup", "HelperParticipantRole")
              else
                 #weddings
              end

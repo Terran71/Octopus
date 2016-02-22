@@ -73,4 +73,10 @@
     subject: Social Shares Upcoming this-week
     max_sends: 1
 
+-   type: AdminEmailKind
+    category: roundups
+    label: daily-roundup
+    subject: Your Daily Roundup
+    max_sends: 1
+
 

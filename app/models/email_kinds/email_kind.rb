@@ -16,6 +16,7 @@ class EmailKind < ActiveRecord::Base
     scope :meal_delivery, -> { where(project_type: "MealDeliveryProject") }
     scope :any_project, -> { where(project_type: "Project") }
     scope :warnings, -> { where(category: "warnings") }
+    scope :roundups, -> { where(category: "roundups") }
 
 
 
@@ -27,9 +28,14 @@ class EmailKind < ActiveRecord::Base
       UserEmailKind.where(category: category).where(project_type: project_category).find_by_label(label)|| EmailKind.find(1)
     end
 
-     def self.justcategorylabel(type, category, label)
+    def self.type_category_label(type, category, label)
       EmailKind.where(type: type).where(category: category).find_by_label(label)|| EmailKind.find(1)
     end
+
+
+    # def self.type_label(type, label)
+    #     EmailKind.roundups.where(type: type).find_by_label(label)|| EmailKind.find(1)
+    # end
 
 
 
