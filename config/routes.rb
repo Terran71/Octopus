@@ -130,6 +130,9 @@ Rails.application.routes.draw do
 
   resources :feedbacks, only: [:new, :create]
   resources :lists, except: [:show]
+  resources :lists, except: [:show] do
+    collection { post :import }
+  end
   resources :card_lists, :controller => 'lists', except: [:new]
   resources :baby_announcement_card_lists, :controller => 'lists', except: [:new]
 

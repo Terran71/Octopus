@@ -3,8 +3,8 @@ class CreateAddresses < ActiveRecord::Migration
     create_table :addresses do |t|
       t.references :us_state, index: true
       t.references :country, index: true
-      t.references :project, index: true
-      t.references :user
+      t.string :owner_type, index: true
+      t.integer :owner_id, index: true
       t.integer :kind, default: 1, index: true
       t.string :address_1
       t.string :address_2

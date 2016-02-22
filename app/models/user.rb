@@ -136,7 +136,7 @@ class User < ActiveRecord::Base
   has_many :feedbacks
   has_many :projects, through: :participants
   has_many :invitees, class_name: 'Participant', foreign_key: 'invitor_user_id'
-  has_many :addresses, dependent: :destroy
+  has_many :addresses, class_name: "Address", foreign_type: "User", foreign_key: 'owner_id', dependent: :destroy
   has_many :events,  through: :participants
   has_many :attendees,  through: :events
   has_many :roles,  dependent: :destroy

@@ -18,7 +18,8 @@ class Project < ActiveRecord::Base
   has_many :honored_guests, dependent: :destroy
 
   has_many :participant_roles, through: :participants
-  has_many :addresses, dependent: :destroy
+  has_many :addresses, class_name: "Address", foreign_type: "Project", foreign_key: 'owner_id', dependent: :destroy
+
   has_many :project_dates, dependent: :destroy
   has_many :events,  through: :project_dates
 

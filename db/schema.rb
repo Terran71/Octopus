@@ -19,8 +19,8 @@ ActiveRecord::Schema.define(version: 20160222124706) do
   create_table "addresses", force: :cascade do |t|
     t.integer  "us_state_id"
     t.integer  "country_id"
-    t.integer  "project_id"
-    t.integer  "user_id"
+    t.string   "owner_type"
+    t.integer  "owner_id"
     t.integer  "kind",        default: 1
     t.string   "address_1"
     t.string   "address_2"
@@ -37,7 +37,8 @@ ActiveRecord::Schema.define(version: 20160222124706) do
 
   add_index "addresses", ["country_id"], name: "index_addresses_on_country_id", using: :btree
   add_index "addresses", ["kind"], name: "index_addresses_on_kind", using: :btree
-  add_index "addresses", ["project_id"], name: "index_addresses_on_project_id", using: :btree
+  add_index "addresses", ["owner_id"], name: "index_addresses_on_owner_id", using: :btree
+  add_index "addresses", ["owner_type"], name: "index_addresses_on_owner_type", using: :btree
   add_index "addresses", ["us_state_id"], name: "index_addresses_on_us_state_id", using: :btree
 
   create_table "attendees", force: :cascade do |t|
@@ -294,6 +295,7 @@ ActiveRecord::Schema.define(version: 20160222124706) do
     t.string   "mobile_phone"
     t.integer  "home_address_id"
     t.integer  "work_address_id"
+    t.integer  "uploded_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end
@@ -401,7 +403,7 @@ ActiveRecord::Schema.define(version: 20160222124706) do
   end
 
   create_table "guests", force: :cascade do |t|
-    t.integer  "guest_list_id"
+    t.integer  "list_recipient_id"
     t.integer  "contact_id"
     t.integer  "meal_option_id"
     t.integer  "guest_household_id"
@@ -413,7 +415,7 @@ ActiveRecord::Schema.define(version: 20160222124706) do
 
   add_index "guests", ["contact_id"], name: "index_guests_on_contact_id", using: :btree
   add_index "guests", ["guest_category_id"], name: "index_guests_on_guest_category_id", using: :btree
-  add_index "guests", ["guest_list_id"], name: "index_guests_on_guest_list_id", using: :btree
+  add_index "guests", ["list_recipient_id"], name: "index_guests_on_list_recipient_id", using: :btree
 
   create_table "honored_guests", force: :cascade do |t|
     t.integer  "project_id"

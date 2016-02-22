@@ -1,9 +1,12 @@
 class Address < ActiveRecord::Base
   belongs_to :us_state
   belongs_to :country
-  belongs_to :project
-  belongs_to :user
+ 
 
+  belongs_to :project, class_name: "Project", foreign_type: "Project", foreign_key: 'owner_id'
+  belongs_to :user, class_name: "User", foreign_type: "User", foreign_key: 'owner_id'
+  belongs_to :contact, class_name: "Contact", foreign_type: "Contact", foreign_key: 'owner_id'
+  belongs_to :household, class_name: "household", foreign_type: "household", foreign_key: 'owner_id'
 
   # validates :address_id, uniqueness: {scope: project_id, scope: primary, message: "Looks like you've entered this one already."}
   # validates :address_id, uniqueness: {message: "not unique" }, 
