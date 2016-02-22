@@ -38,7 +38,7 @@ namespace :db do
     p.save
 
     QueenAdminRole.create!(user_id: u.id, start_date: Date.today, editor_user_id: 1)
-    admin_email_kinds = EmailKind.user_email 
+    admin_email_kinds = EmailKind.admin_email 
     admin_email_kinds.each do |ek|
       EmailList.create!(user_id: u.id, email_kind_id: ek.id)
     end
