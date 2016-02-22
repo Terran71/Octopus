@@ -79,6 +79,7 @@ namespace :db do
     YAML.load_file('db/foundation_data/blog_categories.yml').each do |category|
       BlogCategory.create!(category)
     end
+    YAML.load_file('db/foundation_data/blog_holidays.yml').each { |holiday| BlogHoliday.create!(holiday) }
 
     YAML.load_file('db/foundation_data/us_states.yml').each { |state| USState.create!(state) }
 

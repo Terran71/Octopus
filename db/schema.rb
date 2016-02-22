@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160217152409) do
+ActiveRecord::Schema.define(version: 20160222032505) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -110,6 +110,24 @@ ActiveRecord::Schema.define(version: 20160217152409) do
 
   add_index "blog_features", ["slug"], name: "index_blog_features_on_slug", using: :btree
   add_index "blog_features", ["title"], name: "index_blog_features_on_title", using: :btree
+
+  create_table "blog_holidays", force: :cascade do |t|
+    t.integer  "editor_user_id",             default: 1
+    t.string   "name"
+    t.text     "about"
+    t.string   "url"
+    t.string   "month"
+    t.string   "date"
+    t.string   "category",                   default: "day"
+    t.boolean  "by_day_of_week",             default: false
+    t.string   "day_of_week"
+    t.string   "by_day_of_week_description"
+    t.integer  "rank",                       default: 1000
+    t.integer  "week_number"
+    t.string   "tag"
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
+  end
 
   create_table "blog_images", force: :cascade do |t|
     t.integer  "editor_user_id",  default: 1
