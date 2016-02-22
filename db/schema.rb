@@ -691,6 +691,15 @@ ActiveRecord::Schema.define(version: 20160217152409) do
     t.string   "oauth_token"
     t.datetime "oauth_expires_at"
     t.integer  "editor_user_id",         default: 1
+    t.date     "birth_date"
+    t.string   "country",                default: "USA"
+    t.string   "language",               default: "en-us"
+    t.string   "phone"
+    t.string   "website"
+    t.string   "referral_code"
+    t.string   "created_at_ip"
+    t.datetime "originally_created_at"
+    t.string   "locale"
     t.datetime "created_at",                                 null: false
     t.datetime "updated_at",                                 null: false
   end

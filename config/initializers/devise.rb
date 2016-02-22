@@ -1,12 +1,15 @@
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
+require "omniauth-google-oauth2"
+require "omniauth-facebook"
+require "omniauth-twitter"
 Devise.setup do |config|
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` on Rails 4+ applications as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  # config.secret_key = '1f3ec885aa48511079968be3ea48409d998991b64cdde4eda11e85af33dd819d038706896c6a7a165431694fc73cfa7db5871e74f2504545281145c57a47b2e5'
+  config.secret_key = '1f3ec885aa48511079968be3ea48409d998991b64cdde4eda11e85af33dd819d038706896c6a7a165431694fc73cfa7db5871e74f2504545281145c57a47b2e5'
 
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
@@ -15,14 +18,16 @@ Devise.setup do |config|
   config.mailer_sender = Rails.application.config.email_from_address
 
   # Configure the class responsible to send e-mails.
-  # config.mailer = 'Devise::Mailer'
+  config.mailer = 'Devise::Mailer'
 
   # ==> ORM configuration
   # Load and configure the ORM. Supports :active_record (default) and
   # :mongoid (bson_ext recommended) by default. Other ORMs may be
   # available as additional gems.
   require 'devise/orm/active_record'
-
+  require "omniauth-google-oauth2"
+  require "omniauth-facebook"
+  require "omniauth-twitter"
   # ==> Configuration for any authentication mechanism
   # Configure which keys are used when authenticating a user. The default is
   # just :email. You can configure it to use [:username, :subdomain], so for
@@ -54,7 +59,7 @@ Devise.setup do |config|
   # It can be set to an array that will enable params authentication only for the
   # given strategies, for example, `config.params_authenticatable = [:database]` will
   # enable it only for database (email + password) authentication.
-  # config.params_authenticatable = true
+  config.params_authenticatable = true
 
   # Tell if authentication through HTTP Auth is enabled. False by default.
   # It can be set to an array that will enable http authentication only for the
@@ -99,7 +104,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 10
 
   # Setup a pepper to generate the encrypted password.
-  # config.pepper = '798eacbd0f1d73c76ebbef54a3c149ac1cb03b58fa960ef0e4d00cb14de81a4022e760e49a48ef180d82728fa54d645454d2e31d74ecd598f5e43adf60d03230'
+  config.pepper = '798eacbd0f1d73c76ebbef54a3c149ac1cb03b58fa960ef0e4d00cb14de81a4022e760e49a48ef180d82728fa54d645454d2e31d74ecd598f5e43adf60d03230'
 
   # ==> Configuration for :confirmable
   # A period that the user is allowed to access the website even without
@@ -130,7 +135,7 @@ Devise.setup do |config|
   config.reconfirmable = true
 
   # Defines which key will be used when confirming an account
-  # config.confirmation_keys = [:email]
+  config.confirmation_keys = [:email]
 
   # ==> Configuration for :rememberable
   # The time the user will be remembered without asking for credentials again.
@@ -153,12 +158,12 @@ Devise.setup do |config|
   # Email regex used to validate email formats. It simply asserts that
   # one (and only one) @ exists in the given string. This is mainly
   # to give user feedback and not to assert the e-mail validity.
-  # config.email_regexp = /\A[^@]+@[^@]+\z/
+  config.email_regexp = /\A[^@]+@[^@]+\z/
 
   # ==> Configuration for :timeoutable
   # The time you want to timeout the user session without activity. After this
   # time the user will be asked for credentials again. Default is 30 minutes.
-  # config.timeout_in = 30.minutes
+  config.timeout_in = 24.hours
 
   # If true, expires auth token on session timeout.
   # config.expire_auth_token_on_timeout = false
@@ -167,24 +172,24 @@ Devise.setup do |config|
   # Defines which strategy will be used to lock an account.
   # :failed_attempts = Locks an account after a number of failed attempts to sign in.
   # :none            = No lock strategy. You should handle locking by yourself.
-  # config.lock_strategy = :failed_attempts
+  config.lock_strategy = :failed_attempts
 
   # Defines which key will be used when locking and unlocking an account
-  # config.unlock_keys = [:email]
+  config.unlock_keys = [:email]
 
   # Defines which strategy will be used to unlock an account.
   # :email = Sends an unlock link to the user email
   # :time  = Re-enables login after a certain amount of time (see :unlock_in below)
   # :both  = Enables both strategies
   # :none  = No unlock strategy. You should handle unlocking by yourself.
-  # config.unlock_strategy = :both
+  config.unlock_strategy = :both
 
   # Number of authentication tries before locking an account if lock_strategy
   # is failed attempts.
-  # config.maximum_attempts = 20
+  config.maximum_attempts = 20
 
   # Time interval to unlock the account if :time is enabled as unlock_strategy.
-  # config.unlock_in = 1.hour
+  config.unlock_in = 24.hours
 
   # Warn on the last attempt before the account is locked.
   # config.last_attempt_warning = true
@@ -192,12 +197,12 @@ Devise.setup do |config|
   # ==> Configuration for :recoverable
   #
   # Defines which key will be used when recovering the password for an account
-  # config.reset_password_keys = [:email]
+  config.reset_password_keys = [:email]
 
   # Time interval you can reset your password with a reset password key.
   # Don't put a too small interval or your users won't have the time to
   # change their passwords.
-  config.reset_password_within = 6.hours
+  config.reset_password_within = 21.hours
 
   # When set to false, does not sign a user in automatically after their password is
   # reset. Defaults to true, so a user is signed in automatically after a reset.
@@ -217,7 +222,7 @@ Devise.setup do |config|
   # Turn scoped views on. Before rendering "sessions/new", it will first check for
   # "users/sessions/new". It's turned off by default because it's slower if you
   # are using only default views.
-  # config.scoped_views = false
+  config.scoped_views = true
 
   # Configure the default scope given to Warden. By default it's the first
   # devise role declared in your routes (usually :user).
@@ -241,7 +246,7 @@ Devise.setup do |config|
   # The default HTTP method used to sign out a resource. Default is :delete.
 
   # TODO: Change this back to :delete before we get into trouble
-  config.sign_out_via = :get
+  config.sign_out_via = :delete
 
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
@@ -251,7 +256,23 @@ Devise.setup do |config|
 
 
   config.omniauth :google_oauth2,  ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET'], :name => 'google', :scope => 'userinfo.email,userinfo.profile,calendar,calendar.readonly'
-  config.omniauth :facebook,  ENV['FACEBOOK_APP_ID'],  ENV['FACEBOOK_SECRET'],  scope: 'email', info_fields: 'email,name'
+  config.omniauth :facebook,  ENV['FACEBOOK_APP_ID'],  ENV['FACEBOOK_SECRET']
+  # config.omniauth :google_oauth2,  ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET'], 
+  #   {
+  #     :name => "google",
+  #     :scope => "email, profile, plus.me, http://gdata.youtube.com",
+  #     :prompt => "select_account",
+  #     :image_aspect_ratio => "square",
+  #     :image_size => 25
+  #   }
+
+  # OmniAuth.config.full_host =  Rails.env.production? ? 'https://oct-alpha.herokuapp.com' : 'http://localhost:5000'
+
+
+
+
+
+
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.

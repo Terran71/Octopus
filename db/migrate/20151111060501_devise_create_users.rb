@@ -44,8 +44,16 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.integer :editor_user_id, default: 1
       
 
+      t.date :birth_date
+      t.string :country, default: 'USA'
+      t.string :language, default: 'en-us'
 
-
+      t.string :phone
+      t.string :website
+      t.string :referral_code
+      t.string :created_at_ip
+      t.datetime :originally_created_at
+      t.string :locale
 
       t.timestamps null: false
 

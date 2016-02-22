@@ -12,22 +12,7 @@ class ApplicationController < ActionController::Base
   
   # 
 
-    #devise specific
-  # def configure_permitted_parameters
-  #     devise_parameter_sanitizer.for(:sign_up){|u| u.permit(:id, :first_name, :last_name, :email, :gender, :avatar,
-  #      :password, :password_confirmation, :accept_terms, :level, :provider, :editor_user_id, :oauth_expires_at, :oauth_token,
-      
-  #       )} 
-  #       devise_parameter_sanitizer.for(:account_update){ |u| u.permit(:first_name, :last_name, :email, :gender, :avatar, :level, :role,
-  #        :password, :password_confirmation, :current_password, :oauth_expires_at, :oauth_token,
-  #               # This is important for nested attributes
-  #               profile_attributes: [:id, :_destroy, :user_id, :vendor, :vendor_name, :country, :phone, :birthdate, :url, :language,  :created_at_ip, 
-  #                 :browser, :os, :version, :platform, :vendor, :facebook, :googleplus, :twitter, :pinterest, :tumblr ] 
-  #                 )}
-  #     devise_parameter_sanitizer.for(:sign_in){|u|  u.permit(:email,
-  #       visit_attributes: [:id,  :current_ip, :user_id, :browser, :os, :version, :platform] 
-  #       )}
-  # end
+
 
   # def after_sign_in_path_for(resource)
   #   sign_in_url = new_user_session_url
@@ -112,7 +97,7 @@ class ApplicationController < ActionController::Base
 
   def configure_permitted_parameters
     
-    devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:id, :first_name, :last_name, :email, :gender, :avatar,
+    devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:id, :first_name, :last_name, :email, :gender, :avatar, :birth_date,
       :password, :password_confirmation, :accept_terms, :level, :provider, :uid, :editor_user_id, :oauth_expires_at, :oauth_token) }
     devise_parameter_sanitizer.for(:account_update){ |u| u.permit(:first_name, :last_name, :email, :gender, :avatar, :level, :role,
          :password, :password_confirmation, :current_password, :oauth_expires_at, :oauth_token,

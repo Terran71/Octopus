@@ -33,19 +33,32 @@ Rails.application.routes.draw do
     :confirmations => 'users/confirmations', :sessions => 'users/sessions', 
     :passwords => 'users/passwords', omniauth_callbacks: "users/omniauth_callbacks"}
 
+  # devise_for :users, path_names: {sign_in: "sign_in", sign_out: "sign_out"},
+  #   :controllers => { :registrations => 'users/registrations',   
+  #   :confirmations => 'users/confirmations', :sessions => 'users/sessions', 
+  #   :passwords => 'users/passwords', omniauth_callbacks: "users/omniauth_callbacks"}
+
+
+
 
 
   devise_scope :user do
+    get 'sign_in', to: 'users/sessions#new'
+
     patch "confirm" => "users/confirmations#confirm"
     delete "sign_out" => "users/sessions#destroy"
     post "sign_in" => "users/sessions#create"
+    get  "users/auth/google_login/callback" ,:to => "users/omniauth_callbacks#goole_oauth2"
 
     get "sign_up", to: 'users/registrations#new'
-    get '/devise/registrations/signup_success', to: 'users/registrations#signup_success', as: :signup_success
-    delete 'auth/sign_out', :to => 'users/sessions#destroy'
-    # get ':provider/callback', to: 'users/sessions#create'
+    get 'users/registrations/signup_success', to: 'users/registrations#signup_success', as: :signup_success
+    delete '/auth/sign_out', :to => 'users/sessions#destroy'
+    get 'users/auth/:provider/callback', to: 'users/sessions#create'
     get 'failure', to: redirect('/')
     get 'signout', to: 'users/sessions#destroy', as: 'signout'
+    get 'users/:id/finish_signup' => 'users#finish_signup', via: [:get, :patch], :as => :finish_signup
+    get 'users/auth/google_oauth2', to:  'users/omniauth_callbacks#passthru'
+
 
   end
 

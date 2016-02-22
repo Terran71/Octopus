@@ -47,8 +47,8 @@ module Octopus
     config.twitter_secret = ENV['TWITTER_SECRET'] || "TWxxxxxxxxSecret" 
     config.twitter_owner_id = ENV['TWITTER_OWNER_ID'] || "TWxxxxxxxxOwner"
 
-    config.google_id = ENV['GOOGLE_CLIENT_ID'] || "GooClixxxxxxxxxxxxx" 
-    config.google_secret = ENV['GOOGLE_CLIENT_SECRET'] || "GooSecxxxxxxxxSecret" 
+    config.google_client_id = ENV['GOOGLE_CLIENT_ID'] || "GooClixxxxxxxxxxxxx" 
+    config.google_client_secret = ENV['GOOGLE_CLIENT_SECRET'] || "GooSecxxxxxxxxSecret" 
 
     config.new_relic_license_key = ENV["NEW_RELIC_LICENSE_KEY"] || "newrlxxxxx"
 
