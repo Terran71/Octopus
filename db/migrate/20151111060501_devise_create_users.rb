@@ -54,6 +54,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string :created_at_ip
       t.datetime :originally_created_at
       t.string :locale
+      t.string :location
 
       t.timestamps null: false
 

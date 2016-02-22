@@ -255,21 +255,9 @@ Devise.setup do |config|
 
 
 
-  config.omniauth :google_oauth2,  ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET'], :name => 'google', :scope => 'userinfo.email,userinfo.profile,calendar,calendar.readonly'
-  config.omniauth :facebook,  ENV['FACEBOOK_APP_ID'],  ENV['FACEBOOK_SECRET']
-  # config.omniauth :google_oauth2,  ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET'], 
-  #   {
-  #     :name => "google",
-  #     :scope => "email, profile, plus.me, http://gdata.youtube.com",
-  #     :prompt => "select_account",
-  #     :image_aspect_ratio => "square",
-  #     :image_size => 25
-  #   }
-
-  # OmniAuth.config.full_host =  Rails.env.production? ? 'https://oct-alpha.herokuapp.com' : 'http://localhost:5000'
-
-
-
+  # config.omniauth :google_oauth2,  ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET'], :name => 'google', :scope => 'userinfo.email,userinfo.profile,calendar,calendar.readonly'
+  # config.omniauth :facebook,  ENV['FACEBOOK_APP_ID'],  ENV['FACEBOOK_SECRET']
+ 
 
 
 

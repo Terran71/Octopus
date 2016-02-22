@@ -700,6 +700,7 @@ ActiveRecord::Schema.define(version: 20160217152409) do
     t.string   "created_at_ip"
     t.datetime "originally_created_at"
     t.string   "locale"
+    t.string   "location"
     t.datetime "created_at",                                 null: false
     t.datetime "updated_at",                                 null: false
   end

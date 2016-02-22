@@ -98,7 +98,7 @@ class ApplicationController < ActionController::Base
   def configure_permitted_parameters
     
     devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:id, :first_name, :last_name, :email, :gender, :avatar, :birth_date,
-      :password, :password_confirmation, :accept_terms, :level, :provider, :uid, :editor_user_id, :oauth_expires_at, :oauth_token) }
+      :password, :password_confirmation, :accept_terms, :level, :provider, :uid, :editor_user_id, :locale, :location, :oauth_expires_at, :oauth_token) }
     devise_parameter_sanitizer.for(:account_update){ |u| u.permit(:first_name, :last_name, :email, :gender, :avatar, :level, :role,
          :password, :password_confirmation, :current_password, :oauth_expires_at, :oauth_token,
                   )}

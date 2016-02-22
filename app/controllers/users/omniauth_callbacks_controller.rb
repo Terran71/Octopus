@@ -11,13 +11,25 @@ def google_oauth2
       sign_in @user
       redirect_to projects_path
     else
-      # session["devise.user_attributes"] = user.attributes
-      # redirect_to new_user_registration_url
-      redirect_to "http://www.google.com"
+      session["devise.user_attributes"] = user.attributes
+      redirect_to new_user_registration_url
     end
-  # end
-  # alias_method :facebook, :all
-  # alias_method :google_oauth2, :all
+
+
+end
+
+def facebook
+  @user = User.from_omniauth(request.env["omniauth.auth"])
+  @user.save
+    if @user.persisted? 
+      flash.notice = "Account Created! Please Check Your Email for a Confirmation."
+      # redirect_to after_inactive_sign_up_path_for(user)
+      sign_in @user
+      redirect_to projects_path
+    else
+      session["devise.user_attributes"] = user.attributes
+      redirect_to new_user_registration_url
+    end
 
 end
 

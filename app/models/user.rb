@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
 
 
   def self.from_omniauth(auth)
-      puts auth.extra
+    if auth.provider == "google_oauth2"
       where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
         user.provider = auth.provider
         user.uid = auth.uid
@@ -38,52 +38,48 @@ class User < ActiveRecord::Base
         user.accept_terms = true
         user.avatar = auth.extra.raw_info.picture
         user.birth_date = auth.extra.raw_info.birthday
-        user.gender = auth.extra.raw_info.gender
-        user.locale = auth.extra.raw_info.locale
+        user.gender = auth.extra.info.gender
+        user.locale = auth.extra.info.locale
         user.level = "tester"
 
         # user.password = Devise.friendly_token[0,20]
          user.save!
         user
+
       end
+    elsif auth.provider == "facebook"
+      puts 'Exo '* 1000
+      puts auth
+       where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+        user.provider = auth.provider
+        user.uid = auth.uid
+        user.email = auth.info.email
+        user.first_name = auth.info.first_name
+        user.last_name =auth.info.last_name
+    
+        user.confirmed_at = Time.now
+
+      
+        user.oauth_token = auth.credentials.token
+        user.oauth_expires_at = Time.at(auth.credentials.expires_at)
+        user.accept_terms = true
+        # user.avatar = auth.info.image
+        # user.birth_date = auth.extra.raw_info.birthday
+        user.gender = auth.info.gender
+        user.locale = auth.info.locale
+        user.location = auth.info.location
+        user.level = "tester"
+
+        user.password = Devise.friendly_token[0,20]
+        user.save!
+        user
+      end
+    end
   end
 
 
-  def first_name_from(name)
 
-  end
 
-   def last_name_from(name)
-
-  end
-  # def self.from_omniauth(auth)
-  #   where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-
-  #     # # where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-  #     #   user.provider = auth.provider
-  #     #   user.uid = auth.uid
-  #     #   user.first_name = auth.info.first_name
-  #     #   user.last_name = auth.info.last_name
-  #     #   user.gender = auth.info.gender
-  #     #   user.email = auth.info.email
-  #     #   # user.avatar = auth.info.image
-  #     #   user.level = 'tester'
-  #     #   user.birth_date = auth.info.birthdate
-  #     #   user.confirmed_at = Time.now
-  #     # end
-  #       if auth.provider == 'google_oauth2'  
-  #       user.provider = auth.provider
-  #       user.uid = auth.uid
-  #       user.first_name = auth.info.first_name
-  #       user.last_name = auth.info.last_name
-  #       user.gender = auth.info.sex
-  #       user.email = auth.info.email
-  #       # user.birthdate = auth.info.birthdate
-  #       user.level = 'tester'
-  #       user.confirmed_at = Time.now
-  #     end
-  #   end
-  # end
 
   def self.new_with_session(params, session)
     if session["devise.user_attributes"]
@@ -96,108 +92,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  # def self.from_omniauth(auth)
-  #     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-  #       user.provider = auth.provider
-  #       user.uid = auth.uid
-  #       user.email = auth.info.email
-  #       user.password = Devise.friendly_token[0,20]
-  #     end
-  # end
-
-#   def self.from_omniauth(auth)
-#   where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-#     user.email = auth.info.email
-#     user.password = Devise.friendly_token[0,20]
-#     user.first_name = auth.info.name   # assuming the user model has a name
-#     user.avatar = auth.info.image # assuming the user model has an image
-#       user.oauth_token = auth.credentials.token
-#   #     user.oauth_secret = auth.credentials.secret
-#   #     user.save!
-#   end
-# end
-
-# def self.from_omniauth(auth)
-#   where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-#     user.email = auth.info.email
-#     user.password = Devise.friendly_token[0,20]
-#     user.first_name = auth.info.name   # assuming the user model has a name
-#     user.avatar = auth.info.image # assuming the user model has an image
-#   end
-# end
-
-# def self.new_with_session(params, session)
-#     super.tap do |user|
-#       if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
-#         user.email = data["email"] if user.email.blank?
-#       end
-#     end
-#   end
-  # def self.from_omniauth(auth)
-  #   where(auth.slice(:provider, :uid)).first_or_initialize.tap do |user|
-  #     user.provider = auth.provider
-  #     user.uid = auth.uid
-  #     user.name = auth.info.name
-  #     user.email = auth.info.email
-  #     user.password = Devise.friendly_token[0,20]
-  #     user.oauth_token = auth.credentials.token
-  #     user.oauth_secret = auth.credentials.secret
-  #     user.save!
-  #   end
-  # end
-
-  # def tweet(tweet)
-  #   client = Twitter::REST::Client.new do |config|
-  #     config.consumer_key        = Rails.application.config.twitter_key
-  #     config.consumer_secret     = Rails.application.config.twitter_secret
-  #     config.access_token        = oauth_token
-  #     config.access_token_secret = oauth_secret
-  #   end
-    
-  #   client.update(tweet)
-  # end
-
-  # def self.find_for_oauth(auth, signed_in_resource = nil)
-
-  #   # Get the identity and user if they exist
-  #   identity = Identity.find_for_oauth(auth)
-
-  #   # If a signed_in_resource is provided it always overrides the existing user
-  #   # to prevent the identity being locked with accidentally created accounts.
-  #   # Note that this may leave zombie accounts (with no associated identity) which
-  #   # can be cleaned up at a later date.
-  #   user = signed_in_resource ? signed_in_resource : identity.user
-
-  #   # Create the user if needed
-  #   if user.nil?
-
-  #     # Get the existing user by email if the provider gives us a verified email.
-  #     # If no verified email was provided we assign a temporary email and ask the
-  #     # user to verify it on the next step via UsersController.finish_signup
-  #     email_is_verified = auth.info.email && (auth.info.verified || auth.info.verified_email)
-  #     email = auth.info.email if email_is_verified
-  #     user = User.where(:email => email).first if email
-
-  #     # Create the user if it's a new registration
-  #     if user.nil?
-  #       user = User.new(
-  #         name: auth.extra.raw_info.name,
-  #         #username: auth.info.nickname || auth.uid,
-  #         email: email ? email : "#{TEMP_EMAIL_PREFIX}-#{auth.uid}-#{auth.provider}.com",
-  #         password: Devise.friendly_token[0,20]
-  #       )
-  #       user.skip_confirmation!
-  #       user.save!
-  #     end
-  #   end
-
-  #   # Associate the identity with the user if needed
-  #   if identity.user != user
-  #     identity.user = user
-  #     identity.save!
-  #   end
-  #   user
-  # end
 
 
 
