@@ -6,8 +6,9 @@ class CreateSocialAccounts < ActiveRecord::Migration
       t.string :name
       t.string :url
       t.integer :editor_user_id, default: 1
-      t.string :handle, index: true
-      t.string :api_code
+      t.string :username, index: true
+      t.string :access_token
+      t.string :access_secret
       t.string :login
       t.string :encrypted_password, null: false, default: ""
       t.boolean :internal, default: false

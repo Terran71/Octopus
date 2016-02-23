@@ -11,6 +11,9 @@ class SocialAccount < ActiveRecord::Base
 
   after_create :add_internal_access
 
+  scope :twitter, -> { where(plaform: "twitter") }
+  scope :facebook, -> { where(plaform: "facebook") }
+
 
  
 

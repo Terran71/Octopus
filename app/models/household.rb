@@ -14,11 +14,37 @@ class Household < ActiveRecord::Base
       end
     end
 
+
+
+
     def default_address_id
       if    self.default_address.present?
             self.default_address.id
       else
         nil
+      end
+    end
+
+    def default_name(contact_array)
+      first_contact = contact_array.first
+      if contact_array.count == 2
+        second_contact = contact_array.second
+        "#{first_contact.name} & #{second_contact.name}" 
+      elsif contact_array.count >> 2
+         "The #{first_contact.last_name} Family" 
+      elsif contact_array.count == 1
+       " #{first_contact.name}" 
+      end
+    end
+
+    def find_new_default_address_id(contact_array)
+      @contacts = contact_array
+       if  @contacts.first.default_address.present?
+        @contacts.first.default_address.id
+      elsif @contacts.second.default_address.present?
+         @contacts.second.default_address.id
+      else
+         nil
       end
     end
 

@@ -15,7 +15,8 @@ gem 'omniauth', '~> 1.3', '>= 1.3.1'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2', '~> 0.3.0'
 gem 'omniauth-twitter'
-gem 'twitter'
+gem 'twitter' #for posting to twitter
+gem 'koala' #for posting to facebook
 gem 'sprockets-rails', '~> 3.0', '>= 3.0.1'
 
 gem 'simple_form'

@@ -4,7 +4,8 @@ class CreateSocialShares < ActiveRecord::Migration
        t.integer :editor_user_id, default: 1
        t.references :blog_post, index: true
        t.references :social_account, index: true
-       t.text :copy, limit: 255
+       t.text :tweet, limit: 255
+       t.text :copy, limit: 500
        t.string :header
        t.string :subheader
        t.string :default_image

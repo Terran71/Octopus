@@ -133,6 +133,9 @@ class User < ActiveRecord::Base
   has_many :projects_organized, through: :participants
   has_many :participant_roles, through: :participants
   has_many :feedbacks_edited, class_name: 'Feedback', foreign_key: 'editor_user_id'
+  has_many :imported_contacts, class_name: 'Contact', foreign_key: 'importer_user_id'
+  has_many :imported_addresses, class_name: 'Address', foreign_key: 'importer_user_id'
+
   has_many :feedbacks
   has_many :projects, through: :participants
   has_many :invitees, class_name: 'Participant', foreign_key: 'invitor_user_id'

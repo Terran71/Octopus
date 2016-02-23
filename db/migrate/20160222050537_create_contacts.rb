@@ -2,6 +2,7 @@ class CreateContacts < ActiveRecord::Migration
   def change
     create_table :contacts do |t|
       t.integer :editor_user_id
+      t.integer :importer_user_id, index: true
       t.references :user, index: true
       t.string :prefix
       t.string :first_name

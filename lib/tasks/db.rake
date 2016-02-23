@@ -56,7 +56,7 @@ namespace :db do
 
 
     puts 'adding internal social accounts'
-    SocialAccount.create!(platform: "twitter", handle: 'ouroctopus',  encrypted_password: 'SomePassword', )
+    SocialAccount.create!(platform: "twitter", username: 'omghowmanycats',  encrypted_password: 'SomePassword', )
 
    
 

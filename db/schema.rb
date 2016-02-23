@@ -17,20 +17,23 @@ ActiveRecord::Schema.define(version: 20160223161512) do
   enable_extension "plpgsql"
 
   create_table "addresses", force: :cascade do |t|
+    t.integer  "editor_user_id"
+    t.integer  "importer_user_id"
+    t.integer  "editor_participant_id"
     t.integer  "us_state_id"
     t.integer  "country_id"
     t.string   "owner_type"
     t.integer  "owner_id"
-    t.integer  "kind",        default: 1
+    t.integer  "kind",                  default: 1
     t.string   "address_1"
     t.string   "address_2"
     t.string   "city"
     t.string   "postal_code"
     t.string   "venue"
     t.string   "title"
-    t.boolean  "primary",     default: true
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.boolean  "primary",               default: true
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.string   "website"
     t.string   "phone"
   end
@@ -285,6 +288,7 @@ ActiveRecord::Schema.define(version: 20160223161512) do
 
   create_table "contacts", force: :cascade do |t|
     t.integer  "editor_user_id"
+    t.integer  "importer_user_id"
     t.integer  "user_id"
     t.string   "prefix"
     t.string   "first_name"
@@ -303,10 +307,11 @@ ActiveRecord::Schema.define(version: 20160223161512) do
     t.integer  "work_address_id"
     t.integer  "uploded_id"
     t.text     "note"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
 
+  add_index "contacts", ["importer_user_id"], name: "index_contacts_on_importer_user_id", using: :btree
   add_index "contacts", ["user_id"], name: "index_contacts_on_user_id", using: :btree
 
   create_table "countries", force: :cascade do |t|
@@ -410,8 +415,9 @@ ActiveRecord::Schema.define(version: 20160223161512) do
     t.string   "category"
     t.string   "note"
     t.integer  "status"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.boolean  "critical",          default: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
   end
 
   create_table "guest_households", force: :cascade do |t|
@@ -482,13 +488,13 @@ ActiveRecord::Schema.define(version: 20160223161512) do
 
   create_table "list_recipients", force: :cascade do |t|
     t.integer  "guest_id"
+    t.integer  "editor_participant_id"
+    t.integer  "grantor_participant_id"
     t.integer  "list_id"
     t.integer  "household_id"
     t.string   "status"
-    t.date     "addressed_date"
-    t.date     "send_date"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   add_index "list_recipients", ["guest_id"], name: "index_list_recipients_on_guest_id", using: :btree
@@ -760,8 +766,9 @@ ActiveRecord::Schema.define(version: 20160223161512) do
     t.string   "name"
     t.string   "url"
     t.integer  "editor_user_id",     default: 1
-    t.string   "handle"
-    t.string   "api_code"
+    t.string   "username"
+    t.string   "access_token"
+    t.string   "access_secret"
     t.string   "login"
     t.string   "encrypted_password", default: "",    null: false
     t.boolean  "internal",           default: false
@@ -769,12 +776,13 @@ ActiveRecord::Schema.define(version: 20160223161512) do
     t.datetime "updated_at",                         null: false
   end
 
-  add_index "social_accounts", ["handle"], name: "index_social_accounts_on_handle", using: :btree
+  add_index "social_accounts", ["username"], name: "index_social_accounts_on_username", using: :btree
 
   create_table "social_shares", force: :cascade do |t|
     t.integer  "editor_user_id",     default: 1
     t.integer  "blog_post_id"
     t.integer  "social_account_id"
+    t.text     "tweet"
     t.text     "copy"
     t.string   "header"
     t.string   "subheader"

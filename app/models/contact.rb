@@ -25,6 +25,10 @@ def self.import(file, set_list_id)
 
 end
 
+def is_member_of_household?
+  self.household.present?
+end
+
 
 def self.import(file, set_list_id, current_user_id, auto_add_to_list, import_source)
   

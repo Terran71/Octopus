@@ -43,9 +43,20 @@ module Octopus
     config.facebook_app_id = ENV['FACEBOOK_APP_ID'] || "FBappxxxxxxxxxxxxx"
     config.facebook_secret = ENV['FACEBOOK_SECRET'] || "FBsecretxxxxxxxxxxxxx"
 
+    
 
-    config.twitter_key = ENV['TWITTER_KEY'] || "TWxxxxxxxxxxxxx" 
-    config.twitter_secret = ENV['TWITTER_SECRET'] || "TWxxxxxxxxSecret" 
+    client = Twitter::REST::Client.new do |config|
+      config.consumer_key        =  ENV['TWITTER_CONSUMER_KEY'] 
+      config.consumer_secret     = ENV['TWITTER_CONSUMER_SECRET'] 
+      config.access_token        = ENV['TWITTER_ACCESS_TOKEN']
+      config.access_token_secret = ENV['TWITTER_ACCESS_TOKEN_SECRET']
+    end
+
+    # config.twitter_consumer_key = ENV['TWITTER_CONSUMER_KEY'] || "TWxxxxxxxxxxxxx" 
+    # config.twitter_consumer_secret = ENV['TWITTER_CONSUMER_SECRET'] || "TWxxxxxxxxSecret" 
+    # config.twitter_access_token = ENV['TWITTER_ACCESS_TOKEN'] || "TWxxxxxxxxxxxxx" 
+    # config.twitter_access_token_secret = ENV['TWITTER_ACCESS_TOKEN_SECRET'] || "TWxxxxxxxxSecret" 
+
     config.twitter_owner_id = ENV['TWITTER_OWNER_ID'] || "TWxxxxxxxxOwner"
 
     config.google_client_id = ENV['GOOGLE_CLIENT_ID'] || "GooClixxxxxxxxxxxxx" 

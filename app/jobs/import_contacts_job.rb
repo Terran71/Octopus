@@ -15,7 +15,7 @@ class ImportContactsJob < ActiveJob::Base
       # end
       CSV.foreach(file.path, headers: true)do |row|
         import_hash = row.to_hash
-        contact_hash = ImporterTool.find_contact_hash_from(import_source, import_hash)
+        contact_hash = ImporterTool.find_contact_hash_from(current_user_id, import_source, import_hash)
         #create/update contact address
         contact = Contact.where(first_name: import_hash["first_name"], last_name: import_hash["last_name"], email: import_hash["email"]).first
         if contact.present?
@@ -27,7 +27,7 @@ class ImportContactsJob < ActiveJob::Base
           contact = Contact.create!(contact_hash)
           # contact.save!
         end 
-        home_address_hash = ImporterTool.find_address_hash_from(import_source, import_hash, "home")
+        home_address_hash = ImporterTool.find_address_hash_from(current_user_id, import_source, import_hash, "home")
         home_address = Address.create!(home_address_hash)
         home_address.owner_type = "Contact"
         home_address.owner_id = contact.id
@@ -40,7 +40,7 @@ class ImportContactsJob < ActiveJob::Base
     elsif import_source == "google"
        CSV.foreach(file.path, headers: true)do |row|
         import_hash = row.to_hash
-        contact_hash = ImporterTool.find_contact_hash_from(import_source, import_hash)
+        contact_hash = ImporterTool.find_contact_hash_from(current_user_id, import_source, import_hash)
         puts "#{contact_hash}"
         #create/update contact address
         contact = Contact.where(first_name: import_hash["first_name"], last_name: import_hash["last_name"], email: import_hash["email"]).first
@@ -54,14 +54,14 @@ class ImportContactsJob < ActiveJob::Base
           # contact.save!
         end
         if import_hash["Home Address"].present?
-          home_address_hash = ImporterTool.find_address_hash_from(import_source, import_hash, "home")
+          home_address_hash = ImporterTool.find_address_hash_from(current_user_id, import_source, import_hash, "home")
           home_address = Address.create!(home_address_hash)
           home_address.owner_type = "Contact"
           home_address.owner_id = contact.id
           home_address.save!
         end
         if import_hash["Work Address"].present? 
-          work_address_hash = ImporterTool.find_address_hash_from(import_source, import_hash, "work")
+          work_address_hash = ImporterTool.find_address_hash_from(current_user_id, import_source, import_hash, "work")
           work_address_hash = Address.create!(work_address_hash)
           work_address_hash.owner_type = "Contact"
           work_address_hash.owner_id = contact.id

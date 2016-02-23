@@ -1,14 +1,32 @@
-class Inside::SocialSharingsController < Inside::DashboardController
+class Inside::SocialShareController < Inside::DashboardController
   before_action :authenticate_user!
   before_action :authenticate_inside_privileges
 
-  before_action :set_social_sharing, except: [:index, :new]
+  before_action :set_social_share, except: [:index, :new]
 
   include InsidesHelper
   include ApplicationHelper
 
 
   layout 'inside'
+
+  before_filter :load_tweets
+
+  def load_tweets
+    @tweets = Twitter.user_timeline[0..4] # For this demonstration lets keep the tweets limited to the first 5 available.
+  end
+
+  def tweets
+
+  end
+
+  def post_tweet(social_share)
+    
+    Twitter.update(social_share.tweet)
+
+    # twitter.update("@BenMorganIO taught me how to tweet with the Twitter API!")
+
+  end
 
   # def index
   #   @images = BlogImage.all
@@ -50,7 +68,7 @@ class Inside::SocialSharingsController < Inside::DashboardController
 
   def update
     respond_to do |format|
-     if @social_sharing.update_attributes(social_sharing_params)  
+     if @social_share.update_attributes(social_share_params)  
         format.html {redirect_to inside_blog_image_path(id: @image.id), notice: "Photo was successfully updated." and return}
         format.json { render :edit, status: :created, location: @image and return }
       else
@@ -62,11 +80,11 @@ class Inside::SocialSharingsController < Inside::DashboardController
 
   private
 
-  def set_social_sharing
-    @social_sharing = SocialSharing.find(params[:id])
+  def set_social_share
+    @social_share = SocialShare.find(params[:id])
   end
 
-  def social_sharing_params
+  def social_share_params
         params.require(:social_sharing).permit(:id, )
   end
 
