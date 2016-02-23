@@ -3,6 +3,6 @@ class Guest < ActiveRecord::Base
 
 
   def name
-    contact.name
+    self.contact.name
   end
 end

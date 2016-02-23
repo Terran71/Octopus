@@ -69,7 +69,7 @@ Rails.application.routes.draw do
     resources :dashboard, only: [:index]
     resources :invites, only: [:show]
     get 'resend_invite/:id', to: 'invites#resend_invite', as: :resend_invite
-    resources :lists
+    resources :lists, except: [:show]
     resources :participants
     resources :project_dates, only: [:show]
     patch 'add_event/:project_date_id', to: 'project_dates#add_event', as: :add_event
@@ -103,6 +103,9 @@ Rails.application.routes.draw do
 
   get 'rsvp/:id/:rsvp', to: 'invites#rsvp', as: :rsvp
 
+  resources :lists, except: [:show]
+  get 'lists/list_types', to: 'lists#list_types', as: :list_types
+  get 'lists/list_project', to: 'lists#list_project', as: :list_project
 
   resources :feedbacks, only: [:new, :create]
   resources :lists, :controller => 'lists', except: [:show]
@@ -114,8 +117,7 @@ Rails.application.routes.draw do
   resources :card_lists, :controller => 'lists', except: [:new]
   resources :baby_announcement_card_lists, :controller => 'lists', except: [:new]
 
-  get 'lists/list_types', to: 'lists#list_types', as: :list_types
-  get 'lists/list_project', to: 'lists#list_project', as: :list_project
+
 
   namespace :blog , path: "" do
      root  'articles#index'

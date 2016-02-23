@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
+  before_action :capture_referal
   before_action :set_layout, only: []
   before_action :store_location
   before_action :authenticate_user! , only: [:sidebar]
@@ -110,5 +111,9 @@ class ApplicationController < ActionController::Base
     # devise_parameter_sanitizer.permit(:sign_in) do |user_params|
     #   user_params.permit(:username, :email)
     # end
+  end
+
+  def capture_referal
+    session[:referral] = params[:ref] if params[:ref]
   end
 end

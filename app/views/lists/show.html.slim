@@ -34,6 +34,21 @@ css:
             .form-group
               / = hidden_field_tag :auto_add_to_list, value: true #TODO make into checkbox
               = submit_tag "Import CSV", class: 'btn btn-success mt20'
+        fieldset.add-recipients.mt20
+          |UPLOAD GOOGLE CSV
+          = form_tag  import_lists_path(list_id: @list.id), multipart: true 
+            .form-group
+
+              = file_field_tag :file
+            .form-group
+
+              = check_box_tag 'auto_add_to_list', 'yes', true
+              = hidden_field_tag 'import_source',  "google"
+              label
+                |AUTOMATICALLY ADD TO GUEST LIST 
+            .form-group
+              / = hidden_field_tag :auto_add_to_list, value: true #TODO make into checkbox
+              = submit_tag "Import CSV", class: 'btn btn-success mt20'
 
         - if @list.guests.present?
           = render partial: "recipients_table"

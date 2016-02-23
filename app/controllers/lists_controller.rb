@@ -31,7 +31,7 @@ class ListsController < DashboardController
   end
 
   def import
-    Contact.import(params[:file], params[:list_id], current_user.id, params[:auto_add_to_list])
+    Contact.import(params[:file], params[:list_id], current_user.id, params[:auto_add_to_list], params[:import_source])
     redirect_to mailing_list_url(id: params[:list_id]), notice: "Recipients imported."
   end
 
