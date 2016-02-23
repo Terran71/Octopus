@@ -32,11 +32,11 @@ h1
   |until you approve it.  
   br/
   br/
-  = link_to project_project_date_url(project_id: @event.project_date.project_id, id: @event.project_date_id), target: "_blank",:style=>'text-transform:uppercase, font-weight: bold; font-size: 20px;'
+  = link_to project_project_date_url(project_id: @event.project_date.project_id, id: @event.project_date_id, ref: @ref), target: "_blank",:style=>'text-transform:uppercase, font-weight: bold; font-size: 20px;'
     |APPROVE NOW
   br/
   br/
-  = link_to project_project_date_url(project_id: @event.project_date.project_id, id: @event.project_date_id), target: "_blank", :style=>'text-transform:uppercase, font-weight: bold; font-size: 20px;'
+  = link_to project_project_date_url(project_id: @event.project_date.project_id, id: @event.project_date_id, ref: @ref), target: "_blank", :style=>'text-transform:uppercase, font-weight: bold; font-size: 20px;'
     |REQUEST RESCHEDULE NOW
 
   

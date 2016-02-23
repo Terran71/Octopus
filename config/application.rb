@@ -52,7 +52,9 @@ module Octopus
     config.google_client_secret = ENV['GOOGLE_CLIENT_SECRET'] || "GooSecxxxxxxxxSecret" 
 
     config.new_relic_license_key = ENV["NEW_RELIC_LICENSE_KEY"] || "newrlxxxxx"
-
+    
+    
+    config.linkref_secret_key_base = ENV["LINKREF_SECRET_KEY_BASE"]
 
     config.oct_env = ENV['OCT_ENV']
     config.rails_env = ENV['RAILS_ENV']

@@ -32,6 +32,10 @@ class EmailKind < ActiveRecord::Base
       EmailKind.where(type: type).where(category: category).find_by_label(label)|| EmailKind.find(1)
     end
 
+    def is_invite?
+      self.category == "invites"
+    end
+
 
     # def self.type_label(type, label)
     #     EmailKind.roundups.where(type: type).find_by_label(label)|| EmailKind.find(1)

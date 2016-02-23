@@ -15,6 +15,10 @@ class ProjectMailer < ActionMailer::Base
       @email_kind = email_kind
       @participant_role = participant_role
       @project = Project.find(@participant_role.participant.project_id)
+      # crypt = ActiveSupport::MessageEncryptor.new(Rails.configuration.linkref_secret_key_base)
+      # ref = crypt.encrypt_and_sign("participant_id = ")
+      @ref = "Edo"
+      # @ref = ReferralCategory.get_category(email_kind, @participant_role.grantor.user)
       mail(to: @participant_role.participant.email, 
         subject: @email_kind.subject, 
         template_path: '/project_mailers', 
@@ -27,6 +31,7 @@ class ProjectMailer < ActionMailer::Base
       @email_kind = email_kind
       @event = event
       @recipient = recipient
+      @ref = "Edo"
         mail(to: @recipient.email, 
         subject: @email_kind.subject, 
         template_path: '/project_mailers', 
@@ -38,7 +43,7 @@ class ProjectMailer < ActionMailer::Base
     def event_response(event, email_kind, response)
       @event = event
       @email_kind = email_kind
-
+      @ref = "Edo"
         mail(to: @event.participant.user.email, 
         subject: @email_kind.subject, 
         template_path: '/project_mailers', 
@@ -52,6 +57,7 @@ class ProjectMailer < ActionMailer::Base
       @email_kind = email_kind
       @project = project
       @recipient = organizer
+      @ref = "Edo"
         mail(to: @recipient.email, 
         subject: @email_kind.subject, 
         template_path: '/project_mailers', 

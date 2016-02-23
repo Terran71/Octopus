@@ -24,10 +24,10 @@ h1
   p
   hr/
   - if  !@participant_role.is_recipient?
-    = link_to  project_invite_url(project_id: @participant_role.participant.project_id, id: @participant_role.participant.id, participant_role_id: @participant_role.id), style: "text-transform:uppercase, font-weight: bold; font-size: 20px;"
+    = link_to  project_invite_url(project_id: @participant_role.participant.project_id, id: @participant_role.participant.id, participant_role_id: @participant_role.id, ref: @ref), style: "text-transform:uppercase, font-weight: bold; font-size: 20px;", target:"_blank",
       |CLICK HERE TO RSVP
   - else
-    = link_to  project_invite_url(project_id: @participant_role.participant.project_id, id: @participant_role.participant.id, participant_role_id: @participant_role.id), style: "text-transform:uppercase, font-weight: bold; font-size: 20px;"
+    = link_to  project_invite_url(project_id: @participant_role.participant.project_id, id: @participant_role.participant.id, participant_role_id: @participant_role.id, ref: @ref), style: "text-transform:uppercase, font-weight: bold; font-size: 20px;", target:"_blank",
       |CLICK HERE ACCEPT
 
 

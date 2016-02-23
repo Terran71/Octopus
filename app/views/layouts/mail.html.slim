@@ -8,7 +8,6 @@ html
     meta content="width=device-width, initial-scale=1" name="viewport"
 
 body
-
   table align="center" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;line-height:100%!important;margin:0;padding:0;width:100%!important;background-color:#f9f9f9" 
     tbody
       tr
@@ -23,8 +22,10 @@ body
                   table border="0" cellpadding="0" cellspacing="0" 
                     tbody
                       tr
-                        td style=("padding:5px 15px 20px") 
-                          img.CToWUd src="branding/octopus-logo-md.png"  
+                        td style="padding: 5px 15px 20px 0"
+                          = link_to root_url(ref: @ref), target:"_blank"
+                            = image_tag "http://www.localhost:5000/images/branding/octopus-logo-md.png"
+                            / img.CToWUd src="<%= image_tag #{logo_img} %>"  
                   table align="center" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border-radius:3px;color:#545454;font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;line-height:20px;margin:0 auto;width:100%" 
                     tbody
                       tr
@@ -33,26 +34,10 @@ body
                           / http://stackoverflow.com/questions/5367164/remove-substring-from-the-string
                             tbody
                               tr
-                                td style=("width:100%;background:#0071b2;border:none;font-family:'Helvetica Neue'),Arial,sans-serif" valign="top"  &nbsp;
+                                td style="width:100%;background:#0071b2;border:none;font-family:'Helvetica Neue',Arial,sans-serif" valign="top"  &nbsp;
                           table border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border-color:#dddddd;border-radius:0 0 3px 3px;border-style:solid;border-width:0 1px 1px;width:100%"
                             = yield 
-                            / tbody
-                            /   tr
-                            /     td style="color:#525252;font-family:Helvetica,Arial,sans-serif;border-radius:0 0 3px 3px;color:#525252;font-family:'Helvetica Neue',Arial,sans-serif;font-size:15px;line-height:22px;overflow:hidden;padding:40px 40px 30px;background-color:white" 
-                            /       p style=("margin:0 0 17px 0;line-height:1.5;margin-top:0;padding-top:0")  Happy Friday,&nbsp;Emily!
-                            /       p style=("margin:0 0 17px 0;line-height:1.5") 
-                            /         span Some Text about stuff
-                            /       p style=("margin:0 0 17px 0;line-height:1.5;text-align:center") 
-                            /         a href="http://ouroctous.com/somename/?someparam=3&?ref=slkjfsdkfjssdlkfsdf" style=("color:#1251ba; background-color:#0e4595;border-radius:5px;border:1px solid rgba(0),0,0,0.2);color:#fff;font-size:15px;min-height:20px;padding:9px 15px;font-size:14px;color:#fff;font-weight:bold;display:inline-block;text-decoration:none;background-color:#0071b2;border:none!important" target="_blank"  Join Now
-                            /       p style=("margin:0 0 17px 0;line-height:1.5") 
-                            /         | Sincerely,
-                            /         br/
-                            /         | The Octopus Team
-                            /       p style=("margin:0 0 17px 0;line-height:1.5") 
-                            /         | P.S. If you have any questions, come chat with us or send us an email at
-                            /         = succeed "." do
-                            /           a href="http://linkmail.ouroctopus.com/wf/click?upn=hmmm" style="color:#1251ba" target="_blank"  hello@ouroctopus.com
-                            /       img.CToWUd src="someimage" style=("margin:17px 0;max-width:100%") /
+                       
                       tr
                         td
                           table align="center" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;color:#545454;font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;line-height:20px;margin:0 auto;max-width:100%;width:100%" 
@@ -77,8 +62,13 @@ body
                                                     | Los Angeles, CA 90015
                                                     br/
                                                 td align="left" style="color:#999999;font-size:11px" valign="top" 
-                                                  p style="line-height:14px" 
-                                                    | You are receiving this email because you have been invited to a...by "name"
-                                                    a href="D" style="color:#999999" target="_blank"  Unsubscribe
+                                                  - if @email_kind.is_invite?
+                                                    p style="line-height:14px" 
+                                                      | You are receiving this email because you have been invited to a...by "name"
+                                                      a href="D" style="color:#999999" target="_blank"  Unsubscribe
+                                                  - else
+                                                     p style="line-height:14px" 
+                                                      | You are receiving this email because you are or have participated in an Octopus Project.
+                                                      a href="D" style="color:#999999" target="_blank"  Unsubscribe
                                               tr
 

@@ -1,6 +1,7 @@
 class Contact < ActiveRecord::Base
   # belongs_to :home_address
   # belongs_to :work_address
+
   belongs_to :user
   has_many :guests
   has_many :list_recipients, through: :guests
@@ -89,5 +90,31 @@ end
   def is_on_list?(list)
     self.lists.where(list_id: list.id).present?
   end
+
+  def maybe_household_with?(other_contact)
+    self.shares_last_name?(other_contact) 
+
+  end
+
+  def shares_last_name?(other_contact)
+    self.last_name == other_contact.last_name or 
+    self.shares_phone?(other_contact) or
+    self.has_similar_address?(other_contact)
+  end
+
+  def shares_phone?(other_contact)
+    self.home_phone == other_contact.home_phone or
+    self.primary_phone == other_contact.home_phone or
+    self.primary_phone == other_contact.primary_phone or
+    self.home_phone == other_contact.primary_phone
+  end
+
+  def has_similar_address?(other_contact)
+    if self.default_address.present? && other_contact.default_address.present?
+      self.default_address.address_1 == other_contact.default_address.address_1 
+    end
+  end
+
+
   
 end

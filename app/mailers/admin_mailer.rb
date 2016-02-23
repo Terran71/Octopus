@@ -10,13 +10,13 @@ class AdminMailer < ActionMailer::Base
   default content_type: 'text/html'
   default    sent_on: Time.now
 
-
           # AdminMailer.warning(saa.user, email_kind, @upcoming)
 
   def warning(recipient, email_kind, item_array )
       @recipient = recipient
       @email_kind = email_kind
       @item_array = item_array
+      @ref = "admin"
       mail(to: @recipient.email, 
         subject: @email_kind.subject, 
         template_path: '/admin_mailers', 
@@ -32,6 +32,7 @@ class AdminMailer < ActionMailer::Base
       @date_since = date_since
       @projects = Project.where("created_at >= ?", date_since)
       @users = User.where("created_at >= ?", date_since)
+      @ref = "admin"
       mail(to: @recipient.email, 
         subject: @email_kind.subject, 
         template_path: '/admin_mailers', 
