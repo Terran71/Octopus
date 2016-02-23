@@ -85,5 +85,9 @@ end
   def name
     first_name + " " + last_name rescue first_name + "" rescue "" + last_name rescue "User"
   end
+
+  def is_on_list?(list)
+    self.lists.where(list_id: list.id).present?
+  end
   
 end

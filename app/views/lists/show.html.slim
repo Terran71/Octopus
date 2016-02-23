@@ -27,7 +27,7 @@ css:
               = file_field_tag :file
             .form-group
 
-              = check_box_tag 'auto_add_to_list', 'yes', true
+              = check_box_tag 'auto_add_to_list', true,  {:checked => "checked"} 
               = hidden_field_tag 'import_source',  "custom"
               label
                 |AUTOMATICALLY ADD TO GUEST LIST 
@@ -42,7 +42,7 @@ css:
               = file_field_tag :file
             .form-group
 
-              = check_box_tag 'auto_add_to_list', 'yes', true
+              = check_box_tag 'auto_add_to_list', true,  {:checked => "checked"} 
               = hidden_field_tag 'import_source',  "google"
               label
                 |AUTOMATICALLY ADD TO GUEST LIST 

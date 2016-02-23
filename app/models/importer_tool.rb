@@ -78,12 +78,10 @@ class ImporterTool < ActiveRecord::Base
             gender: import_hash["Gender"],
             birthday: import_hash["Birthday"],
             email: import_hash["E-mail"],
-            notes: import_hash["notes"],
+            note: import_hash["notes"],
             primary_phone: import_hash["Primary Phone"] || import_hash["Mobile Phone"],
             mobile_phone: import_hash["Mobile Phone"],
             home_phone: import_hash["Home Phone"],
-            
-
           }
    end
 
