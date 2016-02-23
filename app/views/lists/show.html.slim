@@ -28,6 +28,7 @@ css:
             .form-group
 
               = check_box_tag 'auto_add_to_list', 'yes', true
+              = hidden_field_tag 'import_source',  "custom"
               label
                 |AUTOMATICALLY ADD TO GUEST LIST 
             .form-group

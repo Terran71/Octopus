@@ -25,9 +25,10 @@ def self.import(file, set_list_id)
 end
 
 
-def self.import(file, set_list_id, current_user_id, auto_add_to_list)
-  csv_source = "custom"
-    UploadCsvJob.perform(file, set_list_id, current_user_id, csv_source, auto_add_to_list)#put category
+def self.import(file, set_list_id, current_user_id, auto_add_to_list, import_source)
+  
+
+    ImportContactsJob.perform(file, set_list_id, current_user_id, import_source, auto_add_to_list, self.file_type(file))#put category
     # CSV.foreach(file.path, headers: true) do |row|
     #   import_hash = row.to_hash
     #   puts "#{import_hash["last_name"]}" * 50
@@ -72,14 +73,14 @@ def editor
   user_editor.name 
 end
 
-# def self.open_spreadsheet(file)
-#   case File.extname(file.original_filename)
-#   when ".csv" then Csv.new(file.path, nil, :ignore)
-#   when ".xls" then Excel.new(file.path, nil, :ignore)
-#   when ".xlsx" then Excelx.new(file.path, nil, :ignore)
-#   else raise "Unknown file type: #{file.original_filename}"
-#   end
-# end
+def self.file_type(file)
+  case File.extname(file.original_filename)
+  when ".csv" then "CSV"
+  when ".xls" then "XLS"
+  when ".xlsx" then "XLSX"
+  else raise "Unknown file type: #{file.original_filename}"
+  end
+end
 
 def primary_household_address
   if household.present? && household.addresses.present?
