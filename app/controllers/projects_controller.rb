@@ -3,7 +3,7 @@ class ProjectsController < DashboardController
 
   before_action :store_location
   before_action :authenticate_user!
-  before_action :set_project, only: [:destroy, :update, :show, :edit, :invite_recipients]
+  before_action :set_project, only: [:destroy, :update, :show, :edit, :invite_recipients, :new]
   before_action :set_nested_project, only: [:restrictions, :update_restrictions, :available_dates, :update_available_dates, :recipients,
     :edit_date_range, :update_date_range, :edit_date_range]
     before_action :set_project_details, except: [:new, :index, :create, :destroy, :update, :start]
@@ -25,12 +25,22 @@ class ProjectsController < DashboardController
     @project = Project.new(type:  project_code_to_type(params[:project_type_code]))
   end
 
-  def new
+  # def new
     
-    # @participant_title = params[:participant_title] || 'No Title'
-    # @relationship = params[:relationship] || 'Self'
-    #refactor...make create it's own action.
-    @project = Project.create!(type: project_code_to_type(params[:project_type_code]))
+  #   # @participant_title = params[:participant_title] || 'No Title'
+  #   # @relationship = params[:relationship] || 'Self'
+  #   #refactor...make create it's own action.
+  #   @project = Project.create!(type: project_code_to_type(params[:project_type_code]))
+  #   @participant_role_type = parsing_roles(params[:participant_role_code])
+  #   @project.create_organizer(@participant_role_type, current_user, @project)
+  #   @project.participants.build
+  #   @project.addresses.build
+  #   @project.honored_guests.build
+  # end
+
+   def new
+    
+   
     @participant_role_type = parsing_roles(params[:participant_role_code])
     @project.create_organizer(@participant_role_type, current_user, @project)
     @project.participants.build
@@ -41,6 +51,16 @@ class ProjectsController < DashboardController
   def edit
     @project.addresses.build
   end
+
+  def create
+    @project = Project.create(type: project_code_to_type(params[:project_type_code]))
+    if @project.save
+      redirect_to new_project_path(project_type_code: params[:project_type_code], participant_role_code: 1), data: {no_turbolink: true}
+    else
+      redirect_to root_path #refactor make error
+    end
+  end
+   
 
   # def create
   #   @project = Project.new(project_params)
