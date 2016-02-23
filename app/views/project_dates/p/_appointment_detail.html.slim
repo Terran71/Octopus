@@ -20,7 +20,7 @@ li class="#{e.status}" style= "padding-right: 10px, margin-top: 2px"
           = e.participant.name
         = e.description
     - else
-        = link_to project_project_date_path(id: e.project_date_id, project_id: e.project_id)
+        = link_to project_project_date_path(id: e.project_date_id, project_id: e.project_id), data: {no_turbolink: true} 
           = e.participant.name
         |&nbsp;
         = e.description.truncate(30)
@@ -42,7 +42,7 @@ li class="#{e.status}" style= "padding-right: 10px, margin-top: 2px"
         |&nbsp;
         = e.description
     - else
-        = link_to project_project_date_path(id: e.project_date_id, project_id: e.project_id)
+        = link_to project_project_date_path(id: e.project_date_id, project_id: e.project_id), data: {no_turbolink: true} 
           = e.participant.name
         = e.description.truncate(30)
     = render partial: '/project_dates/p/buttons', locals: {e: e, location: location}

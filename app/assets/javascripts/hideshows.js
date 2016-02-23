@@ -1,4 +1,4 @@
-jQuery(document).ready(function(){
+$(document).ready(function() {
    $("#addAppointmentForm").click(function(e) {
     e.preventDefault();
     $("#appointmentForm").toggleClass("hide");

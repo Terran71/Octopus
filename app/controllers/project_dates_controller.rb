@@ -56,9 +56,9 @@ class ProjectDatesController < DashboardController
       redirect_to project_project_date_path(project_id: @project.id, id: @project_date.id), data: {no_turbolink: true} 
       flash[:notice] ='Event was successfully created.'
     else
-      # redirect_to  project_project_date_path(project_id: @project.id, id: @project_date.id )
-      # format.json { render json: @project.errors, status: :unprocessable_entity }
-      redirect_to root_path
+      redirect_to  project_project_date_path(project_id: @project.id, id: @project_date.id ), data: {no_turbolink: true} 
+      format.json { render json: @project.errors, status: :unprocessable_entity }
+      # redirect_to root_path, data: {no_turbolink: true} 
     end
   end
 
@@ -66,17 +66,17 @@ class ProjectDatesController < DashboardController
 
   # PATCH/PUT /project_dates/1
   # PATCH/PUT /project_dates/1.json
-  def update
-    respond_to do |format|
-      if @project_date.update(project_date_params)
-        format.html { redirect_to @project_date, notice: 'Project date was successfully updated.' }
-        format.json { render :show, status: :ok, location: @project_date }
-      else
-        format.html { render :edit }
-        format.json { render json: @project_date.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+  # def update
+  #   respond_to do |format|
+  #     if @project_date.update(project_date_params)
+  #       format.html { redirect_to @project_date, notice: 'Project date was successfully updated.' }
+  #       format.json { render :show, status: :ok, location: @project_date }
+  #     else
+  #       format.html { render :edit }
+  #       format.json { render json: @project_date.errors, status: :unprocessable_entity }
+  #     end
+  #   end
+  # end
 
   # DELETE /project_dates/1
   # DELETE /project_dates/1.json
