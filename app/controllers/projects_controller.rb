@@ -29,6 +29,7 @@ class ProjectsController < DashboardController
     
     # @participant_title = params[:participant_title] || 'No Title'
     # @relationship = params[:relationship] || 'Self'
+    #refactor...make create it's own action.
     @project = Project.create!(type: project_code_to_type(params[:project_type_code]))
     @participant_role_type = parsing_roles(params[:participant_role_code])
     @project.create_organizer(@participant_role_type, current_user, @project)
@@ -60,7 +61,7 @@ class ProjectsController < DashboardController
   # end
 
   def update
-    @source = params[:project][:source] || "show project"
+    @source = params[:project][:source] || "show project" #refactor add option of redirecting to restrictions
     date_formatter
     respond_to do |format|
       if @project.update(project_params)
@@ -86,7 +87,7 @@ class ProjectsController < DashboardController
    
       if @project.update_attributes(project_params)
         # redirect_to  setup(@source, @project)
-        redirect_to project_available_dates_path(project_id: @project.id, source: 'new')
+        redirect_to project_available_dates_path(project_id: @project.id, source: 'new'), data: {no_turbolink: true}
         flash[:notice] = "Successfully Added Food Allergies, Dietary Needs & Favorites."
       else
         redirect_to  project_add_restrictions_path(project_id: @project.id, source: 'new')
@@ -100,7 +101,7 @@ class ProjectsController < DashboardController
   end
 
   def update_available_dates
-    date_formatter
+    date_formatterdate_formatter
     @project_dates = @project.project_dates.order(schedule_date: :asc)
     logger.debug { "project_dates: #{params[:project_date_id]}" }
     if   @project_dates.where(id: params[:project_date_ids]).update_all(available: true) && @project_dates.where.not(id: params[:project_date_ids]).update_all(available: false)
@@ -108,7 +109,7 @@ class ProjectsController < DashboardController
       flash[:notice] = "You've updated the available dates for #{@project.title}."
     else 
       # redirect_to  project_path(@project)
-      redirect_to  project_available_dates_path(project_id: @project.id, source: 'new')
+      redirect_to  project_available_dates_path(project_id: @project.id, source: 'new'), data: {no_turbolink: true}
       format.json { render json: @project.errors, status: :unprocessable_entity }
     end
   end

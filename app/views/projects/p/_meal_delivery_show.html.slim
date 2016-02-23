@@ -102,7 +102,7 @@ css:
                   div class="avail-#{event.available}"
                     =  event.schedule_date.strftime("%a., %B %d, %Y")
               = link_to "EDIT AVAILABILITY",  project_available_dates_path(project_id: @project.id, source: 's'),  :class => 'btn btn-orange-alt btn-md '
-              = link_to "CHANGE DATE RANGE",  project_edit_date_range_path(project_id: @project.id, source: 's', :anchor =>"topwrapper"),  :class => 'btn btn-aqua btn-md mt10'
+              = link_to "CHANGE DATE RANGE",  project_edit_date_range_path(project_id: @project.id, source: 's', :anchor =>"topwrapper"),  :class => 'btn btn-aqua btn-md mt10', data: {no_turbolink: true}
           -else
             strong
               |You have not set a date range for the project.

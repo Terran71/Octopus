@@ -13,12 +13,12 @@
         h4
           strong
             |Organizer
-        = link_to new_project_path(project_type_code: params[:project_type_code], participant_role_code: 1)
+        = link_to new_project_path(project_type_code: params[:project_type_code], participant_role_code: 1), data: {no_turbolink: true}
            = image_tag 'https://s3-us-west-2.amazonaws.com/makeparty/app/roles/organizer.png', alt: 'Organizer', width: '75px'
       div width="50%" style="border: 2px solid #eee; float:left"
         h4
           strong
             |Organizer/Recipient
-        = link_to new_project_path(project_type_code:  params[:project_type_code] , participant_role_code: 2)
+        = link_to new_project_path(project_type_code:  params[:project_type_code] , participant_role_code: 2), data: {no_turbolink: true}
            = image_tag 'https://s3-us-west-2.amazonaws.com/makeparty/app/roles/org-recip.png', alt: 'Organizer/Recipient', width: '75px'
    

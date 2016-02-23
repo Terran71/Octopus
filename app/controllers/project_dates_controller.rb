@@ -53,7 +53,7 @@ class ProjectDatesController < DashboardController
   # POST /project_dates.json
   def add_event
     if @project_date.update_attributes(project_date_params)
-      redirect_to project_project_date_path(project_id: @project.id, id: @project_date.id) 
+      redirect_to project_project_date_path(project_id: @project.id, id: @project_date.id), data: {no_turbolink: true} 
       flash[:notice] ='Event was successfully created.'
     else
       # redirect_to  project_project_date_path(project_id: @project.id, id: @project_date.id )
