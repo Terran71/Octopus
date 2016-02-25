@@ -20,12 +20,13 @@ class ImporterTool < ActiveRecord::Base
         custom_address_hash(current_user_id, import_hash,address_kind, us_state, country)
 
       elsif import_source == "google"
-        
-        us_state = USState.find_by_code(import_hash["#{address_kind.titleize}  State"])
+
+        us_state = USState.find_by_code(import_hash["#{address_kind.titleize} State"])
+        puts "#{us_state}" * 1000
         us_state_id = us_state.id unless us_state.blank?
         country_code = "US" #refactor
         country = Country.find_by_code(country_code) || Country.find_by_code("US")
-        google_address_hash(current_user_id, import_hash, address_kind, us_state, country)
+        google_address_hash(current_user_id, import_hash, address_kind, us_state_id, country)
       # elsif address_kind == "work"
       # end
       elsif import_source == "apple"
@@ -54,10 +55,11 @@ class ImporterTool < ActiveRecord::Base
    def google_contact_hash(current_user_id, import_hash)
          {
             first_name: import_hash["First Name"],
-            middle_name: import_hash["First Name"],
+            middle_name: import_hash["Middle Name"],
             last_name: import_hash["Last Name"],
             prefix: import_hash["Title"],
             suffix: import_hash["Suffix"],
+            # nickname: import_hash["Nickname"],
             url: import_hash["Web Page"],
             gender: import_hash["Gender"],
             birthday: import_hash["Birthday"],

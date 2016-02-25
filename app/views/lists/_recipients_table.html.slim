@@ -7,7 +7,7 @@ table.octopus-table
     th width= '130px'
       | Updated
     th width= '110px'
-      |Edited by
+      |Added by
     / th width= '90px'
     /   | Status
  
@@ -16,7 +16,7 @@ table.octopus-table
     - @list.guests.each do |guest|
       tr
         td
-          = guest.name
+          = guest.contact.name_with_middle
         td
           small
             = guest.contact.default_address
@@ -24,8 +24,9 @@ table.octopus-table
           small
             em
               = guest.updated_at.strftime("%D at %l:%M %P ")
-        / td
-        /   small
-        /     em
-        /       = contact.editor
+        td
+          small
+            em
+              / = guest.editor
+
      

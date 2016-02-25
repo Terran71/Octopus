@@ -34,7 +34,7 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { :host => ENV['APPLICATION_WEB_HOSTNAME'] }
   ActionMailer::Base.default :from => Rails.application.config.email_from_address
 
-
+  config.action_mailer.asset_host = ENV['APPLICATION_WEB_HOSTNAME'] 
   # Code is not reloaded between requests.
   config.cache_classes = true
 

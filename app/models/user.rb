@@ -118,10 +118,11 @@ class User < ActiveRecord::Base
   validates :last_name, presence: {message: "Please enter a last name."}
   validates :email, presence: {message: "Please enter an email."}
   validates_format_of :email, :with => EMAIL_REGEX, :message => "This is not an email"
-  validates :email, uniqueness: { case_sensitive: false,  :message => "Looks like you're already registered! Login now." }
   validates :password, presence: true, :confirmation => true, length: {minimum: 6}, :if => :password
   validates :accept_terms, :acceptance => {:accept => true,  :message => "Please accept the terms of service"}
-  
+  validates :email,
+    uniqueness: {case_sensitive: false,   message: "Looks like you're already registered! Login now or click on the forgotten password link to recover your account."}, 
+    if: 'email.present?'
   #enums
     GENDERS = [:unspecified, :female, :male, :other]
   enum gender: GENDERS
@@ -134,6 +135,8 @@ class User < ActiveRecord::Base
   has_many :participant_roles, through: :participants
   has_many :feedbacks_edited, class_name: 'Feedback', foreign_key: 'editor_user_id'
   has_many :imported_contacts, class_name: 'Contact', foreign_key: 'importer_user_id'
+  has_many :households,  through: :imported_contacts
+
   has_many :imported_addresses, class_name: 'Address', foreign_key: 'importer_user_id'
 
   has_many :feedbacks
@@ -162,8 +165,12 @@ class User < ActiveRecord::Base
   # has_many :roles, dependent: :destroy
   # has_many :roles_edited,  class_name: "Role",  foreign_key: "editor_user_id"
 
+
+
   #nested
-  accepts_nested_attributes_for :profile
+
+  accepts_nested_attributes_for :addresses
+
   # accepts_nested_attributes_for :project
 
   #scopes

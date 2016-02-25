@@ -1,10 +1,10 @@
 class AddHouseholdJob < ActiveJob::Base
 
   def self.perform(current_user_id, contact_array, status)
-    if status == "unconfirmed" 
+    if status == "pending" 
       @contacts = contact_array
 
-      @contacts.order(created_at: :asc).each do | contact|
+      @contacts.each do | contact|
         if contact.is_member_of_household?
           @household = contact.household
 
@@ -13,7 +13,7 @@ class AddHouseholdJob < ActiveJob::Base
         end
       end
     
-      default_address_id = find_new_default_address_id(contact_array)
+      default_address_id = @household.find_new_default_address_id(contact_array)
       @household.update_attributes(name: @household.default_name(contact_array),
                                     default_address_id: default_address_id, 
                                     editor_user_id: current_user_id,

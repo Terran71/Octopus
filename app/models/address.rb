@@ -40,6 +40,37 @@ class Address < ActiveRecord::Base
     "#{self.address_1} #{self.address_2} #{self.city} #{self.state_or_province_code} #{self.postal_code}"
   end
 
+  def missing
+
+    if !is_complete?
+      if address_1.blank? 
+        address_street = "Missing Street Address"
+      else
+        # address_street = nil
+      end 
+      if city.blank?
+        city_name = "Missing City"
+      else
+        # city_name = nil 
+      end
+
+      if postal_code.blank?
+        postal_code_info = "Missing Zip/Postal Code"
+      else
+        # postal_code_info = city 
+      end
+
+        if us_state_id.blank?
+        state = "Missing State"
+      else
+        # state = USState.find(us_state_id).code
+      end
+    
+      [address_street, city_name, state, postal_code_info ]
+    end
+
+  end
+
   def google_maps_link
     "http://maps.google.com/?q= #{self.full_address}"
   end

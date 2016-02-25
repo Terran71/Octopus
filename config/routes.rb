@@ -63,12 +63,19 @@ Rails.application.routes.draw do
 
   get 'projects/roles/:project_type_code', to: 'projects#roles', as: :role_project
 
+  resources :contacts, except: [:show]
+  get 'contacts/import_results', to: 'contacts#import_results', as: :import_results
+
+
   resources :projects , except: [:new] do 
     get 'recipients', to: 'projects#recipients', as: :add_recipients
 
     resources :dashboard, only: [:index]
     resources :invites, only: [:show]
     get 'resend_invite/:id', to: 'invites#resend_invite', as: :resend_invite
+
+
+
     resources :lists, except: [:show]
     resources :participants
     resources :project_dates, only: [:show]
@@ -126,6 +133,8 @@ Rails.application.routes.draw do
      resources :contributors, only: [:index, :show]
 
   end
+
+
 
   # constraints({ subdomain: "blog" }) do
   #   namespace :blog , path: "" do

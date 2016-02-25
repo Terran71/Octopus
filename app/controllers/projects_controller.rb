@@ -39,8 +39,6 @@ class ProjectsController < DashboardController
   # end
 
    def new
-    
-   
     @participant_role_type = parsing_roles(params[:participant_role_code])
     @project.create_organizer(@participant_role_type, current_user, @project)
     @project.participants.build
@@ -123,7 +121,7 @@ class ProjectsController < DashboardController
   def update_available_dates
     date_formatterdate_formatter
     @project_dates = @project.project_dates.order(schedule_date: :asc)
-    logger.debug { "project_dates: #{params[:project_date_id]}" }
+    # logger.debug { "project_dates: #{params[:project_date_id]}" }
     if   @project_dates.where(id: params[:project_date_ids]).update_all(available: true) && @project_dates.where.not(id: params[:project_date_ids]).update_all(available: false)
       return   redirect_to  project_path(@project)
       flash[:notice] = "You've updated the available dates for #{@project.title}."

@@ -8,9 +8,13 @@ class FindHouseholdsJob < ActiveJob::Base
 
       other_contacts.each do |other_contact|
         puts "checking #{contact.name} and #{other_contact.name}"
-        if contact.maybe_household_with?(other_contact)
-          AddHouseholdJob.perform(current_user.id, @contacts, "unconfirmed")
-          
+        if contact.maybe_household_with?(other_contact) && contact.household.blank? &&
+           other_contact.household.blank?
+
+           possible_household = [other_contact,  contact]
+          AddHouseholdJob.perform(current_user.id, possible_household, "pending")
+          puts "#{contact.name}  MAYBE household with #{other_contact.name}"
+
 #           AddFlagJob.perform("Contact", contact.id, "Potential Household
 # ", "Are these two in the same household?", "Contact", other_contact.id )
         else

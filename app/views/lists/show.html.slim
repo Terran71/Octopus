@@ -2,7 +2,7 @@ css:
   .smallandthick {text-transform: uppercase; font-size: 10px; letter-spacing: 2px; font-weight: 800, color: #999}
   .panel-octopus .add-recipients {background: #eee; margin-top: 20px; padding: 20px}
 
-- @source = "new project"
+- @source = "Create Mailing List"
 - title "Create a Mailing List" 
 .container.pt50
   .panel-row.panel-row-900 
@@ -52,8 +52,7 @@ css:
 
         - if @list.guests.present?
           = render partial: "recipients_table"
-        - if current_user.contacts.present?
-          = render partial: "/lists/contacts_table"
+       
         = link_to new_list_path, class: 'btn btn-orange btn-block btn-lg upcase'
           i.fa.fa-plus
           |  add  list

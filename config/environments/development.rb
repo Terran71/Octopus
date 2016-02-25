@@ -6,7 +6,6 @@ Rails.application.configure do
   # since you don't have to restart the web server when you make code changes.
   config.cache_classes = false
 
-
   # Eager load so we get the subclasses of Role to load
   # Note that this might backfire with a performance hit, so we may need to be
   # more precise.
@@ -54,6 +53,7 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = { :address => "localhost", :port => 1025 }
 
   config.action_mailer.default_url_options = { host: 'localhost', port: 5000 }
+  config.action_mailer.asset_host = { host: 'localhost', port: 5000 }
 
 
   # Note: CarrierWave by default will store in /public/uploads/...

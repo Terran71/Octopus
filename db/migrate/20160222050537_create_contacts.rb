@@ -9,6 +9,7 @@ class CreateContacts < ActiveRecord::Migration
       t.string :middle_name
       t.string :last_name
       t.string :suffix
+      t.string :nickname
       t.string :email
       t.string :url
       t.string :gender

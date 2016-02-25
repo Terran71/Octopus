@@ -279,6 +279,7 @@ ActiveRecord::Schema.define(version: 20160223161512) do
   create_table "contact_households", force: :cascade do |t|
     t.integer  "contact_id"
     t.integer  "household_id"
+    t.integer  "status"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
   end
@@ -412,12 +413,14 @@ ActiveRecord::Schema.define(version: 20160223161512) do
     t.integer  "editor_contact_id"
     t.string   "owner_type"
     t.integer  "owner_id"
+    t.string   "secondary_owner_type"
+    t.integer  "secondary_owner_id"
     t.string   "category"
     t.string   "note"
     t.integer  "status"
-    t.boolean  "critical",          default: false
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.boolean  "critical",             default: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
   end
 
   create_table "guest_households", force: :cascade do |t|
@@ -458,12 +461,13 @@ ActiveRecord::Schema.define(version: 20160223161512) do
 
   create_table "households", force: :cascade do |t|
     t.integer  "editor_user_id"
-    t.integer  "user_id_id"
+    t.integer  "importer_user_id"
+    t.integer  "status"
     t.string   "name",                 default: "",     null: false
     t.integer  "default_address_id"
     t.string   "default_address_name", default: "Home"
     t.string   "second_address_name",  default: "Home"
-    t.integer  "second__address_id"
+    t.integer  "second_address_id"
     t.datetime "created_at",                            null: false
     t.datetime "updated_at",                            null: false
   end
