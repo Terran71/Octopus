@@ -9,8 +9,8 @@
           span.light
             = @project.full_title
           |   
-          - if params[:participant_role_code].to_i == 2
-            = current_user.name
+          
+          = render partial: "/projects/p/recipient_names"
       - else
         .panel-title.small-panel-title
           .fa.fa-pencil

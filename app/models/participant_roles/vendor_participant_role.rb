@@ -2,7 +2,7 @@ class VendorParticipantRole < ParticipantRole
 
 
 
-  def name
+  def kind
     'Vendor'
   end
   

@@ -13,7 +13,7 @@ class RecipientParticipantRole < ParticipantRole
     1
   end
 
-  def name
+  def kind
     'Recipient'
   end
   

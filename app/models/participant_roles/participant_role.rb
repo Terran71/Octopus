@@ -24,7 +24,7 @@ class ParticipantRole < ActiveRecord::Base
 
   default_scope -> { includes(:project)}
 
-  def name
+  def kind
     '???'
   end
 
@@ -65,8 +65,14 @@ class ParticipantRole < ActiveRecord::Base
   #   false
   # end
 
+ 
+ def first_name
+    self.participant.user.first_name
+ end
 
-
+  def name
+    self.participant.name
+ end
 
   def is_recipient?
     false

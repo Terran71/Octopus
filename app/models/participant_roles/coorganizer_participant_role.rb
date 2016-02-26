@@ -1,6 +1,6 @@
 class CoorganizerParticipantRole < CommitteeParticipantRole
 
-  def name
+  def kind
     'Co-Organizer'
   end
   

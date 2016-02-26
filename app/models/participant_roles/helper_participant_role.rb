@@ -8,7 +8,7 @@ class HelperParticipantRole < ViewerParticipantRole
     ].flatten
   end
 
-  def name
+  def kind
     'Helper'
   end
   

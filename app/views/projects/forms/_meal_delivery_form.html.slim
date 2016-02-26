@@ -24,14 +24,14 @@
 
 
     .form-group
-      - if params[:participant_role_code].to_i == 2
+      - if current_user.is_recipient(@project.id)
         label.control
           | Meal Deliveries for
-        = current_user.name
+        br/
         = f.simple_fields_for :honored_guests do |ff|
           = render partial: '/projects/forms/honored_guest_field', locals: {f: ff}
         = 
-      - else
+      - elsif !current_user.is_recipient(@project.id)
         label.control
           | Who are the Meal Deliveries For?
           abbr title="required"

@@ -8,7 +8,7 @@ class CommitteeParticipantRole < HelperParticipantRole
     ].flatten
   end
 
-  def name
+  def kind
     'Committee Member'
   end
   

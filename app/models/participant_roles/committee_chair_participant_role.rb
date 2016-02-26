@@ -8,7 +8,7 @@ class CommitteeChairParticipantRole < CommitteeParticipantRole
   #   ].flatten
   # end
 
-  def name
+  def kind
     'Committee Chair'
   end
   

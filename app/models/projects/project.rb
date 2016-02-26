@@ -231,6 +231,8 @@ end
     self.participant_roles.accepted.find_all{|r| r.can_organize? == true}
   end
 
+  
+
   # def project_recipients_group(length)
   #   if length == 'short'
   #     project_recipients.each.map{ |r| r.first_name }.join(" & ")

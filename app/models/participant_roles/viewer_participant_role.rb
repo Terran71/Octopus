@@ -2,7 +2,7 @@ class ViewerParticipantRole < ParticipantRole
 
 
 
-  def name
+  def kind
     'Viewer'
   end
   
