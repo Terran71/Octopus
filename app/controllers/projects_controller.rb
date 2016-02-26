@@ -23,6 +23,8 @@ class ProjectsController < DashboardController
 
   def roles
     @project = Project.new(type:  project_code_to_type(params[:project_type_code]))
+    @project.participants.build
+    @project.participant_roles.build
   end
 
   # def new
@@ -41,7 +43,7 @@ class ProjectsController < DashboardController
    def new
     @participant_role_type = parsing_roles(params[:participant_role_code])
     # @project.create_organizer(@participant_role_type, current_user)
-    @project.participants.build
+    # @project.participants.build
     @project.addresses.build
     @project.honored_guests.build
   end
@@ -50,10 +52,13 @@ class ProjectsController < DashboardController
     @project.addresses.build
   end
   def create
-    @project = Project.create(type: project_code_to_type(params[:project_type_code]))
+    puts "#{project_params}" * 1000
+    @project = Project.new(project_params)
+    participant_role_type = params[:participant_role_type]
     if @project.save
-      @project.create_organizer(participant_code_to_type(params[:participant_code]), current_user)
-      redirect_to new_project_path(id: @project.id, project_type_code: params[:project_type_code], participant_role_code: 1), data: {no_turbolink: true}
+      @project.create_organizer(participant_role_type, current_user)
+      # @project.create_organizer(participant_code_to_type(params[:participant_code]), current_user)
+      redirect_to new_project_path(id: @project.id, ), data: {no_turbolink: true}
     else
       redirect_to root_path #refactor make error
     end

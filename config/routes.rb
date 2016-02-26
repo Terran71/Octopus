@@ -60,7 +60,7 @@ Rails.application.routes.draw do
   resources :new_baby_meal_delivery_projects, :controller => 'projects', except: [:new]
   get 'projects/kinds', to: 'projects#kinds', as: :project_kinds
 
-  get 'projects/new/:id/:project_type_code/:participant_role_code', to: 'projects#new', as: :new_project
+  get 'projects/new/:id', to: 'projects#new', as: :new_project
 
   get 'projects/roles/:project_type_code', to: 'projects#roles', as: :role_project
   get 'add_project', to: 'projects#create', as: :add_project

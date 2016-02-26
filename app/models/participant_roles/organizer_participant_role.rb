@@ -1,4 +1,4 @@
-class OrganizerParticipantRole < CoorganizerParticipantRole
+class OrganizerParticipantRole < ParticipantRole
 
 
   def self.types

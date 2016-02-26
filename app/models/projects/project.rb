@@ -261,12 +261,20 @@ end
   end
 
   def create_organizer(participant_role_type, current_user)
-    participant = Participant.create!(email: current_user.email, project_id: self.id, status: "accepted")
+    participant = self.participants.find_by_email(current_user.email)
+
     self.organizer_participant_id = participant.id
     self.save
-    ParticipantRole.create!(type: participant_role_type, project_id: self.id,  
+    if participant_role_type == "OrganizerParticipantRole"
+      puts "#{participant_role_type} " * 1000
+    OrganizerParticipantRole.create!(project_id: self.id,  
+                            participant_id: participant.id, start_date: Date.today,  status: "accepted", 
+                            grantor_participant_id:  participant.id, editor_participant_id: participant.id )
+    elsif participant_role_type == "RecipientOrganizerParticipantRole"
+      RecipientOrganizerParticipantRole.create!(project_id: self.id,  status: "accepted", 
                             participant_id: participant.id, start_date: Date.today, 
                             grantor_participant_id:  participant.id, editor_participant_id: participant.id )
+    end
   end
 
   # def create_organizer(participant_role)
