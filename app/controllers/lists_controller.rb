@@ -32,6 +32,7 @@ class ListsController < DashboardController
 
   def import
     Contact.import(params[:file], params[:list_id], current_user.id, params[:auto_add_to_list], params[:import_source])
+    FindHouseholdsJob.perform(current_user)
     redirect_to import_results_url(list_id: params[:list_id]), notice: "Recipients imported."
   end
 

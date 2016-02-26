@@ -25,6 +25,11 @@ module ApplicationHelper
     time.respond_to?(:strftime) ? time.strftime("%B %e, %Y at %I:%M %p") : ""
   end
 
+  def title
+    base_title = "Octopus || Need 8 Hands?"
+    @title.nil? ? base_title : "Octopus || #{@title}"
+  end
+
  
 
   def active_page(root_path)

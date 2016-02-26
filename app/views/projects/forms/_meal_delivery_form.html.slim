@@ -1,5 +1,5 @@
 
-= simple_form_for @project, multipart: true do |f|
+= simple_form_for @project, url: project_path(id: @project.id, project_type_code: params[:project_type_code], participant_role_code: params[:participant_role_code], source: "new project"), multipart: true do |f|
   = hidden_field_tag :source, value: "new project"
 
   .panel-body.new-meal-delivery

@@ -1,7 +1,7 @@
 class AddHouseholdJob < ActiveJob::Base
 
   def self.perform(current_user_id, contact_array, status)
-    if status == "pending" 
+    if status == "pending_join" or status == "approved"
       @contacts = contact_array
 
       @contacts.each do | contact|
@@ -26,6 +26,7 @@ class AddHouseholdJob < ActiveJob::Base
         ContactHousehold.create!(status: status, contact_id: contact.id, household_id: @household.id)
 
       end
+
     end
   end
 

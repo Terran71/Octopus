@@ -108,7 +108,7 @@ end
 
 def date_formatter
 
-  if params[:project][:prep_start_datetime].present?
+  if params[:project][:prep_start_datetime].present? 
     params[:project][:prep_start_datetime] = Date.strptime(params[:project][:prep_start_datetime], '%m/%d/%Y')
   end
   if params[:project][:prep_end_datetime].present?

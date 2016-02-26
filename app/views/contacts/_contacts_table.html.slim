@@ -1,58 +1,115 @@
 css:
   .address-missing-label li {padding: 2px 8px; border-radius: 2px; color: #fff; background: #cc0000; margin: 3px; text-transform: uppercase}
   .missing-address {color: #ccc}
+  .household-members {color: #999; font-style: italic; font-size: 11px}
+- if current_user.imported_households.present?
+  table.octopus-table
+    thead
+      th width= "40px"
+        |#
+      th width= '250px'
+        |Household Name
+      th 
+        |Address
+      / th width= '130px'
+      /   | Updated
+      / th width= '90px'
+      /   | Status
+      / th width= '110px'
+      /   |Household
+      / th width= '90px'
+   
+    tbody
 
-table.octopus-table
-  thead
-    th width= '30px'
-    th width= '250px'
-      |Name
-    th 
-      |Address
-    th width= '130px'
-      | Updated
-    th width= '90px'
-      | Status
-    th width= '110px'
-      |Household
-    th width= '90px'
- 
-  tbody
+      - current_user.imported_households.order(name: :asc).each do |household|
+        tr
+          td
+            = household.contacts.count
+          td
+            = household.name
+            = household.status
+            .household-members
+              
+              = household.contacts.each.map{ |r| r.name }.join(" & ") 
+          td
+            - if household.default_address.present?
+              small
+                = household.default_address.full_address
+            -elsif household.addresses.first.present?
+              em
+                .missing-address
+                  = household.addresses.first.full_address
+              ul.list-inline.address-missing-label
+                  - household.addresses.first.missing.each do |missing_info|
+                    - if missing_info.present?
+                      li
+                        = missing_info
+            -else
+              |HOUSEHOLD DOES NOT HAVE ADDRESS
+              
+          / td
+          /   small
+          /     em
+          /       = household.updated_at.strftime("%D at %l:%M %P ")
+          / td
+          /   - if household.is_on_list?(@list)
+          /     |ADDED
+          /   - else
+          /     |add to list
+        
+       
+- else
+  table.octopus-table
+    thead
+      th width= '30px'
+      th width= '250px'
+        |Name
+      th 
+        |Address
+      th width= '130px'
+        | Updated
+      th width= '90px'
+        | Status
+      th width= '110px'
+        |Household
+      th width= '90px'
+   
+    tbody
 
-    - current_user.imported_contacts.each do |contact|
-      tr
-        td
-          - if contact.household.present?
-            |H
-        td
-          = contact.name_with_middle
-        td
-          - if contact.default_address.present?
+      - current_user.imported_contacts.order(last_name: :asc).each do |contact|
+        tr
+          td
+            - if contact.household.present?
+              |H
+          td
+            = contact.name_with_middle
+          td
+            - if contact.default_address.present?
+              small
+                = contact.default_address.full_address
+            -elsif contact.addresses.first.present?
+              em
+                .missing-address
+                  = contact.addresses.first.full_address
+              ul.list-inline.address-missing-label
+                  - contact.addresses.first.missing.each do |missing_info|
+                    - if missing_info.present?
+                      li
+                        = missing_info
+            -else
+              
+          td
             small
-              = contact.default_address
-          -elsif contact.addresses.first.present?
-            em
-              .missing-address
-                = contact.addresses.first.full_address
-            ul.list-inline.address-missing-label
-                - contact.addresses.first.missing.each do |missing|
-                  - if missing.present?
-                    li
-                      = missing
-          -else
-            
-        td
-          small
-            em
-              = contact.updated_at.strftime("%D at %l:%M %P ")
-        td
-          - if contact.is_on_list?(@list)
-            |ADDED
-          - else
-            |add to list
-        td
-          small
-            em
-              = contact.household.name unless contact.household.blank?
-        td
-     
+              em
+                = contact.updated_at.strftime("%D at %l:%M %P ")
+          td
+            - if contact.is_on_list?(@list)
+              |ADDED
+            - else
+              |add to list
+          td
+            small
+              em
+                = contact.household.name unless contact.household.blank?
+          td
+       

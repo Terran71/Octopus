@@ -21,6 +21,8 @@ class CreateContacts < ActiveRecord::Migration
       t.integer :home_address_id
       t.integer :work_address_id
       t.integer :uploded_id
+      t.integer :original_contact_id
+      t.integer :status
       t.text :note
       t.timestamps null: false
     end

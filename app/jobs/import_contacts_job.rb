@@ -6,13 +6,7 @@ class ImportContactsJob < ActiveJob::Base
     Address.destroy_all
     Guest.destroy_all
     if import_source == "custom"
-      # if file_type == "CSV"
-      #   @file_type_import =  CSV.foreach(file.path, headers: true)
-      # elsif file_type == "XLS"
-      #   XLS.foreach(file.path, headers: true) 
-      # elsif  file_type == "XLSX"
-      #   XLSX.foreach(file.path, headers: true)
-      # end
+ 
       CSV.foreach(file.path, headers: true)do |row|
         import_hash = row.to_hash
         contact_hash = ImporterTool.find_contact_hash_from(current_user_id, import_source, import_hash)

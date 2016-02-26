@@ -20,10 +20,12 @@
 //= require plugins/jquery.datepair
 //= require plugins/jquery.timepicker
 //= require plugins/mask.min
+//= require plugins/lc_switch
 
 //= require custom
 //= require hideshows
 //= require custom-timedate
+//= require forms
 
 //= require facebook
 //= require cocoon

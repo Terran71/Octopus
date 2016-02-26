@@ -12,7 +12,7 @@ class ContactsController < ApplicationController
   respond_to :html
 
   def index
-    @contacts = current_user.contacts_imported
+    @contacts = current_user.imported_contacts
   end
 
   def import_results

@@ -260,11 +260,11 @@ end
     self.participant_roles.any?{|r| r.kind_of?(HelperParticipantRole)}
   end
 
-  def create_organizer(participant_role_type, current_user, project)
-    participant = Participant.create!(email: current_user.email, project_id: project.id, status: "accepted")
+  def create_organizer(participant_role_type, current_user)
+    participant = Participant.create!(email: current_user.email, project_id: self.id, status: "accepted")
     self.organizer_participant_id = participant.id
-    # parsed_role = parsing_roles(participant_role_code)
-    ParticipantRole.create!(type: participant_role_type, project_id: self.id, 
+    self.save
+    ParticipantRole.create!(type: participant_role_type, project_id: self.id,  
                             participant_id: participant.id, start_date: Date.today, 
                             grantor_participant_id:  participant.id, editor_participant_id: participant.id )
   end

@@ -296,6 +296,7 @@ ActiveRecord::Schema.define(version: 20160223161512) do
     t.string   "middle_name"
     t.string   "last_name"
     t.string   "suffix"
+    t.string   "nickname"
     t.string   "email"
     t.string   "url"
     t.string   "gender"
@@ -307,9 +308,11 @@ ActiveRecord::Schema.define(version: 20160223161512) do
     t.integer  "home_address_id"
     t.integer  "work_address_id"
     t.integer  "uploded_id"
+    t.integer  "original_contact_id"
+    t.integer  "status"
     t.text     "note"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
   end
 
   add_index "contacts", ["importer_user_id"], name: "index_contacts_on_importer_user_id", using: :btree
@@ -430,7 +433,6 @@ ActiveRecord::Schema.define(version: 20160223161512) do
   end
 
   create_table "guests", force: :cascade do |t|
-    t.integer  "list_recipient_id"
     t.integer  "contact_id"
     t.integer  "meal_option_id"
     t.integer  "guest_household_id"
@@ -442,7 +444,6 @@ ActiveRecord::Schema.define(version: 20160223161512) do
 
   add_index "guests", ["contact_id"], name: "index_guests_on_contact_id", using: :btree
   add_index "guests", ["guest_category_id"], name: "index_guests_on_guest_category_id", using: :btree
-  add_index "guests", ["list_recipient_id"], name: "index_guests_on_list_recipient_id", using: :btree
 
   create_table "honored_guests", force: :cascade do |t|
     t.integer  "project_id"

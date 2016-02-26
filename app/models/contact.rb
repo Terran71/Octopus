@@ -9,9 +9,17 @@ class Contact < ActiveRecord::Base
   has_many :lists, through: :list_recipients
 
   has_many :addresses, class_name: "Address", foreign_type: "Contact", foreign_key: 'owner_id', dependent: :destroy
-  has_one :contact_household
+  has_one :contact_household, dependent: :destroy
   has_one :household, through: :contact_household
   belongs_to :user_editor, class_name: "User",  foreign_key: "user_id"
+
+
+  enum status: [:unknown ,  :pending_new, :pending_edit, :pending_discard, :rejected, :approved]
+  scope :not_pending_discard, -> { where.not(status: 3) }
+
+    # default_scope -> { where(status: 4)}
+
+
 
 def self.import(file, set_list_id)
   
@@ -134,9 +142,13 @@ end
   end
 
   def maybe_household_with?(other_contact)
+    self.household.blank? && other_contact.household.blank? && 
     self.shares_last_name?(other_contact)  &&
      self.shares_city?(other_contact) 
+
   end
+
+
 
   def shares_city?(other_contact) 
 
@@ -159,6 +171,16 @@ end
       self.default_address.address_1 == other_contact.default_address.address_1 if  self.address_1.present? 
     end
   end
+
+  def find_first_name(which_name)
+    if which_name == "first"
+      "FirstContact"
+    elsif which_name == "second"
+       "SecondContacts"
+    end
+  end
+
+  
 
 
   

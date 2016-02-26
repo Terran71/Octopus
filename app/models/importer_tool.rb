@@ -48,7 +48,8 @@ class ImporterTool < ActiveRecord::Base
         home_phone: import_hash["home_phone"],
         url: import_hash["url"],
         importer_user_id: current_user_id,
-        editor_user_id: current_user_id
+        editor_user_id: current_user_id,
+        status: "approved"
       }
    end
 
@@ -70,6 +71,8 @@ class ImporterTool < ActiveRecord::Base
             home_phone: import_hash["Home Phone"],
             importer_user_id: current_user_id,
             editor_user_id: current_user_id,
+            status: "approved"
+
           }
    end
 

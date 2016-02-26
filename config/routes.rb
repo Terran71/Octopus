@@ -56,15 +56,21 @@ Rails.application.routes.draw do
   # get '/page/:page_id' => 'site#page', as: :site_page
 
   resources :projects, except: [:new, :show]
+
   resources :new_baby_meal_delivery_projects, :controller => 'projects', except: [:new]
   get 'projects/kinds', to: 'projects#kinds', as: :project_kinds
 
-  get 'projects/new/:project_type_code/:participant_role_code', to: 'projects#new', as: :new_project
+  get 'projects/new/:id/:project_type_code/:participant_role_code', to: 'projects#new', as: :new_project
 
   get 'projects/roles/:project_type_code', to: 'projects#roles', as: :role_project
+  get 'add_project', to: 'projects#create', as: :add_project
 
   resources :contacts, except: [:show]
   get 'contacts/import_results', to: 'contacts#import_results', as: :import_results
+
+  resources :households, only: []
+  patch 'split_households', to: 'households#split_households', as: :split_households
+  patch 'join_households', to: 'households#join_households', as: :join_households
 
 
   resources :projects , except: [:new] do 

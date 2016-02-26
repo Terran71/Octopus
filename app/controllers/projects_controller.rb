@@ -40,7 +40,7 @@ class ProjectsController < DashboardController
 
    def new
     @participant_role_type = parsing_roles(params[:participant_role_code])
-    @project.create_organizer(@participant_role_type, current_user, @project)
+    # @project.create_organizer(@participant_role_type, current_user)
     @project.participants.build
     @project.addresses.build
     @project.honored_guests.build
@@ -49,34 +49,16 @@ class ProjectsController < DashboardController
   def edit
     @project.addresses.build
   end
-
   def create
     @project = Project.create(type: project_code_to_type(params[:project_type_code]))
     if @project.save
-      redirect_to new_project_path(project_type_code: params[:project_type_code], participant_role_code: 1), data: {no_turbolink: true}
+      @project.create_organizer(participant_code_to_type(params[:participant_code]), current_user)
+      redirect_to new_project_path(id: @project.id, project_type_code: params[:project_type_code], participant_role_code: 1), data: {no_turbolink: true}
     else
       redirect_to root_path #refactor make error
     end
   end
    
-
-  # def create
-  #   @project = Project.new(project_params)
-  #   date_formatter
-  #   participant_role =  params[:project][:participant_role_code]
-  #   # code =  project_type_to_code(@project.type)
-  #   respond_to do |format|
-  #     if @project.save
-  #       @project.create_organizer(participant_role.to_i)
-  #       format.html { redirect_to project_add_restrictions_path(@project, source: params[:source])}
-  #       format.json { render  :show, status: :ok, location: @project   }
-  #     else
-  #       # format.html { render  :new }
-  #       format.html { render new_project_path(project_type_code: 1, participant_role_code:  params[:project][:participant_role_code]) }
-  #       format.json { render json: @project.errors, status: :unprocessable_entity }
-  #     end
-  #   end
-  # end
 
   def update
     @source = params[:project][:source] || "show project" #refactor add option of redirecting to restrictions
@@ -84,7 +66,7 @@ class ProjectsController < DashboardController
     respond_to do |format|
       if @project.update(project_params)
         successpath = setup(@source, @project)
-           format.html { redirect_to successpath}
+           format.html { redirect_to successpath, data: {no_turbolink: true}}
            format.json { render  :show, status: :ok, location: @project   }
       else
         format.html { render :edit }
@@ -119,7 +101,7 @@ class ProjectsController < DashboardController
   end
 
   def update_available_dates
-    date_formatterdate_formatter
+    date_formatter
     @project_dates = @project.project_dates.order(schedule_date: :asc)
     # logger.debug { "project_dates: #{params[:project_date_id]}" }
     if   @project_dates.where(id: params[:project_date_ids]).update_all(available: true) && @project_dates.where.not(id: params[:project_date_ids]).update_all(available: false)

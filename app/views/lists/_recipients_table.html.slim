@@ -13,20 +13,21 @@ table.octopus-table
  
   tbody
 
-    - @list.guests.each do |guest|
-      tr
-        td
-          = guest.contact.name_with_middle
-        td
-          small
-            = guest.contact.default_address
-        td
-          small
-            em
-              = guest.updated_at.strftime("%D at %l:%M %P ")
-        td
-          small
-            em
-              / = guest.editor
+    / - @list.guests.each do |guest|
+    = @list.guests.count
+      / tr
+      /   td
+      /     = guest.contact.name
+      /   td
+      /     small
+      /       = guest.contact.default_address.full_address
+      /   td
+      /     small
+      /       em
+      /         = guest.updated_at.strftime("%D at %l:%M %P ")
+      /   td
+      /     small
+      /       em
+      /         / = guest.editor
 
      

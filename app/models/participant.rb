@@ -134,7 +134,7 @@ class Participant < ActiveRecord::Base
                         participant_id: self.id, start_date: Date.today, 
                         grantor_participant_id:  self.editor_participant_id, 
                         editor_participant_id: self.editor_participant_id )
-    ParicipantInviteJob.perform(participant_role)
+    ParticipantInviteJob.perform(participant_role)
   end
 
 

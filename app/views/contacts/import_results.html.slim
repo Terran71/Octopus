@@ -1,7 +1,7 @@
 
 
 - @source = "new project"
-- title "Create a Mailing List" 
+- @title = "Create a Mailing List" 
 .container.pt50
   .panel-row
     .panel.panel-octopus
@@ -21,10 +21,14 @@
               = @list.name
       .panel-body
         - @households = Household.all #refactor
-        - if @households.present?
+        - if @households.pending_split.present?
+          = render partial: "/contacts/split_households_table"
+
+        - elsif @households.pending_join.present?
+
           |CHECK TO SEE IF CONTACTS SHARE A HOUSEHOLD
-          = render partial: "/contacts/households_table"
-        - elsif current_user.imported_contacts.present?
+          = render partial: "/contacts/join_households_table"
+        - if current_user.imported_contacts.present?
           = render partial: "/contacts/contacts_table"
 
         

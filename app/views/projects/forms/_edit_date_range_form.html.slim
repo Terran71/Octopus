@@ -17,7 +17,7 @@
               div
                 #calendar-iconi.fa.fa-calendar
                 = @project.prep_start_datetime.strftime("%B %e, %Y ")
-                =  f.hidden_field  :prep_start_datetime,  :id => 'hiddendate',  required: true, value: @project.prep_start_datetime 
+                =  f.hidden_field  :prep_start_datetime,  :id => 'hiddendate',  required: true, value: @project.prep_start_datetime
             -else
               label.form-label.dk-aqua
                 |Start Date
