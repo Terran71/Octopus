@@ -57,10 +57,10 @@ css:
               .text.mt20
                 strong
                   |YOU CAN'T ADD HELPERS WITHOUT AN ADDRESS
-          / - else
-          /    = link_to new_project_participant_path(project_id: @project.id, participant_role: 4), class: 'btn btn-aqua btn-sm mt5'
-          /     i.fa.fa-plus
-          /       | INVITE HELPERS
+          - else
+             = link_to new_project_participant_path(project_id: @project.id, participant_role: 4), class: 'btn btn-aqua btn-sm mt5'
+              i.fa.fa-plus
+                | INVITE HELPERS
 
           
         .col-xs-12.col-sm-4

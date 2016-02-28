@@ -27,7 +27,7 @@ gem 'slim'
 gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
 gem 'therubyracer'
 gem 'twitter-bootstrap-rails', '~> 3.2', '>= 3.2.2'
-
+gem  'american_date'
 # gem 'cancancan'
 gem 'kaminari', '~> 0.16.3'
 gem 'bootstrap-kaminari-views', '~> 0.0.5'

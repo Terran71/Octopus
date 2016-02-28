@@ -106,14 +106,18 @@ module ProjectsHelper
   ]
 end
 
-def date_formatter
+def date_formatter_helper(project)
+  # project.prep_start_datetime = project.date_formatter(project.prep_start_datetime)
+  # project.prep_start_datetime = project.date_formatter(project.prep_start_datetime)
+  # project.save
+   # Date.strptime(date_params, '%m/%d/%Y')
 
-  if params[:project][:prep_start_datetime].present? 
-    params[:project][:prep_start_datetime] = Date.strptime(params[:project][:prep_start_datetime], '%m/%d/%Y')
-  end
-  if params[:project][:prep_end_datetime].present?
-    params[:project][:prep_end_datetime] = Date.strptime(params[:project][:prep_end_datetime], '%m/%d/%Y')
-  end
+#   # if params[:project][:prep_start_datetime].present? 
+#   #   params[:project][:prep_start_datetime] = Date.strptime(params[:project][:prep_start_datetime], '%m/%d/%Y')
+#   # end
+#   # if params[:project][:prep_end_datetime].present?
+#   #   params[:project][:prep_end_datetime] = Date.strptime(params[:project][:prep_end_datetime], '%m/%d/%Y')
+#   # end
 end  
 
 def set_to_active(project)
@@ -150,13 +154,13 @@ end
 def setup(source, project)
   case source ? source.to_s : nil
     when "restrictions"
-      project_add_restrictions_path(id: project.id)
+      project_add_restrictions_path(id: project.id, project_id: project.id, )
     when "verify dates"
       project_available_dates_path(id: project.id)
     when "show project"
       project_path(id: project.id)
     when "new project"
-      project_add_restrictions_path(id: project.id)
+      project_add_restrictions_path(id: project.id, project_id: project.id, )
     else
       project_path(id: project.id)
     end

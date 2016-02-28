@@ -231,7 +231,9 @@ end
     self.participant_roles.accepted.find_all{|r| r.can_organize? == true}
   end
 
-  
+   
+
+
 
   # def project_recipients_group(length)
   #   if length == 'short'
@@ -263,12 +265,10 @@ end
   end
 
   def create_organizer(participant_role_type, current_user)
-    participant = self.participants.find_by_email(current_user.email)
+    participant = self.participants.find_by_email(current_user.email) || Participant.create!(project_id: self.id, email: current_user.email)
+    # self.update_attributes!(organizer_participant_id: participant.id)
 
-    self.organizer_participant_id = participant.id
-    self.save
     if participant_role_type == "OrganizerParticipantRole"
-      puts "#{participant_role_type} " * 1000
     OrganizerParticipantRole.create!(project_id: self.id,  
                             participant_id: participant.id, start_date: Date.today,  status: "accepted", 
                             grantor_participant_id:  participant.id, editor_participant_id: participant.id )
@@ -348,9 +348,25 @@ end
   end
   
   
-  before_save :init_data
+  # before_save :reformat_dates
   after_update :add_dates
   # after_create :create_organizer
+
+
+  def reformat_dates
+
+  self.prep_start_datetime = date_formatter(self.prep_start_datetime)
+  self.prep_end_datetime = date_formatter(self.prep_end_datetime)
+
+
+  end  
+
+  def date_formatter(date_passed)
+    # date_passed.strftime("%Y-%m-%d %I:%M%P").to_date.strftime("%_d/%m")[1..-1]
+    format = "%m/%d/%Y %I:%M:%S %p"
+    Date.strptime(date_passed, format)
+  end 
+
 
   def edit_date_range_dates(current_participation_id)
     dates_in_date_range = self.event_dates
@@ -361,36 +377,44 @@ end
       end
     else
       dates_in_date_range.each do |new_date|
-        self.project_dates.create!(schedule_date: new_date, editor_participant_id: current_participation_id)
+        self.project_dates.(schedule_date: new_date, editor_participant_id: current_participation_id).first_or_create
       end  
     end
   end
 
   def event_dates
     if self.prep_start_datetime.present? &&  self.prep_end_datetime.present?
-      (self.prep_start_datetime.to_date .. self.prep_end_datetime.to_date)  
+      (self.prep_start_datetime.to_date .. self.prep_end_datetime.to_date) 
+    # elsif self.prep_start_datetime.blank? &&  self.prep_end_datetime.present?
+    #   self.prep_start_datetime = Date.today
+    #   self.save
+    #   (self.prep_start_datetime.to_date .. self.prep_end_datetime.to_date)
+      
     end    
   end
 
   
-  private
+  
 
   def add_dates
+    editor_id = self.editor_participant_id || self.organizer_participant_id || nil
     if self.is_meal_delivery?
       if event_dates.present?
         event_dates.each do |event_date|
-          self.project_dates.create!(schedule_date: event_date, editor_participant_id:  self.organizer_participant_id)
+          # if self.project_dates.where(schedule_date: event_date).blank?
+            self.project_dates.create!(schedule_date: event_date, editor_participant_id:  editor_id)
+          # end
         end
       end
     end
   end
 
 def init_data
-  self.time_start ||= '09:00:00' if new_record?
-  self.time_end ||= '16:00:00' if new_record?
+  self.time_start ||= '09:00:00' 
+  self.time_end ||= '16:00:00' 
 end
 
-
+private
   
 
   # private

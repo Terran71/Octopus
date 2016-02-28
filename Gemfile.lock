@@ -59,6 +59,7 @@ GEM
     airbrake (5.0.5)
       airbrake-ruby (~> 1.0)
     airbrake-ruby (1.0.4)
+    american_date (1.1.1)
     arel (6.0.3)
     aws-sdk (2.2.18)
       aws-sdk-resources (= 2.2.18)
@@ -642,6 +643,7 @@ PLATFORMS
 DEPENDENCIES
   acts_as_list (~> 0.7.2)
   airbrake
+  american_date
   aws-sdk
   better_errors
   bootstrap-kaminari-views (~> 0.0.5)

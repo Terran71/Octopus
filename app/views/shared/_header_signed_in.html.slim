@@ -61,6 +61,9 @@
                   li
                     = link_to project_dashboard_index_path(project_id: p.project.id)
                       = p.project.short_title.truncate(50)
+                      - if current_user.is_organizer(p.project_id)
+                        em
+                          i.fa.fa-star
                 li.divider
                 li
                   = link_to projects_path

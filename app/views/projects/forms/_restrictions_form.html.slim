@@ -9,7 +9,7 @@
         label
           strong.dk-aqua
             |Household Diet
-        .bootstrap-checkbox.orange
+        .custom-checkboxes
           .row
             = hidden_field_tag "project[restriction_ids][]", nil 
             - @restrictions.diet.each do |restriction|
@@ -21,7 +21,7 @@
         label
           strong.dk-aqua
             |Household Allergies
-        .bootstrap-checkbox.orange
+        .custom-checkboxes
           .row
             = hidden_field_tag "project[restriction_ids][]", nil 
             - @restrictions.allergy.each do |restriction|

@@ -22,13 +22,13 @@
       .form-group
         = hidden_field_tag "project[project_date_ids][]" 
         - @project.project_dates.order(schedule_date: :asc).each do |date| 
-          .checkboxes.orange
+          .custom-checkboxes
             -if date.events.present? 
               span style="color: #cacaca; font-size:20px"
                 i.fa.fa-check-square-o
               = check_box_tag "project_date_ids[]", date.id, date.available,  id: dom_id(date), :style =>'    visibility: hidden;'
             = check_box_tag "project_date_ids[]", date.id, date.available,  id: dom_id(date)
-            =  label_tag  dom_id(date), date.schedule_date.strftime("%A, %B %d, %Y"),  :class => "mp-chbx "  
+            =  label_tag  dom_id(date), date.schedule_date.strftime("%A, %B %d, %Y"),  :class => "checkbox-label "  
             - if date.events.present?
               span style="font-size:12px; color:#999"
                 = date.events.count 

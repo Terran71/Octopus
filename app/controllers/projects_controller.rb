@@ -22,7 +22,7 @@ class ProjectsController < DashboardController
   end
 
   def roles
-    @project = Project.new(type:  project_code_to_type(params[:project_type_code]))
+    @project = Project.new(type: project_code_to_type(params[:project_type_code]))
     @project.participants.build
     @project.participant_roles.build
   end
@@ -41,7 +41,7 @@ class ProjectsController < DashboardController
   # end
 
    def new
-    @participant_role_type = parsing_roles(params[:participant_role_code])
+    @project = Project.find(params[:id])
     # @project.create_organizer(@participant_role_type, current_user)
     # @project.participants.build
     @project.addresses.build
@@ -52,11 +52,11 @@ class ProjectsController < DashboardController
     @project.addresses.build
   end
   def create
-    puts "#{project_params}" * 1000
     @project = Project.new(project_params)
     participant_role_type = params[:participant_role_type]
     if @project.save
       @project.create_organizer(participant_role_type, current_user)
+      # @project.save
       # @project.create_organizer(participant_code_to_type(params[:participant_code]), current_user)
       redirect_to new_project_path(id: @project.id, ), data: {no_turbolink: true}
     else
@@ -66,11 +66,22 @@ class ProjectsController < DashboardController
    
 
   def update
-    @source = params[:project][:source] || "show project" #refactor add option of redirecting to restrictions
-    date_formatter
+    # date_formatter_helper(@project)
+    puts "#{project_params}" * 1
+    @source = params[:source] || "show project" #refactor add option of redirecting to restrictions
+    # date_formatter
+
+
+    # @project.prep_start_datetime = @project.date_formatter(@project.prep_start_datetime) if @project.prep_start_datetime.present?
+    # @project.prep_end_datetime = @project.date_formatter(@project.prep_end_datetime) if @project.prep_end_datetime.present?
+    puts "#{@project.prep_start_datetime}" * 1000
+    # @project.reformat_dates
+    # @project.save
+    # @project.add_dates(current_user)
+
     respond_to do |format|
       if @project.update(project_params)
-        successpath = setup(@source, @project)
+           successpath = setup(@source, @project)
            format.html { redirect_to successpath, data: {no_turbolink: true}}
            format.json { render  :show, status: :ok, location: @project   }
       else
@@ -106,7 +117,6 @@ class ProjectsController < DashboardController
   end
 
   def update_available_dates
-    date_formatter
     @project_dates = @project.project_dates.order(schedule_date: :asc)
     # logger.debug { "project_dates: #{params[:project_date_id]}" }
     if   @project_dates.where(id: params[:project_date_ids]).update_all(available: true) && @project_dates.where.not(id: params[:project_date_ids]).update_all(available: false)
