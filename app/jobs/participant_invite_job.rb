@@ -1,4 +1,4 @@
-class ParicipantInviteJob < ActiveJob::Base
+class ParticipantInviteJob < ActiveJob::Base
 	# queue_as :mailers
   def self.perform(participant_role)
     first_invite = participant_role.participant.received_email_logs.by_email_kind_category("invites")

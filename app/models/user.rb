@@ -8,22 +8,6 @@ class User < ActiveRecord::Base
       :omniauth_providers => [:facebook, :google_oauth2]
   mount_uploader :avatar, AvatarUploader
 
- # validates_format_of :email, :without => TEMP_EMAIL_REGEX, on: :update
-
- # def self.from_omniauth(auth_hash)
- #    # puts auth_hash.info
-
- #    user = find_or_create_by(uid: auth_hash['uid'], provider: auth_hash['provider'])
- #    user.email = auth_hash['info']['email']
- #    # user.first_name = first_name_from(auth_hash.info.name)
- #    # user.last_name = last_name_from(auth_hash.info.name)
- #    user.confirmed_at = Time.now
- #    user.accept_terms = true
- #    # user.location = auth_hash['info']['location']
- #    # user.image_url = auth_hash['info']['image']
- #    user.save!
- #    user
- #  end
 
 
   def self.from_omniauth(auth)
@@ -418,8 +402,11 @@ class User < ActiveRecord::Base
     end
   end
 
-  def friends
-    past_participants = self.projects_organized.joins(:participants).where.not(participants: {user_id: nil})
+  def friends #refactor
+    # past_participants = self.projects_organized.joins(:participants).map(&:user)
+
+    # self.projects_organized.joins(:participants).where.not(participants: {user_id: nil}).map(&:project_id)
+    # self.projects_organized.project_friends
   end
 
 

@@ -1,5 +1,5 @@
 class ProjectsController < DashboardController
-    include ProjectsHelper
+  include ProjectsHelper
 
   before_action :store_location
   before_action :authenticate_user!
@@ -27,26 +27,9 @@ class ProjectsController < DashboardController
     @project.participant_roles.build
   end
 
-  # def new
-    
-  #   # @participant_title = params[:participant_title] || 'No Title'
-  #   # @relationship = params[:relationship] || 'Self'
-  #   #refactor...make create it's own action.
-  #   @project = Project.create!(type: project_code_to_type(params[:project_type_code]))
-  #   @participant_role_type = parsing_roles(params[:participant_role_code])
-  #   @project.create_organizer(@participant_role_type, current_user, @project)
-  #   @project.participants.build
-  #   @project.addresses.build
-  #   @project.honored_guests.build
-  # end
-
-   def new
+  def new
     @project = Project.find(params[:id])
-    # @project.create_organizer(@participant_role_type, current_user)
-    # @project.participants.build
-    # @project.build_primary_address
     @project.addresses.build
-
     @project.honored_guests.build
   end
 
@@ -65,7 +48,7 @@ class ProjectsController < DashboardController
       redirect_to root_path #refactor make error
     end
   end
-   
+
 
   def update
     # date_formatter_helper(@project)
@@ -76,9 +59,9 @@ class ProjectsController < DashboardController
     respond_to do |format|
       if @project.update(project_params)
         @project.edit_date_range_dates(@current_user_participation.id)
-           successpath = setup(@source, @project)
-           format.html { redirect_to successpath, data: {no_turbolink: true}}
-           format.json { render  :show, status: :ok, location: @project   }
+        successpath = setup(@source, @project)
+        format.html { redirect_to successpath, data: {no_turbolink: true}}
+        format.json { render  :show, status: :ok, location: @project   }
       else
         format.html { render :edit }
         format.json { render json: @project.errors, status: :unprocessable_entity }
@@ -95,8 +78,8 @@ class ProjectsController < DashboardController
     @source = "verify dates"
     @project.restriction_ids = params[:project][:restriction_ids]
     @project_restriction = ProjectRestriction.new
-   
-      if @project.update_attributes(project_params)
+
+    if @project.update_attributes(project_params)
         # redirect_to  setup(@source, @project)
         redirect_to project_available_dates_path(project_id: @project.id, source: 'new'), data: {no_turbolink: true}
         flash[:notice] = "Successfully Added Food Allergies, Dietary Needs & Favorites."
@@ -104,14 +87,14 @@ class ProjectsController < DashboardController
         redirect_to  project_add_restrictions_path(project_id: @project.id, source: 'new')
         format.json { render json: @project.errors, status: :unprocessable_entity }
       end
-    
-  end
 
-  def available_dates
-  end
+    end
 
-  def update_available_dates
-    @project_dates = @project.project_dates.order(schedule_date: :asc)
+    def available_dates
+    end
+
+    def update_available_dates
+      @project_dates = @project.project_dates.order(schedule_date: :asc)
     # logger.debug { "project_dates: #{params[:project_date_id]}" }
     if  @project_dates.where(id: params[:project_date_ids]).update_all(available: true) && @project_dates.where.not(id: params[:project_date_ids]).update_all(available: false)
       return   redirect_to  project_path(@project)
@@ -138,40 +121,40 @@ class ProjectsController < DashboardController
   end
 
   def update_date_range
-    
+
    respond_to do |format|
-      if @project.update(project_params)
-         @project.edit_date_range_dates(@current_user_participation.id)
-         format.html { redirect_to project_available_dates_path(project_id: @project.id), data: {no_turbolink: true}}
-         format.json { render  :show, status: :ok, location: @project   }
-      else
-      redirect_to  project_available_dates_path(project_id: @project.id), data: {no_turbolink: true}
-      format.json { render json: @project.errors, status: :unprocessable_entity }
-      end
-    end
+    if @project.update(project_params)
+     @project.edit_date_range_dates(@current_user_participation.id)
+     format.html { redirect_to project_available_dates_path(project_id: @project.id), data: {no_turbolink: true}}
+     format.json { render  :show, status: :ok, location: @project   }
+   else
+    redirect_to  project_available_dates_path(project_id: @project.id), data: {no_turbolink: true}
+    format.json { render json: @project.errors, status: :unprocessable_entity }
   end
+end
+end
 
-  def kinds
-    
-  end
+def kinds
 
-  def recipients
-    @participant_role = params[:participant_role] || 4
+end
+
+def recipients
+  @participant_role = params[:participant_role] || 4
     # @project.honored_guests.build
   end
 
-    def invite_recipients
-      participant_role = params[:participant_role].to_i
-      @message = params[:message]
-      @project.update(project_params)
-      if   @project.save
+  def invite_recipients
+    participant_role = params[:participant_role].to_i
+    @message = params[:message]
+    @project.update(project_params)
+    if   @project.save
 
         # @recipient = params[:project][:honored_guests][:email]
         @project.honored_guests.each do |honored_guest|
           if !honored_guest.passive?
             new_participant = Participant.new(email: honored_guest.email, project_id: @project.id, 
               editor_participant_id: @current_user_participation.id,  invitor_participant_id: @current_user_participation.id, message: @message )
-           
+
             if new_participant.save
               honored_guest.participant_id = new_participant.id 
               honored_guest.save
@@ -181,29 +164,29 @@ class ProjectsController < DashboardController
             end
           end
             # self.response_body = nil
-        end  
-            set_to_active(@project)
-            redirect_to project_participants_path(project_id: @project.id, w: 1)
-      else
-        redirect_to root_path
-    end
-   end
+          end  
+          set_to_active(@project)
+          redirect_to project_participants_path(project_id: @project.id, w: 1)
+        else
+          redirect_to root_path
+        end
+      end
 
 
 
 
-private
-def set_project
-  @project = Project.find(params[:id])
-end
+      private
+      def set_project
+        @project = Project.find(params[:id])
+      end
 
-def set_source
-  if params[:source].present?
-    @source = params[:source]
-  else
-   @source = 'n'
- end
-end
+      def set_source
+        if params[:source].present?
+          @source = params[:source]
+        else
+         @source = 'n'
+       end
+     end
 
 
 
@@ -222,7 +205,7 @@ end
             addresses_attributes: [:id, :project_id, :title, :venue, :postal_code, :address_1, :address_2, :city, :us_state_id, :country_id, :website,
               :phone,  :primary],
 
-          honored_guests_attributes: [:id, :project_id, :email,  :name, :participant_id, :participant_title_id, :passive]
+              honored_guests_attributes: [:id, :project_id, :email,  :name, :participant_id, :participant_title_id, :passive]
               )
     end
 

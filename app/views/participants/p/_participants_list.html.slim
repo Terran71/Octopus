@@ -17,7 +17,7 @@ tr
       small.md-gray
         = p.created_at.strftime("%b. %e, %Y")
   td
-    = p.participant_roles.map(&:name).join(' & ')
+    = p.participant_roles.map(&:kind).join(' & ')
   / td 
   /   - if p.dormant_five_days?
   /     = link_to project_resend_invite_path(project_id: p.project_id, id: p.id, source: "index"), class: 'btn btn-xs btn-aqua'

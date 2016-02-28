@@ -56,7 +56,7 @@ css:
                 - if current_user.friends.present?
                   - current_user.friends.each do |friend|
                     .col-xs-6.col-sm-6.col-lg-4
-                      = friend.id
+                      = friend.name
 
             .form-group
               = f.input :message, label: "Write an optional message", default: "#{@default_helper_message}"
