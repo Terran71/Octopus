@@ -3,7 +3,7 @@ class ProjectsController < DashboardController
 
   before_action :store_location
   before_action :authenticate_user!
-  before_action :set_project, only: [:destroy, :update, :show, :edit, :invite_recipients, :new]
+  before_action :set_project, only: [:destroy, :update, :show, :edit, :invite_recipients, :new, :update_date_range]
   before_action :set_nested_project, only: [:restrictions, :update_restrictions, :available_dates, :update_available_dates, :recipients,
     :edit_date_range, :update_date_range, :edit_date_range]
     before_action :set_project_details, except: [:new, :index, :create, :destroy, :update, :start]
@@ -44,7 +44,9 @@ class ProjectsController < DashboardController
     @project = Project.find(params[:id])
     # @project.create_organizer(@participant_role_type, current_user)
     # @project.participants.build
+    # @project.build_primary_address
     @project.addresses.build
+
     @project.honored_guests.build
   end
 
@@ -67,20 +69,13 @@ class ProjectsController < DashboardController
 
   def update
     # date_formatter_helper(@project)
-    puts "#{project_params}" * 1
+    puts " * " * 100
     @source = params[:source] || "show project" #refactor add option of redirecting to restrictions
     # date_formatter
 
-
-    # @project.prep_start_datetime = @project.date_formatter(@project.prep_start_datetime) if @project.prep_start_datetime.present?
-    # @project.prep_end_datetime = @project.date_formatter(@project.prep_end_datetime) if @project.prep_end_datetime.present?
-    puts "#{@project.prep_start_datetime}" * 1000
-    # @project.reformat_dates
-    # @project.save
-    # @project.add_dates(current_user)
-
     respond_to do |format|
       if @project.update(project_params)
+        @project.edit_date_range_dates(@current_user_participation.id)
            successpath = setup(@source, @project)
            format.html { redirect_to successpath, data: {no_turbolink: true}}
            format.json { render  :show, status: :ok, location: @project   }
@@ -113,13 +108,12 @@ class ProjectsController < DashboardController
   end
 
   def available_dates
-    # @project_dates = @project.project_dates
   end
 
   def update_available_dates
     @project_dates = @project.project_dates.order(schedule_date: :asc)
     # logger.debug { "project_dates: #{params[:project_date_id]}" }
-    if   @project_dates.where(id: params[:project_date_ids]).update_all(available: true) && @project_dates.where.not(id: params[:project_date_ids]).update_all(available: false)
+    if  @project_dates.where(id: params[:project_date_ids]).update_all(available: true) && @project_dates.where.not(id: params[:project_date_ids]).update_all(available: false)
       return   redirect_to  project_path(@project)
       flash[:notice] = "You've updated the available dates for #{@project.title}."
     else 
@@ -136,12 +130,26 @@ class ProjectsController < DashboardController
         gon.first_available_date = (@project.prep_start_datetime + 1.day)
       else
         gon.first_available_date =   @first_event.date_start.strftime("%m/%d/%Y ")
-        gon.prep_end =   @project.prep_end_datetime
       end
+      gon.prep_start =   @project.prep_start_datetime.strftime("%m/%d/%Y ")
+      gon.prep_end =   @project.prep_end_datetime.strftime("%m/%d/%Y ")
     else
     end
   end
 
+  def update_date_range
+    
+   respond_to do |format|
+      if @project.update(project_params)
+         @project.edit_date_range_dates(@current_user_participation.id)
+         format.html { redirect_to project_available_dates_path(project_id: @project.id), data: {no_turbolink: true}}
+         format.json { render  :show, status: :ok, location: @project   }
+      else
+      redirect_to  project_available_dates_path(project_id: @project.id), data: {no_turbolink: true}
+      format.json { render json: @project.errors, status: :unprocessable_entity }
+      end
+    end
+  end
 
   def kinds
     

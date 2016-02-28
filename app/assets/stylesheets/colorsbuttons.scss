@@ -329,6 +329,12 @@ fieldset[disabled] .btn-facebook.active {
 .open .dropdown-toggle.btn-green { 
   background-image: none; 
 } 
+.btn-aqua,
+ .btn-aqua:active {
+  color: $xlt_aqua;
+  background-color: $md_orange;
+  border-color: $dk_aqua;
+}
  
 .btn-green.disabled, 
 .btn-green[disabled], 
@@ -394,7 +400,7 @@ fieldset[disabled] .btn-green.active {
 // // .btn-padded {
 // // 	margin-right: 14px;
 // }
-.btn-aqua, .badge-aqua, .label-aqua{
+ .btn-aqua, .badge-aqua, .label-aqua{
 	color: $xlt_aqua;
 	background-color: $md_aqua;
 	border-color: $dk_aqua;

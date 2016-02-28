@@ -1,3 +1,8 @@
+/ - start_date = @project.prep_start_datetime.strftime("%m %d %Y") if @project.prep_start_datetime? && @project.prep_start_datetime 
+
+/ - end_date = @project.prep_end_datetime.strftime("%m %d %Y") if @project.prep_end_datetime? && @project.prep_end_datetime 
+
+
 
 = simple_form_for @project, multipart: true do |f|
   = hidden_field_tag :source, "new project"
@@ -67,9 +72,7 @@
                 i.fa.fa-calendar
               =  f.text_field  :prep_end_datetime, class: 'form-control', id:"datetimepickerEnd"
 
-      /          - waiver_date = @contact.orig_waiver_date.strftime("%m %d %Y") if @contact.persisted? && @contact.orig_waiver_date
-      / span.form-group
-      /   = f.text_field :orig_waiver_date, {class: 'form-control waiver-date', style: 'display:inline-block;width:10%', value: waiver_date}
+          
     hr/
     .form-group
       label
@@ -91,25 +94,26 @@
               =  f.text_field  :time_end, required: true, class: 'form-control time-end', id: 'timepickerEnd', default: "18:00:00", placeholder: "6:00 PM"
     hr/
     .subgroup-address style="background: #eee; padding: 20px"
-      / = f.fields_for :addresses do |ff|
-      /   = f.hidden_field :primary, value: true
-      /   .form-group
-      /     =  ff.input :title, label: 'Location Title', required: false, :maxlength => 55, placeholder: @project.question_2
-      /   .form-group
-      /     label
-      /       |Address
-      /     =    ff.input :address_1,  label: false, required: false, :maxlength => 55, placeholder: 'Address 1'
-      /   .form-group
-      /     =    ff.input :address_2,  label: false, required: false, :maxlength => 55, placeholder: 'Address 2'
-      /   .form-group
-      /     .col-xs-12.col-sm-6.pl0
-      /       =  ff.input :city, label: false, required: false , placeholder: 'City'
-      /     .col-xs-12.col-sm-4.col-md-3.pl0
-      /       =  ff.association :us_state, label: false, required: false 
-      /     .col-xs-12.col-sm-4.col-md-3.pl0
-      /       =  ff.input :postal_code, label: false,  placeholder: 'Zip Code'
-      /     .form-group
-      /       =  ff.association :country, selected: default_country, class: "chosen-select-default"
+      = f.fields_for :addresses do |ff|
+        = f.hidden_field :primary, value: true
+        .form-group
+          =  ff.input :title, label: 'Location Title', required: false, :maxlength => 55, placeholder: @project.question_2
+        .form-group
+          label
+            |Address
+          =    ff.input :address_1,  label: false, required: false, :maxlength => 55, placeholder: 'Address 1'
+        .form-group
+          =    ff.input :address_2,  label: false, required: false, :maxlength => 55, placeholder: 'Address 2'
+        .form-group
+          .col-xs-12.col-sm-6.pl0
+            =  ff.input :city, label: false, required: false , placeholder: 'City'
+          .col-xs-12.col-sm-4.col-md-3.pl0
+            =  ff.input :us_state_id, label: false, required: false , input_html: {class: 'chosen-select-default'}, collection: USState.all
+          .col-xs-12.col-sm-4.col-md-3.pl0
+            =  ff.input :postal_code, label: false,  placeholder: 'Zip Code'
+          .form-group
+            / =  ff.association :country, selected: default_country, class: "chosen-select-default"
+            =  ff.input :country_id,  selected: default_country, label: false, required: false , input_html: {class: 'chosen-select-default'}, collection: Country.all
   - if @project.is_new?
     .panel-footer
       = f.button :submit, value: 'SAVE & PREVIEW ', :class => 'btn btn-aqua btn-lg btn-block '

@@ -8,6 +8,7 @@ class Address < ActiveRecord::Base
   belongs_to :contact, class_name: "Contact", foreign_type: "Contact", foreign_key: 'owner_id'
   belongs_to :household, class_name: "household", foreign_type: "household", foreign_key: 'owner_id'
 
+  
   # validates :address_id, uniqueness: {scope: project_id, scope: primary, message: "Looks like you've entered this one already."}
   # validates :address_id, uniqueness: {message: "not unique" }, 
   #   if: 'foundation_label.present?'

@@ -10,11 +10,13 @@
         em style="font-size:18px; line-height:normal"
           |If a date already has an appointment, you must request a reschedule before making the date unavailable.
     - if  @project.project_dates.blank? 
+      hr/
       .form-group
         h1.text-center 
           strong 
             |You have not added any dates for meal deliveries yet.
-        = link_to "SET DATE RANGE",  project_edit_date_range_path(project_id: @project.id, source: 'show', :anchor =>"topwrapper"),  :class => 'btn btn-default btn-md mt10' 
+        = link_to "SET DATE RANGE",  project_edit_date_range_path(project_id: @project.id, source: 'show', :anchor =>"topwrapper"),   data: {no_turbolink: true}, :class => 'btn btn-warning btn-lg btn-block mt10'
+        hr/
    
         = link_to 'ADD DATES LATER', project_path(@project), :class => 'btn btn-default btn-lg btn-block', :style => 'margin-bottom:-5px'  
 

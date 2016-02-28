@@ -19,6 +19,7 @@ class Project < ActiveRecord::Base
 
   has_many :participant_roles, through: :participants
   has_many :addresses, class_name: "Address", foreign_type: "Project", foreign_key: 'owner_id', dependent: :destroy
+  has_one :primary_address, class_name: "Address", foreign_type: "Project", foreign_key: 'owner_id', dependent: :destroy
 
   has_many :project_dates, dependent: :destroy
   has_many :events,  through: :project_dates
@@ -41,6 +42,8 @@ class Project < ActiveRecord::Base
  # accepts_nested_attributes_for :events, allow_destroy: true
   accepts_nested_attributes_for :participants, allow_destroy: true, reject_if: proc { |a| a["email"].blank? }
   accepts_nested_attributes_for :addresses, allow_destroy: true,   reject_if: proc { |a| a["address_1"].blank? }
+  accepts_nested_attributes_for :primary_address, allow_destroy: true,   reject_if: proc { |a| a["address_1"].blank? }
+
   accepts_nested_attributes_for :project_dates, allow_destroy: true
   accepts_nested_attributes_for :events, allow_destroy: true, reject_if: proc { |a| a["project_date_id"].blank? }
   accepts_nested_attributes_for :participant_roles, allow_destroy: true, reject_if: proc { |a| a["participant_id"].blank? }
@@ -348,7 +351,7 @@ end
   end
   
   
-  # before_save :reformat_dates
+  before_save :set_default_times
   after_update :add_dates
   # after_create :create_organizer
 
@@ -385,11 +388,7 @@ end
   def event_dates
     if self.prep_start_datetime.present? &&  self.prep_end_datetime.present?
       (self.prep_start_datetime.to_date .. self.prep_end_datetime.to_date) 
-    # elsif self.prep_start_datetime.blank? &&  self.prep_end_datetime.present?
-    #   self.prep_start_datetime = Date.today
-    #   self.save
-    #   (self.prep_start_datetime.to_date .. self.prep_end_datetime.to_date)
-      
+
     end    
   end
 
@@ -401,15 +400,15 @@ end
     if self.is_meal_delivery?
       if event_dates.present?
         event_dates.each do |event_date|
-          # if self.project_dates.where(schedule_date: event_date).blank?
+          if self.project_dates.where(schedule_date: event_date).blank?
             self.project_dates.create!(schedule_date: event_date, editor_participant_id:  editor_id)
-          # end
+          end
         end
       end
     end
   end
 
-def init_data
+def set_default_times
   self.time_start ||= '09:00:00' 
   self.time_end ||= '16:00:00' 
 end

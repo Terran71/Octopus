@@ -64,6 +64,8 @@ Rails.application.routes.draw do
 
   get 'projects/roles/:project_type_code', to: 'projects#roles', as: :role_project
   get 'add_project', to: 'projects#create', as: :add_project
+  patch 'update_date_range/:id', to: 'projects#update_date_range', as: :update_date_range
+
 
   resources :contacts, except: [:show]
   get 'contacts/import_results', to: 'contacts#import_results', as: :import_results
