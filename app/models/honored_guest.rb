@@ -45,6 +45,8 @@ class HonoredGuest < ActiveRecord::Base
   def invited_name
     if self.participant_id.present? &&  self.participant.user_id.present?
       self.participant.name
+    elsif   self.participant_id.present? &&  self.participant.user_id.blank? && self.name.blank?
+      self.email
     else
       self.name
     end

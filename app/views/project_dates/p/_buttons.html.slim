@@ -1,7 +1,7 @@
 - if location != "dashboard"
   - if current_user.is_event_creator(e.id)
     .pull-right
-      = link_to root_path, class: 'btn btn-xs btn-orange-alt'
+      = link_to root_path, class: 'btn btn-xs btn-orange-alt mr10'
         i.fa.fa-pencil
         |EDIT
   -else

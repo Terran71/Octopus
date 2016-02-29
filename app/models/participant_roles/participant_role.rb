@@ -16,7 +16,7 @@ class ParticipantRole < ActiveRecord::Base
   #has_many :participants
 
   # belongs_to :editor, class_name: "User",  foreign_key: "editor_user_id"
-  enum status: [:unknown , :invited, :pending, :accepted, :declined]
+  enum status: [:unknown , :unseen,  :invited, :pending, :accepted, :declined]
 
   #STI Requires Type
   validates :type, presence: true, allow_blank: false

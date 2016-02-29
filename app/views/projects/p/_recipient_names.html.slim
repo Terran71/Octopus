@@ -5,6 +5,6 @@
 
 - if @project.project_recipients.present? && @project.honored_guests.present?
   |  & 
-  = @project.honored_guests.map{ |r| r.completed_name }.join(" & ")
+  = @project.honored_guests.map{ |r| r.invited_name }.join(" & ")
 - elsif @project.honored_guests.invited.blank? &&  @project.honored_guests.present?
   = @project.honored_guests.map{ |r| r.completed_name }.join(" & ")

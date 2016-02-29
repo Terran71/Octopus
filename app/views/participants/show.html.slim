@@ -21,12 +21,18 @@ css:
     .panel.panel-octopus
       .panel-heading
         =@participant.name
-        small
-          - if @participant.participant_roles.present?
-            ul.label-row.list-unstyled
-              - @participant.participant_roles.each do |pr|
-                li
-                  = pr.name
+        div
+          small
+            - if @participant.participant_roles.present?
+              light
+                em
+                  = @participant.participant_roles.map{ |r| r.kind }.join(",  ")
+            / ul.label-row.list-unstyled
+            /   - @participant.participant_roles.each do |pr|
+            /     li
+            /       light
+            /         em
+            /           = pr.kind
       - if current_user.can_edit(@project.id)
         .panel-body
           .form-group.large-text

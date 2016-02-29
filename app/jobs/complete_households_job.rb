@@ -5,7 +5,7 @@ class CompleteHouseholdsJob < ActiveJob::Base
 
   def self.perform(household)
     puts "updating #{household.name} is #{household.status}"
-    puts 'EDO ' * 10000
+    puts 'EDO ' * 1000
     if household.is_approved?
 
       household.status = "finalized"
@@ -27,7 +27,7 @@ class CompleteHouseholdsJob < ActiveJob::Base
       puts "updating #{household.name} is #{household.status}"
 
     elsif household.is_rejected?
-          puts 'PEPPER ' * 10000
+          puts 'PEPPER ' * 1000
 
 
       household.contacts.pending_discard.each do |c|

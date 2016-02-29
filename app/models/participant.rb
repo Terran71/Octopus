@@ -38,7 +38,7 @@ class Participant < ActiveRecord::Base
     if self.user.present?
       self.user.name
     elsif self.honored_guest.present?
-      self.honored_guest.name
+      self.honored_guest.invited_name
     else
       self.email
     end

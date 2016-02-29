@@ -3,9 +3,22 @@ class ParticipantInviteJob < ActiveJob::Base
   def self.perform(participant_role)
     first_invite = participant_role.participant.received_email_logs.by_email_kind_category("invites")
     project = Project.find(participant_role.participant.project_id)
+
+    user = User.find_by_email(participant_role.participant.email)
+    if user.present?
+    puts 'Yes it formed' * 1000
+      participant_role.participant.user_id = user.id 
+      participant_role.participant.save
+    end
     if first_invite.blank?
        email_kind =  EmailKind.projecttype_roletype(project.category,  participant_role.type,  "invites", "first-invite")
         # email_kind = UserEmailKind.invites.where(project_type: project.category).where(role_type: participant_role.type).find_by_label("first-invite")|| EmailKind.find(1)
+       if participant_role.participant.is_recipient? 
+        honored_guest = HonoredGuest.new(project_id: participant_role.participant.project_id, participant_id: participant_role.participant_id,
+            email: participant_role.participant.email)
+        honored_guest.save
+       end
+
     else
        email_kind =  EmailKind.projecttype_roletype(project.category,  participant_role.type,  "invites", "reminder-invite")
     end
@@ -20,6 +33,8 @@ class ParticipantInviteJob < ActiveJob::Base
         puts "logged email #{email_kind.subject} "
 
         end
+
+
     end
 
             # email_kind = EmailKind.invites.where(project_type: "Meal Delivery").where(role_type: "HelperParticipantRole").find_by_label("first-invite")|| EmailKind.find(1)
