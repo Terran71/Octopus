@@ -10,8 +10,8 @@
       
 .col-md-6.col-lg-4
   article
-    / = image_tag article.image
-    = image_tag "default-hero.jpg"
+    = link_to blog_article_path(article)
+      = image_tag "default-hero.jpg"
     .preview-tile-box
       .title.preview-tiles-title
         = article.title

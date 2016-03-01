@@ -1,5 +1,7 @@
 class BlogPost < ActiveRecord::Base
   extend FriendlyId
+  include BasicScopes
+
   friendly_id :slug, use: :slugged
 
   mount_uploader :hero_img, HeroUploader
@@ -15,7 +17,7 @@ class BlogPost < ActiveRecord::Base
   has_many :meta_properties, class_name: "MetaProperty", foreign_type: "BlogPost", foreign_key: 'owner_id', dependent: :destroy
 
   has_many :tags, through: :blog_taggings
-
+  has_many :blog_post_rankings, dependent: :destroy
   has_many :blog_images, through: :blog_selected_images
   has_many :blog_selected_images, dependent: :destroy
   has_many :blog_categories, through: :blog_post_categories
@@ -28,12 +30,6 @@ class BlogPost < ActiveRecord::Base
 
   STATUSES = [:idea, :draft, :pending, :accepted, :rejected, :scheduled, :pending_edit, :archived ]
 
-  def self.types
-    [
-     BlogPostLive,
-     BlogPostVersion
-    ].flatten
-  end
 
   #Add new statuses to the end of the list. If you change this order of these than it will break the data.  
   enum status: STATUSES
@@ -43,6 +39,12 @@ class BlogPost < ActiveRecord::Base
    validates :status, presence: true
    validates :slug, uniqueness: {message: "Oops! You've already used this slug! Try adding a number to the end."}
 
+  def self.types
+    [
+     BlogPostLive,
+     BlogPostVersion
+    ].flatten
+  end
   def is_version?
     false
   end
@@ -81,6 +83,10 @@ class BlogPost < ActiveRecord::Base
   def meta_property_keywords
   end
 
+  def posted_today?
+    published_datetime == Date.today
+  end
+
   def published_corrected
     if published_datetime && self.scheduled?
       published_datetime
@@ -89,17 +95,17 @@ class BlogPost < ActiveRecord::Base
     end
   end
 
-  def popular_articles
+  # def popular_articles
 
-  end
+  # end
 
-  def featured_articles
+  # def featured_articles
 
-  end
+  # end
 
-  def newest_articles
+  # def newest_articles
 
-  end
+  # end
 
   def waiting?
     true

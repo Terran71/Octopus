@@ -1,4 +1,5 @@
 class Blog::ContributorsController < ApplicationController
+  include BlogHelper
 
   before_action :store_location
   before_action :set_contributor, except: [:index]

@@ -118,9 +118,19 @@ namespace :db do
       BlogPost.create!(b)
     end
 
+    FactoryGirl.create_list(:blog_post, 32)
+
+    posts = BlogPost.all
+    posts.each do |post|
+
+      post.generate_default_ranking
+    end
+
     YAML.load_file('db/demo_data/demo_blog_references.yml').each do |b|
       BlogReference.create!(b)
     end
+
+
 
     # YAML.load_file('db/demo_data/demo_blog_editor_notes.yml').each do |b|
     #   BlogEditorNote.create!(b)
@@ -167,6 +177,13 @@ namespace :db do
      puts 'adding email kinds'
     YAML.load_file('db/foundation_data/email_kinds.yml').each do |email_kind|
       EmailKind.create!(email_kind)
+    end
+
+    puts 'adding blog post rankings '
+        BlogPostRanking.destroy_all
+
+    YAML.load_file('db/demo_data/demo_blog_post_rankings.yml').each do |ranking|
+      BlogPostRanking.create!(ranking)
     end
    end
 end

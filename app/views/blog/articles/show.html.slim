@@ -1,7 +1,12 @@
-.container
-  .row
-    .col-sm-8.col-md-8.col-lg-8.p0
-      .white-bg style= "padding: 15px; margin-top: 15px; margin-right: 0px;"
-        = render "post_detail"
-    .col-sm-4 
+
+/ .sidebar {background: #fff; width: 350px;  padding-left: 10px; min-height: 1200px; }
+
+.container 
+  #article-wrapper 
+    section.article-main-content
+      = render "post_detail"
+    section.sidebar
       = render "blog/shared/sidebar"
+  .row
+    .col-xs-12
+      .articles-popular

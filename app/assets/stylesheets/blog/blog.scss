@@ -3,8 +3,9 @@
 
  // @import '/assets/stylesheets/variables';
 
-body, body .blog  {
-  background:  #e9eaed;
+ body, body .blog  {
+  // background:  $xlt_gray;
+  background: #fff;
   font-family:  $blog-font-stack;
   overflow-x: hidden;
   padding: 0px 0px 0px 0px;
@@ -41,30 +42,68 @@ text-align: center;
 padding: 20px
 }
 
-.white-bg {background: #fff; border: 1px solid $xlt_gray}
+.avatar { width: 25px; height: 25px; margin-top: -3px }
+
+
+.white-bg {background: #fff}
 .title {font-weight: 700; font-size: 18px; text-transform: uppercase}
-.blog header {background: #fff}
+.blog header {background: $xlt_aqua}
 .blog header .blog-title { font-family: $fontScript; color: $dk_red;
   font-size: 6em; text-align: center; width: 100%}
-.blog header .section-bar {width:100%; max-width: 900px; margin-left: auto; margin-right: auto}
-.blog header .section-bar li {border: solid $lt_aqua 2px; background: #fff; text-transform: uppercase;
-                              text-align:center; padding: 8px; margin: 5px 2px; }
-.blog header .section-bar li .active {background:$lt_aqua; color: #fff }
-.navbar-pretty-handy {margin-bottom: 0; background: #333; border-radius: 0}
-.navbar-nav > li > a {padding-top:5px !important; padding-bottom:5px !important;}
-.navbar {min-height:32px !important}
-.navbar-brand {padding-top:5px !important; padding-bottom:0 !important; height: 30px; }
+  .blog header .section-bar {width:100%; max-width: 900px; margin-left: auto; margin-right: auto; padding-bottom: 10px}
+  .blog header .section-bar li {border: solid $lt_aqua 2px; background: #fff; text-transform: uppercase;
+    text-align:center; padding: 8px; margin: 5px 2px; }
+    .blog header .section-bar li .active {background:$lt_aqua; color: #fff }
+    .navbar-pretty-handy {margin-bottom: 0; background: #333; border-radius: 0}
+    .navbar-nav > li > a {padding-top:5px !important; padding-bottom:5px !important;}
+    .navbar {min-height:32px !important}
+    .navbar-brand {padding-top:5px !important; padding-bottom:0 !important; height: 30px; }
 
-.sidebar {min-width: 320px; border-left: solid 1px $lt_gray; padding-left: 20px; }
 
-.title .article-title, .title .article-title a {font-weight: 800; text-transform: uppercase; color: $dk_aqua}
-.blog .container {max-width: 1000px; margin-bottom: 30px }
-.widget {border: solid 2px $lt_aqua; background: #fff; padding: 10px; text-align: center; margin: 15px 0}
-.ad-widget {border: none; padding: 0px; text-align: center; min-width: 300px}
+// basic article
 
-.related-widget {
+#article-wrapper {
+  border-bottom: solid 1px $lt_gray; 
 
-}
+  background: #fff;  max-width: 1030px;  float: none;   background-clip: padding-box;
+ height:auto;  overflow: hidden; margin-left: auto; margin-right: auto; margin-bottom: 20px} 
+ .article-main-content {background: #fff; max-width: 700px; clear: none; padding: 15px; margin-right: 0px; position: relative; float: left; overflow: visible} 
+ .sidebar {background: #fff; clear: none; position: relative; float: right; width: 315px; margin-left: 10px; padding-top: 30px }
+ 
+.article-main-content  header {background: #fff}
+ .article-title-container {padding-left: 5px; width: 100% }
+
+ .article-title-container h1 {font-weight: bold; color: #333; font-size: 44px; }
+ .article-social,   .socialbar-article ul{width: 100%; margin-top: 10px}
+ .article-social .sharing-item {  height: 31px; background: #eee; text-align: center; vertical-align: middle}
+ .article-social .sharing-item  a {color: #fff}
+ .article-social .sharing-item:hover { opacity: 0.7;
+ filter: alpha(opacity=70); /* For IE8 and earlier */}
+
+ .article-social .sharing-item i {font-size: 20px}
+ .article-social .facebook.sharing-item  { background:  $facebook_color; width: 90px; padding: 5px 8px}
+
+ .article-social .twitter.sharing-item {background:  $twitter_color; color: #fff; width: 90px}
+ .article-social .email.sharing-item {width: 36px; padding-left: 7px; background: #ccc; color: #fff}
+ .article-social .pinterest.sharing-item {width: 36px; padding-left: 5px; padding-right: 1px; background:  $pinterest_color; color: #fff; width: 40px; }
+ .article-social .sharing-item .txt {padding-bottom: 8px}
+ .article-social li {margin-right: 8px;  padding: 5px 3px 0px 3px; vertical-align: middle }
+
+ .widget {border: solid 2px $lt_aqua; background: #fff; padding: 10px; text-align: center; margin: 15px 0; }
+ .ad-widget {border: none; padding: 0px; text-align: center; width: 300px; height: 250px}
+
+ .about-us {width:300px}
+ .related-widget { width:300px
+
+ }
+
+ .related-articles-list {}
+
+ .articles-related {border: solid 1px $lt_gray; background: #fff;    overflow: hidden; margin-left: auto; margin-right: auto; margin-bottom: 20px} 
+
+ .title .article-title, .title .article-title a {font-weight: 800; text-transform: uppercase; color: $dk_aqua}
+// .blog .container {max-width: 1000px; margin-bottom: 30px }
+
 
 .related-widget .tabs {}
 
@@ -76,26 +115,27 @@ padding: 20px
 .widget .social-row  li i { font-size: 24px;}
 
 .sidebar .about-us, .sidebar .about-us a {font-weight: 800; font-size: 36px; text-transform: uppercase}
-.social i{ font-size: 42px; color: $lt_aqua}
+// .social i{ font-size: 42px; color: $lt_aqua}
 
 .category-badge li, .category-badge li a{text-transform: uppercase; color: $lt_gray; font-size: 12px; background: #fff}
 
 .tag-badge li, .tag-badge li a {text-transform: uppercase; background: $lt_gray; color: #fff; font-size: 10px}
-.blog .author, .blog .author a { font-weight: 300; font-size: 14px; font-style: italic; color: $md_gray}
+.blog .contributor, .blog .contributor a { font-weight: bold; font-size: 14px; font-style: italic; color: $dk_gray; margin-bottom: 5px }
+.blog .contributor a:hover {color: $md_orange}
 .blog .published, .blog .published i  {font-size: 12px; color: $md_gray}
 
 .blog .article-lead, .blog .article-body,  .blog .article-body {  text-align: justify;
-                                            text-justify: inter-word; color: #555; letter-spacing: 1.7; 
-                                            font-family: $font-stack; }
-.blog .article-lead a:hover, .blog .article-body a:hover {text-decoration: underline}
+  text-justify: inter-word; color: #555; letter-spacing: 1.7; 
+  font-family: $font-stack; }
+  .blog .article-lead a:hover, .blog .article-body a:hover {text-decoration: underline}
 
-.blog .article-lead { font-size: 22px; margin-bottom: 20px; line-height:28px;}
-.blog .article-body { font-size: 16px; line-height: 28px;}
+  .blog .article-lead { font-size: 22px; margin-bottom: 20px; line-height:28px;}
+  .blog .article-body { font-size: 16px; line-height: 28px;}
 
-.blog  .preview-tile-box {height: 120px}
-.blog .preview-tiles {text-align: justify; font-size: 14px; line-height: 18px;
-                                            text-justify: inter-word; color: #555; letter-spacing: 1.5; 
-                                            font-family: $font-stack;}
+  .blog  .preview-tile-box {height: 120px}
+  .blog .preview-tiles {text-align: justify; font-size: 14px; line-height: 18px;
+    text-justify: inter-word; color: #555; letter-spacing: 1.5; 
+    font-family: $font-stack;}
 
 // #comments
 

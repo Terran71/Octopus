@@ -1,5 +1,6 @@
 class Blog::ArticlesController < ApplicationController
   include MetaTagsHelper
+  include BlogHelper
 
   before_action :store_location
   before_action :set_article, except: [:index]
@@ -57,6 +58,8 @@ class Blog::ArticlesController < ApplicationController
 
   def show
     blog_article_show_meta_tags
+    gon.permalink = @article.permalink
+    gon.article_id = @article.id
 
   end
 

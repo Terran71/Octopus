@@ -16,11 +16,16 @@ html
 
     = favicon_link_tag 'favicon.ico'
     = csrf_meta_tags 
+
+    = Gon::Base.render_data
+
+ 
+
   body.blog
     #topwrapper
       = render  partial: '/blog/shared/navbar'  
       = render  partial: '/blog/shared/header'  
       = yield
       = render partial: '/blog/shared/footer'    
-     
+      = render partial: "/blog/shared/disqus_layout"
 

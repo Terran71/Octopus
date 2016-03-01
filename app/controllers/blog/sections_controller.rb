@@ -1,5 +1,6 @@
 class Blog::SectionsController < ApplicationController
   include MetaTagsHelper
+  include BlogHelper
 
   before_action :store_location
   before_action :set_section, except: [:index]

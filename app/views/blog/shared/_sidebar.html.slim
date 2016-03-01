@@ -1,31 +1,40 @@
-.sidebar
-  .widget.social
-    ul.list-inline
-      li.facebook-box role="listitem" 
-        a href="https://www.facebook.com" 
-          span.hide  Octopus Facebook
-          i.fa.fa-facebook aria-hidden="true" role="presentation" 
-      li.twitter-box role="listitem" 
-        a href="https://twitter.com/ouroctopus" 
-          span.hide Octopus Twitter
-          i.fa.fa-twitter aria-hidden="true" role="presentation" 
-      li.pinterest-box role="listitem" 
-        a href="https://www.pinterest.com/ouroctopus/"
-          span.hide Octopus Pinterest
-          i.fa.fa-pinterest aria-hidden="true" role="presentation" 
-      li.youtube-box role="listitem" 
-        a href="https://www.youtube.com/channel/UC1UGScniMwsgRot3cpdKGhg" 
-          span.hide Octopus Youtube
-          i.fa.fa-youtube aria-hidden="true" role="presentation" 
-      / li.float-l.mob-col-6.med-marg-r-med.big-marg-r-med role="listitem" 
-      /   a href="http://octopus.tumblr.com/" 
-      /     span.visually-hidden Octopus Tumblr
-      /     i.ui.ui-social.ui-tumblrs.ui-ftr aria-hidden="true" role="presentation" 
-      li.instagram-box role="listitem" 
-        a href="http://instagram.com/ouroctopus" 
-          span.hide Octopus Instagram
-          i.fa.fa-instagram aria-hidden="true" role="presentation" 
-  .widget.about-us
-    |ABOUT US
-  .widget.ad-widget
-    = image_tag "default-ads/default-300x250.jpg"
+ul#sidebar-social.social-row.list-inline 
+  = render partial: 'blog/shared/main_social'
+/ .widget.social
+/   ul.list-inline
+/     li.facebook-box role="listitem" 
+/       a href="https://www.facebook.com" 
+/         span.hide  Octopus Facebook
+/         i.fa.fa-facebook aria-hidden="true" role="presentation" 
+/     li.twitter-box role="listitem" 
+/       a href="https://twitter.com/ouroctopus" 
+/         span.hide Octopus Twitter
+/         i.fa.fa-twitter aria-hidden="true" role="presentation" 
+/     li.pinterest-box role="listitem" 
+/       a href="https://www.pinterest.com/ouroctopus/"
+/         span.hide Octopus Pinterest
+/         i.fa.fa-pinterest aria-hidden="true" role="presentation" 
+/     li.youtube-box role="listitem" 
+/       a href="https://www.youtube.com/channel/UC1UGScniMwsgRot3cpdKGhg" 
+/         span.hide Octopus Youtube
+/         i.fa.fa-youtube aria-hidden="true" role="presentation" 
+/     / li.float-l.mob-col-6.med-marg-r-med.big-marg-r-med role="listitem" 
+/     /   a href="http://octopus.tumblr.com/" 
+/     /     span.visually-hidden Octopus Tumblr
+/     /     i.ui.ui-social.ui-tumblrs.ui-ftr aria-hidden="true" role="presentation" 
+/     li.instagram-box role="listitem" 
+/       a href="http://instagram.com/ouroctopus" 
+/         span.hide Octopus Instagram
+/         i.fa.fa-instagram aria-hidden="true" role="presentation" 
+.widget.about-us
+  |ABOUT US
+.widget.ad-widget
+  = image_tag "default-ads/default-300x250.jpg" 
+.widget.related-widget
+  ul.list-unstyled.related-articles-list
+    li 
+      = popular_articles.count
+    li 
+      = newest_articles.count
+    li 
+      = featured_articles.count

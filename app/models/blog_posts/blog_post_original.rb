@@ -11,4 +11,19 @@ class BlogPostOriginal < BlogPost
  #  page_information.make_default_properties
  # end
 
+after_create :generate_default_ranking
+
+def generate_default_ranking
+  if self.scheduled?
+    rank = rand(5..30)
+    category = rand(1..2)
+    if self.blog_post_rankings.where(category: category).blank?
+      ranking= BlogPostRanking.create!(rank: rank, blog_post_id: self.id, category: category, start_date: published_datetime, 
+      end_date: published_datetime + 7.day )
+      puts "added ranking #{ranking.category} for #{self.title}"
+    end
+  end
+
+end
+
 end
