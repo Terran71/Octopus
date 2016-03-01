@@ -30,6 +30,16 @@ class RecipientParticipantRole < ParticipantRole
   end
 
 
+  #   after_create :add_honored_guest
+
+  # def add_honored_guest
+  #   honored_guest_added = HonoredGuest.where(email: self.participant.email)
+  #   if honored_guest_added.blank? 
+  #     HonoredGuest.create!(project_id: self.participant.project_id, passive: false, name: self.participant.name,
+  #                           email: self.participant.email)
+  #   end
+  # end
+  
   private
 
     

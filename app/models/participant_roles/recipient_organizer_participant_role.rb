@@ -27,14 +27,7 @@ class RecipientOrganizerParticipantRole < RecipientParticipantRole
     2
   end
 
-  after_create :add_honored_guest
 
-  def add_honored_guest
-    if self.participant.honored_guest.blank?
-      HonoredGuest.create!(project_id: self.participant.project_id, passive: false, name: self.participant.name,
-                            email: self.participant.email)
-    end
-  end
 
   private
 

@@ -63,7 +63,7 @@ class MealDeliveryProject < Project
     recipients = self.project_recipients
     if recipients.present?
       "Meal Deliveries" + " " + "for" + " " + recipients.map(&:first_name).join(' & ') 
-    elsif self.honored_guests.present?
+    elsif recipients.blank? && self.honored_guests.present?
       "Meal Deliveries for #{honored_guests.map(&:completed_short_name).join(' & ') }"
     else
       subcategory_name

@@ -161,4 +161,12 @@ namespace :db do
 
     puts 'loaded sample data'
   end
+
+   task :tweaks => :environment do #local dev tweeks
+    EmailKind.where.not(id: 1).destroy_all
+     puts 'adding email kinds'
+    YAML.load_file('db/foundation_data/email_kinds.yml').each do |email_kind|
+      EmailKind.create!(email_kind)
+    end
+   end
 end

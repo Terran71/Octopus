@@ -30,7 +30,7 @@ class Project < ActiveRecord::Base
   has_many :guest_lists,  through: :lists
   has_many :guests,  through: :guest_lists
 
-  has_one :organizer_participant, class_name: "Participant",  foreign_key: "organizer_participant_id", dependent: :destroy
+  belongs_to :organizer_participant, class_name: "Participant",  foreign_key: "organizer_participant_id", dependent: :destroy
   # has_many :recipients, class_name: "RecipientParticipantRole",  foreign_key: "project_id", dependent: :destroy
 
   belongs_to :editor, class_name: "User",  foreign_key: "editor_user_id"
@@ -131,6 +131,13 @@ def current_user_roles(user_id)
    self.project.participants.where(user_id: user_id)
 end
 
+def main_organizer_name
+  if self.organizer_participant_id.present?
+    Participant.find(organizer_participant_id).name
+  else
+    self.project_organizers
+  end
+end
 
 #placeholder text
 def question_1
@@ -223,15 +230,16 @@ end
       false
     end
   end
-
   def project_recipients
-    self.participant_roles.accepted.find_all{|r| r.kind_of?(RecipientParticipantRole) or r.kind_of?(RecipientOrganizerParticipantRole)}
+    self.participant_roles.accepted.find_all{|r| r.is_recipient? }
+
+    # self.participant_roles.accepted.find_all{|r| r.kind_of?(RecipientParticipantRole) or r.kind_of?(RecipientOrganizerParticipantRole)}
     # participant_roles = recipient_roles.collect(&:participant)
     # participant_roles.collect(&:user)
   end
 
   def project_organizers
-    self.participant_roles.accepted.find_all{|r| r.can_organize? == true}
+    self.participant_roles.accepted.find_all{|r| r.can_organize? }
   end
 
    
@@ -291,8 +299,13 @@ end
   #                           grantor_participant_id:  participant.id, editor_participant_id: participant.id )
   # end
 
-  def prep_times
-    if prep_start_datetime.present? & prep_end_datetime.present?
+  def prep_times(timeformat)
+    if timeformat == "full"
+      if prep_start_datetime.present? & prep_end_datetime.present?  
+      "#{prep_start_datetime.strftime("%B %e, %Y ")} - #{prep_end_datetime.strftime("%B %e, %Y ")}"
+      end
+    else
+    if prep_start_datetime.present? & prep_end_datetime.present? 
       "#{prep_start_datetime.strftime("%D")} - #{prep_end_datetime.strftime("%D")}"
     elsif prep_start_datetime.present? & prep_end_datetime.blank?
 
@@ -303,6 +316,7 @@ end
     else
       "TBD"
     end
+  end
 
   end
 

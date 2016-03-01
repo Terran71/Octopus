@@ -39,11 +39,11 @@
     max_sends: 1
 
 -   type: UserEmailKind
-    project_type: Meal Deliveryw
+    project_type: Meal Delivery
     role_type: HelperParticipantRole
     category: invites
     label: reminder-invite
-    subject: 'REMINDER: You''ve been invited to help bring meals!'
+    subject: "REMINDER: You've been invited to help bring meals!"
     max_sends: 2
 
 -   type: UserEmailKind

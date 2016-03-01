@@ -11,16 +11,25 @@ class ParticipantInviteJob < ActiveJob::Base
       participant_role.participant.save
     end
     if first_invite.blank?
-       email_kind =  EmailKind.projecttype_roletype(project.category,  participant_role.type,  "invites", "first-invite")
+       puts "* " * 100
+       puts "first invite #{project.category} #{participant_role.type} invites first-invite"
+       email_kind =  EmailKind.projecttype_roletype_category_label(project.category,  participant_role.type,  "invites", "first-invite")
         # email_kind = UserEmailKind.invites.where(project_type: project.category).where(role_type: participant_role.type).find_by_label("first-invite")|| EmailKind.find(1)
-       if participant_role.participant.is_recipient? 
+       
+       honored_guest_added = HonoredGuest.where(email: participant_role.participant.email)
+
+       if participant_role.participant.is_recipient? && honored_guest_added.blank?
+
         honored_guest = HonoredGuest.new(project_id: participant_role.participant.project_id, participant_id: participant_role.participant_id,
             email: participant_role.participant.email)
         honored_guest.save
        end
 
     else
-       email_kind =  EmailKind.projecttype_roletype(project.category,  participant_role.type,  "invites", "reminder-invite")
+       email_kind =  EmailKind.projecttype_roletype_category_label(project.category,  participant_role.type,  "invites", "reminder-invite")
+        puts "* " * 100
+       puts "reminder invite #{project.category}  #{participant_role.type} invites reminder-invite"
+
     end
 
        if !participant_role.participant.contact_limit_reached(email_kind)
