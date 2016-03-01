@@ -1,11 +1,11 @@
 class InvitesController < DashboardController
   before_action :store_location
   before_action :authenticate_user!
-  before_action :set_participant, except: [ :index, :create, :resend_invite]
-  before_action :mark_seen, only: [:show]
+  before_action :set_participant, except: [:index, :create, :resend_invite]
   before_action :verify_invite,  only: [:show, :rsvp]
+  before_action :mark_seen, only: [:show]
   before_action :set_nested_project,  only: [:show, :rsvp, :resend_invite]
-  before_action :set_current_user_participation,  only: [:show, :resend_invite]
+  before_action :set_current_user_participation,  only: [:resend_invite]
 
 
   [Project,  ParticipantRole, Role] if Rails.env == 'development'
@@ -15,6 +15,8 @@ class InvitesController < DashboardController
   end
 
   def show
+    @current_user_participation = current_user.current_project_participant(@participant.project_id)
+
   end
 
   def rsvp
@@ -78,7 +80,7 @@ class InvitesController < DashboardController
   end
 
   def verify_invite
-    if current_user.id == @participant.user_id or current_user.email == @participant.email
+    if  current_user.email == @participant.email or current_user.id ==  @participant.user_id
     else
       redirect_to no_access_path
       NoAccessLog.create!(user_id: current_user.id , previous_page: request.fullpath)

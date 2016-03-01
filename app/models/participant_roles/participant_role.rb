@@ -1,4 +1,5 @@
 class ParticipantRole < ActiveRecord::Base
+    include BasicScopes
 
 
   def self.types
@@ -16,7 +17,11 @@ class ParticipantRole < ActiveRecord::Base
   #has_many :participants
 
   # belongs_to :editor, class_name: "User",  foreign_key: "editor_user_id"
-  enum status: [:unknown , :unseen,  :invited, :pending, :accepted, :declined]
+  enum status: [:unknown , :unseen, :pending, :accepted, :maybe, :declined]
+
+  scope :firm_answers, -> { where("status = ? or status = ?", 3, 5)}
+
+  
 
   #STI Requires Type
   validates :type, presence: true, allow_blank: false

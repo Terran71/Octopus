@@ -1,7 +1,6 @@
 class RoundupJob < ActiveJob::Base
 	# queue_as :mailers
   def self.perform(timeline)
-    
         participants_in_active_projects = Participant.joins(:project).where(project: {status: "active"})
         participants_in_active_projects.each do |participant|
         events = Attendees.includes(:event).where(participant_id: participant.id).accepted.by_timeline(timeline)

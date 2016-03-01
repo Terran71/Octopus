@@ -106,19 +106,7 @@ module ProjectsHelper
   ]
 end
 
-def date_formatter_helper(project)
-  # project.prep_start_datetime = project.date_formatter(project.prep_start_datetime)
-  # project.prep_start_datetime = project.date_formatter(project.prep_start_datetime)
-  # project.save
-   # Date.strptime(date_params, '%m/%d/%Y')
-
-#   # if params[:project][:prep_start_datetime].present? 
-#   #   params[:project][:prep_start_datetime] = Date.strptime(params[:project][:prep_start_datetime], '%m/%d/%Y')
-#   # end
-#   # if params[:project][:prep_end_datetime].present?
-#   #   params[:project][:prep_end_datetime] = Date.strptime(params[:project][:prep_end_datetime], '%m/%d/%Y')
-#   # end
-end  
+  
 
 def set_to_active(project)
   if project.draft? or project.archived?

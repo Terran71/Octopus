@@ -46,34 +46,7 @@ class ParticipantInviteJob < ActiveJob::Base
 
     end
 
-            # email_kind = EmailKind.invites.where(project_type: "Meal Delivery").where(role_type: "HelperParticipantRole").find_by_label("first-invite")|| EmailKind.find(1)
-
-
-
-     # if @project.is_meal_delivery? && @participant_role.participant.first_invite?
-     #    if @participant_role.is_helper?
-     #      # @subject = "You've been invited to help bring meals!"
-     #    elsif @participant_role.is_recipient?
-     #      # @subject = "#{@participant.invitor.name} has created Meal Deliveries for you!"
-     #    elsif @participant_role.can_organize? && !@participant_role.is_recipient?
-     #      # @subject = "You've been invited to help organize a Meal Deliveries!"
-     #    else 
-     #      # @subject ="Broken"
-     #    end
-     #  elsif @project.is_meal_delivery? &&  !@participant_role.participant.first_invite? && !@participant_role.participant.contact_limit_reached?
-     #    if @participant_role.is_helper?
-     #      # @subject = "REMINDER: RSVP to help bring meals!"
-     #    elsif @participant_role.is_recipient?
-     #      # @subject = "REMINDER: #{@participant.invitor.name} has created Meal Deliveries for you!"
-     #    elsif @participant_role.can_organize? && !@participant_role.is_recipient?
-     #      # @subject = "REMINDER: RSVP to  help organize a Meal Deliveries!"
-     #    else 
-     #      EmailKindCode.find(1)
-     #      # @subject ="Broken"
-     #    end
-     #  end
-
- # ParicipantInviteJob.perform(participant_role)
+  
 
 end
 

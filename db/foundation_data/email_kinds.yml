@@ -47,12 +47,24 @@
     max_sends: 2
 
 -   type: UserEmailKind
+    project_type: Meal Delivery
+    role_type: HelperParticipantRole
+    category: events
+    label: event-created
+    subject: "You created a Meal Delivery Appointment!"
+    max_sends: 1
+
+
+-   type: UserEmailKind
     project_type: Project
     role_type: RecipientParticipantRole
     category: roundups
     label: tomorrow-roundup
     subject: visitng tomorrow
     max_sends: 1
+
+
+
 
 
 -   type: AdminEmailKind
@@ -78,5 +90,7 @@
     label: daily-roundup
     subject: Your Daily Roundup
     max_sends: 1
+
+
 
 

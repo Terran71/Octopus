@@ -1,5 +1,6 @@
 class Participant < ActiveRecord::Base
   include ProjectsHelper
+  include BasicScopes
 
 
   belongs_to :user
@@ -33,6 +34,9 @@ class Participant < ActiveRecord::Base
   scope :declined, -> { where(status: 5) }
   scope :pending, -> { where(status: 2) }
   scope :undecided, -> {where.not(status: 5).where.not(status: 3)}
+
+  scope :firm_answers, -> { where("status = ? or status = ?", 3, 5)}
+
 
   def name
     if self.user.present?
