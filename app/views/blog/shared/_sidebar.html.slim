@@ -30,11 +30,4 @@ ul#sidebar-social.social-row.list-inline
   |ABOUT US
 .widget.ad-widget
   = image_tag "default-ads/default-300x250.jpg" 
-.widget.related-widget
-  ul.list-unstyled.related-articles-list
-    li 
-      = popular_articles.count
-    li 
-      = newest_articles.count
-    li 
-      = featured_articles.count
+= render partial: "blog/shared/widgets/related_articles"

@@ -11,7 +11,13 @@
 .col-md-6.col-lg-4
   article
     = link_to blog_article_path(article)
-      = image_tag "default-hero.jpg"
+      - if article.thumbnail_img.present?
+        =image_tag article.thumbnail_img(:xs)
+      -elsif article.hero_img.present?
+        =image_tag article.hero_img(:xs)
+
+      -else
+        = image_tag 'blog/default-blog-thumbnail.jpg'
     .preview-tile-box
       .title.preview-tiles-title
         = article.title

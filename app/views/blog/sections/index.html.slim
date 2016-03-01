@@ -8,7 +8,9 @@
               - if section.newest_image.present?
                 = image_tag section.newest_image
               - else
-                = image_tag 'default-hero.jpg'
+                = image_tag 'blog/default-blog-thumbnail.jpg'
+
+              
             h2
               = link_to blog_section_path(section)
                 = section.title
