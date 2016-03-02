@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160301175412) do
+ActiveRecord::Schema.define(version: 20160302125617) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -149,6 +149,7 @@ ActiveRecord::Schema.define(version: 20160301175412) do
     t.string   "owner_link"
     t.string   "owner_site_name"
     t.string   "media_link"
+    t.text     "note"
     t.datetime "created_at",                                 null: false
     t.datetime "updated_at",                                 null: false
   end
@@ -202,7 +203,7 @@ ActiveRecord::Schema.define(version: 20160301175412) do
     t.integer  "blog_author_id"
     t.integer  "original_post_id"
     t.integer  "blog_editor_user_id"
-    t.string   "type",                default: "", null: false
+    t.string   "type",                default: "",    null: false
     t.integer  "blog_section_id"
     t.integer  "blog_feature_id"
     t.string   "lead"
@@ -213,8 +214,9 @@ ActiveRecord::Schema.define(version: 20160301175412) do
     t.string   "hero_caption"
     t.string   "thumbnail_img"
     t.string   "slug"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.boolean  "special",             default: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
   end
 
   add_index "blog_posts", ["blog_author_id"], name: "index_blog_posts_on_blog_author_id", using: :btree
@@ -816,6 +818,26 @@ ActiveRecord::Schema.define(version: 20160301175412) do
 
   add_index "social_shares", ["blog_post_id"], name: "index_social_shares_on_blog_post_id", using: :btree
   add_index "social_shares", ["social_account_id"], name: "index_social_shares_on_social_account_id", using: :btree
+
+  create_table "taggings", force: :cascade do |t|
+    t.integer  "tag_id"
+    t.integer  "taggable_id"
+    t.string   "taggable_type"
+    t.integer  "tagger_id"
+    t.string   "tagger_type"
+    t.string   "context",       limit: 128
+    t.datetime "created_at"
+  end
+
+  add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true, using: :btree
+  add_index "taggings", ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context", using: :btree
+
+  create_table "tags", force: :cascade do |t|
+    t.string  "name"
+    t.integer "taggings_count", default: 0
+  end
+
+  add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
 
   create_table "us_states", force: :cascade do |t|
     t.string   "name"

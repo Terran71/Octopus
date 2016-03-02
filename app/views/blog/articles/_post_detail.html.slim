@@ -50,9 +50,9 @@ section.mt10
     /   a.fa.fa-tumblr.managed-link data-image-url=  'http://hellogiggles.com/wp-content/uploads/2015/05/16/Black-and-white-cat.jpg' data-share-image="tumblr" 
   / .caption
   /   = @article.hero_caption
-  - if @article.lead.present?
-    .article-lead itemprop="articleLead"
-      = @article.lead.html_safe
+  / - if @article.lead.present?
+  /   .article-lead itemprop="articleLead"
+  /     = @article.lead.html_safe
   .article-body itemprop="articleBody"
     = @article.body.html_safe
  

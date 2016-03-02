@@ -40,6 +40,11 @@ background:#fff;
 text-align: center;
 padding: 20px
 }
+ .navbar-pretty-handy {margin-bottom: 0; background: #333; border-radius: 0}
+    .navbar-nav > li > a {padding-top:5px !important; padding-bottom:5px !important;}
+    .navbar {min-height:32px !important}
+    .navbar-brand {padding-top:5px !important; padding-bottom:0 !important; height: 30px; }
+
 
 .avatar { width: 25px; height: 25px; margin-top: -3px }
 
@@ -53,12 +58,10 @@ padding: 20px
   .blog header .section-bar li {border: solid $lt_aqua 2px; background: #fff; text-transform: uppercase;
     text-align:center; padding: 8px; margin: 5px 2px; }
     .blog header .section-bar li .active {background:$lt_aqua; color: #fff }
-    .navbar-pretty-handy {margin-bottom: 0; background: #333; border-radius: 0}
-    .navbar-nav > li > a {padding-top:5px !important; padding-bottom:5px !important;}
-    .navbar {min-height:32px !important}
-    .navbar-brand {padding-top:5px !important; padding-bottom:0 !important; height: 30px; }
 
-
+    // section page
+   .section-hero {width: 100%; margin: 20px 10px 20px 10px; padding-right: 22px; padding-left: 2px }
+   .section-hero img {width: 100%}
 // basic article
 
 #article-wrapper {
@@ -67,7 +70,6 @@ padding: 20px
   background: #fff;  max-width: 1030px;  float: none;   background-clip: padding-box;
  height:auto;  overflow: hidden; margin-left: auto; margin-right: auto; margin-bottom: 20px} 
  .article-main-content {background: #fff; max-width: 700px; clear: none; padding: 15px; margin-right: 0px; position: relative; float: left; overflow: visible} 
- .sidebar {background: #fff; clear: none; position: relative; float: right; width: 315px; margin-left: 10px; padding-top: 30px }
  
 .article-main-content  header {background: #fff}
  .article-title-container {padding-left: 5px; width: 100% }
@@ -88,14 +90,23 @@ padding: 20px
  .article-social .sharing-item .txt {padding-bottom: 8px}
  .article-social li {margin-right: 8px;  padding: 5px 3px 0px 3px; vertical-align: middle }
 
+// sidebar
+ .sidebar {background: #fff; clear: none; position: relative; float: right; width: 315px; margin-left: 10px; padding-top: 30px }
+
  .widget {border: solid 2px $lt_aqua; background: #fff; padding: 10px; text-align: center; margin: 15px 0; }
+ .widget, .widget-social  {margin-left: auto; margin-right: auto}
+
  .ad-widget {border: none; padding: 0px; text-align: center; width: 300px}
 
  .about-us {width:300px}
  .related-widget { width:300px
 
  }
+.widget-social { width:300px; border:none; padding: 0;}
+// .widget .social-row {width: 30px; height: 30px; }
+.widget .social-row  li i { font-size: 24px;}
 
+.widget.mailing-list {height: 100px; width:300px}
 
 
   .article-caption {font-size: 12px; font-style: italic; color: $md_gray;margin-top: 5px; margin-bottom: 10px; text-align: right}
@@ -123,6 +134,8 @@ padding: 20px
  .related-articles-list .article-info .article-lead, .related-articles-list .article-info .article-lead a {color: #777; line-height: normal; letter-spacing: normal; 
   font-weight: normal; font-size: 12px; width: 100%; text-align: left;}
 
+
+.related-articles-list .article-info .article-title .small-section, .related-articles-list .article-info .article-title .small-section a {font-size: 12px; font-style: italic; color: $lt_gray}
   .rankings-nav,   .rankings-nav > ul { padding: 3px 0 0 0; margin: 0; width: 100%;
     // border-bottom: 2px solid $lt_gray;
     background: #ffffff;}
@@ -141,10 +154,6 @@ padding: 20px
 // .related-widget .tab-panel .link-list li {padding: 20px 10px}
 
 
-.widget .social-row {width: 30px; height: 30px; }
-.widget .social-row  li i { font-size: 24px;}
-
-.widget.mailing-list {height: 100px}
 
 .sidebar .about-us, .sidebar .about-us a {font-weight: 800; font-size: 36px; text-transform: uppercase}
 // .social i{ font-size: 42px; color: $lt_aqua}
@@ -169,12 +178,14 @@ padding: 20px
     text-justify: inter-word; color: #555; letter-spacing: 1.5; 
     font-family: $font-stack;}
 
+
+.blog  .preview-tile-box .preview-tiles-lead {font-size: 13px; color: $md_gray}
 // #comments
 
 #comments {}
 
 .social-row   { vertical-align: middle; margin-top: 10px; margin-bottom: 10px}
-.social-row li { margin: 0 5px; width: 52px; height: 52px; background: $lt_aqua;
+.social-row li { margin: 0 5px; width: 51px; height: 52px; background: $lt_aqua;
   padding: 11px 0px 0px 3px; text-align: center;  vertical-align: middle}
 
  .social-row li i { font-size: 30px; color: #fff; vertical-align: middle}
@@ -199,3 +210,12 @@ margin: 0 5px;}
 .privacy-info {font-size: 10px; color: $lt_gray; }
 .privacy-info a {font-weight: normal;; color: $md_gray}
 
+@media(max-width:420px)  {
+.preview-tile-box .title.preview-tiles-title {font-size: 13px}
+.preview-tiles-lead {display:none; visibility: hidden}
+.preview-tile-box.short {height: 60px}
+
+section.sidebar {margin-left: auto; margin-right: auto}
+.widget, .widget-social  {margin-left: auto; margin-right: auto;}
+
+}

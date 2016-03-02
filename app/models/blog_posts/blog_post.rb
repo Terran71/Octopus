@@ -2,6 +2,8 @@ class BlogPost < ActiveRecord::Base
   extend FriendlyId
   include BasicScopes
 
+  acts_as_taggable_on :blog_tags
+  
   friendly_id :slug, use: :slugged
 
   mount_uploader :hero_img, HeroUploader

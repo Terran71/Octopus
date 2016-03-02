@@ -1,7 +1,8 @@
 .container
   .row
-    .col-md-8
+    .col-md-8.col-sm-7.pt10
       - BlogPost.all.each do |article|
         = render "blog/shared/article_lists", article: article
-    .col-md-4
+      br/
+    .col-md-4.col-sm-5
       = render "blog/shared/sidebar"

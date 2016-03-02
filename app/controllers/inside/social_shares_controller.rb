@@ -1,16 +1,18 @@
-class Inside::SocialShareController < Inside::DashboardController
+class Inside::SocialSharesController < Inside::DashboardController
+  include InsidesHelper
+  include ApplicationHelper
+
   before_action :authenticate_user!
   before_action :authenticate_inside_privileges
 
   before_action :set_social_share, except: [:index, :new]
+  # before_filter :load_tweets
 
-  include InsidesHelper
-  include ApplicationHelper
+
 
 
   layout 'inside'
 
-  before_filter :load_tweets
 
   def load_tweets
     @tweets = Twitter.user_timeline[0..4] # For this demonstration lets keep the tweets limited to the first 5 available.
@@ -28,10 +30,14 @@ class Inside::SocialShareController < Inside::DashboardController
 
   end
 
-  # def index
-  #   @images = BlogImage.all
-  #   @images = @images.page params[:page]
-  # end
+  def index
+    if current_user.is_queen?
+      @social_shares = SocialShare.order(scheduled_datetime: :asc).all
+    else
+      social_accounts = current_user.social_accounts
+      @social_shares = SocialShare.by_account_access(social_accounts).all
+    end
+  end
 
   # def new 
   #   @image = BlogImage.new

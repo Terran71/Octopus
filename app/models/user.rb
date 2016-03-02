@@ -421,6 +421,17 @@ class User < ActiveRecord::Base
     end
   end
 
+  def has_social_access_for?(social_account)
+    if self.is_queen? 
+      true
+    elsif self.social_accounts.where(social_account_id: social_account.id).present?
+      true
+    else
+      false
+    end
+
+  end
+
   def on_email_list(email_kind_id)
     self.email_lists.where(email_kind_id: email_kind_id).present?
   end

@@ -1,4 +1,4 @@
-.stickyheader#signed_in
+.stickyheader#signed_in 
   nav.navbar.navbar-default.navbar-octopus.octopus-inside
     .container-fluid
       .navbar-header
@@ -92,10 +92,9 @@
              
           li.dropdown
               a#drop1.dropdown-toggle-octo href="#" role="button" data-toggle="dropdown"
-                i.fa.fa-user
-                  strong
-                    = image_tag current_user.set_avatar, class: "navbar-avatar mr10"
-                    = current_user.first_name
+                strong
+                  = image_tag current_user.set_avatar, class: "avatar mr10"
+                  = current_user.first_name
                  
                   b.caret
               ul.dropdown-menu.custom-drop.active role="menu" aria-labelledby="drop4" style=""

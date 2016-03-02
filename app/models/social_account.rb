@@ -15,7 +15,24 @@ class SocialAccount < ActiveRecord::Base
   scope :facebook, -> { where(plaform: "facebook") }
 
 
- 
+
+
+def adjusted_username
+    if facebook?
+      username
+    elsif twitter?
+      "@#{username}"
+    end
+  end
+
+
+  def icon
+    if facebook?
+      "fa-facebook-square"
+    elsif twitter?
+      "fa-twitter"
+    end
+  end
 
   def add_internal_access
     # if internal?

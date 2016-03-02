@@ -16,6 +16,7 @@ class CreateBlogMediaItems < ActiveRecord::Migration
       t.string :owner_link
       t.string :owner_site_name
       t.string :media_link
+      t.text :note
       
       t.timestamps null: false
     end

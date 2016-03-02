@@ -8,7 +8,7 @@
 
 
       
-.col-md-6.col-lg-4
+.col-md-4.col-lg-4.col-xl-3.col-xs-6
   article
     = link_to blog_article_path(article)
       - if article.thumbnail_img.present?
@@ -18,10 +18,16 @@
 
       -else
         = image_tag 'blog/default-blog-thumbnail.jpg'
-    .preview-tile-box
-      .title.preview-tiles-title
-        = article.title
-      .preview-tiles
-        = article.body.truncate(80).html_safe
-        = link_to blog_article_path(article)
-          |more
+    .hidden-xs.visible-sm.visible-md.visible-lg.visible-xl
+      .preview-tile-box 
+        .title.preview-tiles-title
+          = article.title
+        .preview-tiles-lead
+          = article.body.truncate(80).html_safe
+          = link_to blog_article_path(article)
+            |more
+    .visible-xs.hidden-sm.hidden-md.hidden-lg.hidden-xl
+      .preview-tile-box.short 
+        .title.preview-tiles-title
+          = article.title.truncate(40)
+      

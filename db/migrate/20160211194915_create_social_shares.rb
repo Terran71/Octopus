@@ -15,7 +15,8 @@ class CreateSocialShares < ActiveRecord::Migration
        t.string :scheduled_datetime
        t.string :url
        t.integer :status, default: 1
-
+       t.integer :about_octopus, default: true
+       t.string :share_platform_uid
       t.timestamps null: false
     end
   end

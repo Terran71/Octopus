@@ -18,6 +18,7 @@ class CreateBlogPosts < ActiveRecord::Migration
         t.string :hero_caption
         t.string :thumbnail_img
         t.string :slug, index: true
+        t.boolean :special, default: false
 
       t.timestamps null: false
     end

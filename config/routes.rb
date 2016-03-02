@@ -1,7 +1,17 @@
 Rails.application.routes.draw do
-  resources :home, except: [:show]
+  resources :home, only: [:index]
   get 'home/insides', to: 'home#insides', as: :home_insides
   get 'home/no_access', to: 'home#no_access', as: :no_access
+  get 'contact-us', to: 'home#contactus', as: 'contact-us'
+  get 'faq', to: 'home#faq', as: :faq
+  get 'about', to: 'home#about', as: :about
+
+  #social redirects
+  get '/facebook', to: redirect('http://www.facebook.com')
+  get '/pinterest', to: redirect('http://www.pinterest.com')
+  get '/instagram', to: redirect('http://www.instagram.com')
+  get '/youtube', to: redirect('http://www.youtube.com')
+  get '/twitter', to: redirect('http://www.twitter.com')
 
 
   resources :events
@@ -44,13 +54,13 @@ Rails.application.routes.draw do
      resources :dashboard, only: [:index]
      # resources :no_access_logs, only: [:index, :show]
      resources :blog_posts
-     resources :blog_post_lives, :controller => 'blog_posts'
+     resources :blog_post_originals, :controller => 'blog_posts'
      resources :blog_post_versions, :controller => 'blog_posts'
 
      resources :blog_authors, only: []
      resources :blog_references, only: []
      resources :social_accounts
-     resources :social_sharing
+     resources :social_shares
 
   end
   # get '/page/:page_id' => 'site#page', as: :site_page

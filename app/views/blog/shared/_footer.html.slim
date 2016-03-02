@@ -3,54 +3,32 @@ footer#blog-footer
   a href="http://www.blog.octopus.com/" 
     = image_tag 'https://s3-us-west-2.amazonaws.com/oct-alpha/layout/octopus-logo-sm.png', alt: 'Octopus',   style:" width: 150px; margin-left: auto; margin-right: auto"
 
-  ul#footer-social.social-row.list-unstyled.list-inline 
-    = render partial: 'blog/shared/main_social'
-    / li.facebook-box 
-    /   a href="http://facebook.com/?ref=#{@ref}" target="_blank"
-    /     span.hide  Octopus Facebook
-    /     i.fa.fa-facebook aria-hidden="true" role="presentation" 
-    / li.twitter-box 
-    /   a href="http://ouroctopus.com/twitter?ref=#{@ref}"  target="_blank"
-    /     span.hide Octopus Twitter 
-    /     i.fa.fa-twitter aria-hidden="true" role="presentation" 
-    / li.pinterest-box 
-    /   a href="http://pinterest.com/ouroctopus/?ref=#{@ref}" target="_blank"
-    /     span.hide Octopus Pinterest
-    /     i.fa.fa-pinterest aria-hidden="true" role="presentation" 
-    / li.youtube-box
-    /   a href="http://youtube.com/channel/UC1UGScniMwsgRot3cpdKGhg"  target="_blank"
-    /     span.hide Octopus Youtube
-    /     i.fa.fa-youtube aria-hidden="true" role="presentation" 
-    / / li.float-l.mob-col-6.med-marg-r-med.big-marg-r-med role="listitem" 
-    / /   a href="http://octopus.tumblr.com/" 
-    / /     span.visually-hidden Octopus Tumblr
-    / /     i.ui.ui-social.ui-tumblrs.ui-ftr aria-hidden="true" role="presentation" 
-    / li.instagram-box 
-    /   a href="http://ouroctopus.com/instagram?ref=#{@ref}" target="_blank"
-    /     span.hide Octopus Instagram
-    /     i.fa.fa-instagram aria-hidden="true" role="presentation"  
+  ul#footer-social.social-row.list-unstyled.list-inline
+    - @ref = "footer"
+    = render partial: 'blog/shared/main_social', ref: @ref
+   
   ul#footer-info.list-inline 
     li style= "border-right: solid 1px #ccc"
-      a href="/about"   About
+      a href="/blog-about"   About
     li style= "border-right: solid 1px #ccc"
-      a href="/advertising"   Advertise
+      a href="/blog-advertising"   Advertise
     li style= "border-right: solid 1px #ccc"
-      a href="/about/sitemap"  Site Map
+      a href="/about/blog-sitemap"  Site Map
     li style= "border-right: solid 1px #ccc"
-      a href="/about/press"  Press Center
+      a href="/about/blog-press"  Press Center
     li style= "border-right: solid 1px #ccc"
-      a href="/about/faq"  FAQ
+      a href="/about/blog-faq"  FAQ
  
     li style= "border-right: solid 1px #ccc"
-      a href="/about/contact-us"  Contact Us
+      a href="/about/blog-contact-us"  Contact Us
     li style= "border-right: solid 1px #ccc"
-      a href="/newsletter"  Newsletter
+      a href="/blog-newsletter"  Newsletter
     li style= "border-right: solid 1px #ccc"
       a href="/contributors"   Pretty Handy Octopus Contributors 
     li style= "border-right: solid 1px #ccc"
       a href="/about/ouroctopus-jobs"  Jobs
     li
-      a href="/rss_feeds"  RSS
+      a href="/rss"  RSS
   p.privacy-info
     | Use of this site constitutes acceptance of our  
     a href="/privacy-policy"   

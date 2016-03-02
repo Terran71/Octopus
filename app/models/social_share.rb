@@ -2,7 +2,7 @@ class SocialShare < ActiveRecord::Base
   belongs_to :social_account
   belongs_to :blog_post
 
-  STATUSES = [:draft, :scheduled, :shared]
+  STATUSES = [:draft, :scheduled, :shared, :failed, :archived]
 
   enum status: STATUSES
 
@@ -26,11 +26,36 @@ class SocialShare < ActiveRecord::Base
     end
   end
 
+
+  def status_label
+    case status ? status.to_s : nil
+      when "shared"
+        "success"
+      when "scheduled"
+        "warning"
+      when "draft"
+        "default"
+      when "failed"
+        "danger"
+      when "archived"
+        "violet"
+      end
+  end
+
   def icon
+    self.social_account.icon
+    # if self.social_account.facebook?
+    #   "fa-facebook-square"
+    # elsif self.social_account.twitter?
+    #   "fa-twitter"
+    # end
+  end
+
+  def display_copy
     if self.social_account.facebook?
-      "fa-facebook-officia"
+      copy
     elsif self.social_account.twitter?
-      "fa-twitter"
+      tweet
     end
   end
 

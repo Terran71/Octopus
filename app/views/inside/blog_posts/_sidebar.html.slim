@@ -1,5 +1,5 @@
-- if @article.present?
-  = link_to blog_article_path(@article), class: 'btn btn-orange btn-block mb10', target: "_blank"
+- if @article.present? && @article.id.present?
+  = link_to blog_article_path( @article.id), class: 'btn btn-orange btn-block mb10', target: "_blank"
     |PREVIEW
 - if @article.is_live?
   .well

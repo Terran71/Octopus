@@ -29,6 +29,9 @@
             .article-title
               = link_to blog_article_path(article_ranking.blog_post)
                 =article_ranking.blog_post.title
+                - if article_ranking.blog_post.section
+                  .small-section 
+                    = article_ranking.blog_post.section.title
             / .article-lead
             /   = link_to blog_article_path(article_ranking.blog_post)
             /     =article_ranking.blog_post.body.truncate(53)
