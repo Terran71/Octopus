@@ -35,15 +35,14 @@ header.article-header
 
 
 section.mt10
-  .image.standard
   .imgarea
     - if @article.hero_img.present?
       = image_tag @article.hero_img
-      caption
+      .article-caption
         = @article.hero_caption
     -else
       = image_tag 'blog/default-blog-hero.jpg'
-      caption
+      .article-caption
         |This is where a caption will go.
     / img sizes=("(min-width: 768px) 750px), 100vw" srcset=("//assets.goodstatic.com/s3/magazine/assets/555194/original/IMG_9764.JPG 1900w),\n                    //assets.goodstatic.com/s3/magazine/assets/555194/original/IMG_9764.JPG=s1600x1900 1600w,\n                    //assets.goodstatic.com/s3/magazine/assets/555194/original/IMG_9764.JPG=s1300x1600 1300w,\n                    //assets.goodstatic.com/s3/magazine/assets/555194/original/IMG_9764.JPG=s1000x1400 1000w,\n                    //assets.goodstatic.com/s3/magazine/assets/555194/original/IMG_9764.JPG=s900x1300 900w,\n                    //assets.goodstatic.com/s3/magazine/assets/555194/original/IMG_9764.JPG=s750x1300 750w,\n                    //assets.goodstatic.com/s3/magazine/assets/555194/original/IMG_9764.JPG=s500x1300 500w,\n                    //assets.goodstatic.com/s3/magazine/assets/555194/original/IMG_9764.JPG=s320x1000 320w" /
     / span.share
@@ -51,9 +50,9 @@ section.mt10
     /   a.fa.fa-tumblr.managed-link data-image-url=  'http://hellogiggles.com/wp-content/uploads/2015/05/16/Black-and-white-cat.jpg' data-share-image="tumblr" 
   / .caption
   /   = @article.hero_caption
-
-  .article-lead itemprop="articleLead"
-    = @article.lead.html_safe
+  - if @article.lead.present?
+    .article-lead itemprop="articleLead"
+      = @article.lead.html_safe
   .article-body itemprop="articleBody"
     = @article.body.html_safe
  

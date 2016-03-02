@@ -1,27 +1,37 @@
-css:
-  .related-articles-list {width: 100%;}
-  .related-articles-list li {width: 100%; display: inline-block}
-  .related-articles-list .hero-img{ width: 70px; float: left}
-  .related-articles-list .hero-img img{ width: 100%}
-  .related-articles-list .article-info{ float: left; text-align: left; }
-  .related-articles-list .article-info .article-title {color: #333; font-weight: bold; font-size: 16px; width: 100%}
-  .related-articles-list .article-info .article-lead {color: #777; font-weight: normal; font-size: 14px; width: 100%}
+ 
 
 .widget.related-widget
-  ul.list-unstyled.related-articles-list
-    - popular_articles.each do |article_ranking|
-      li 
-        .hero-img
-          - if article_ranking.blog_post.hero_img.present?
-            =image_tag article_ranking.blog_post.thumbnail_img(:xs)
-          -else
-            = image_tag 'blog/default-blog-thumbnail.jpg'
 
-        .article-info
-          .article-title
-            =article_ranking.blog_post.title
-          .article-lead
-            =article_ranking.blog_post.body.truncate(60)
+  .rankings-nav
+    ul.list-inline style="margin: 0; padding:  3px 0 0 0"
+      li data-target=".js-featured" class="active" 
+        i.fa.fa-star
+        | Featured
+      li data-target=".js-mostread" 
+        i.fa.fa-eye 
+        | Most Read
+      li data-target=".js-related" 
+        i.fa.fa-tags 
+        | Related
+     
+  ul.list-unstyled.related-articles-list
+    - popular_articles.take(5).each do |article_ranking|
+      = link_to blog_article_path(article_ranking.blog_post)
+        li 
+          .hero-img
+            = link_to blog_article_path(article_ranking.blog_post)
+              - if article_ranking.blog_post.hero_img.present?
+                =image_tag article_ranking.blog_post.thumbnail_img(:xs)
+              -else
+                = image_tag 'blog/default-blog-thumbnail.jpg'
+
+          .article-info
+            .article-title
+              = link_to blog_article_path(article_ranking.blog_post)
+                =article_ranking.blog_post.title
+            / .article-lead
+            /   = link_to blog_article_path(article_ranking.blog_post)
+            /     =article_ranking.blog_post.body.truncate(53)
 
     / li 
     /   = newest_articles.count

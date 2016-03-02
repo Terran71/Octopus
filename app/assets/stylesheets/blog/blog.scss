@@ -1,5 +1,4 @@
  @import 'blog_variables';
- @import 'footer';
 
  // @import '/assets/stylesheets/variables';
 
@@ -90,29 +89,62 @@ padding: 20px
  .article-social li {margin-right: 8px;  padding: 5px 3px 0px 3px; vertical-align: middle }
 
  .widget {border: solid 2px $lt_aqua; background: #fff; padding: 10px; text-align: center; margin: 15px 0; }
- .ad-widget {border: none; padding: 0px; text-align: center; width: 300px; height: 250px}
+ .ad-widget {border: none; padding: 0px; text-align: center; width: 300px}
 
  .about-us {width:300px}
  .related-widget { width:300px
 
  }
 
- // .related-articles-list {}
 
+
+  .article-caption {font-size: 12px; font-style: italic; color: $md_gray;margin-top: 5px; margin-bottom: 10px; text-align: right}
+
+ .related-widget { padding-top: 5px; padding-bottom: 0px;
+    position: relative;}
+  .related-articles-list {width: 100%;}
+  .related-articles-list > li {width: 100%; 
+      display: inline-block;
+    // position: relative;
+    min-height: 74px;
+    border-bottom: 1px solid rgba(127,148,153,0.13);
+    padding-top: 10px;
+    padding-bottom: 5px;
+    background-clip: padding-box;
+    background-repeat: no-repeat;}
+
+    .related-articles-list > li:last-child {border-bottom: none}
+  .related-articles-list li > .hero-img{ width: 60px; float: left}
+  .related-articles-list li:hover  { opacity: 0.7;
+ filter: alpha(opacity=70); /* For IE8 and earlier */}
+  .related-articles-list .hero-img img{ width: 100%}
+  .related-articles-list li > .article-info{ float: left; text-align: left; width: 210px; padding-left: 6px; margin-top: -4px }
+  .related-articles-list .article-info .article-title, .related-articles-list .article-info .article-title a {color: #333; font-weight: bold; font-size: 16px; width: 100%}
+ .related-articles-list .article-info .article-lead, .related-articles-list .article-info .article-lead a {color: #777; line-height: normal; letter-spacing: normal; 
+  font-weight: normal; font-size: 12px; width: 100%; text-align: left;}
+
+  .rankings-nav,   .rankings-nav > ul { padding: 3px 0 0 0; margin: 0; width: 100%;
+    // border-bottom: 2px solid $lt_gray;
+    background: #ffffff;}
+ 
+ .rankings-nav > ul > li  , .rankings-nav  ul > li > a {color: $lt_gray; border-bottom: 2px solid $xlt_aqua; padding-bottom: 8px}
+ .rankings-nav > ul >  .active  {color: $dk_aqua; border-bottom: 2px solid $md_aqua}
  .articles-related {border: solid 1px $lt_gray; background: #fff;    overflow: hidden; margin-left: auto; margin-right: auto; margin-bottom: 20px} 
 
  .title .article-title, .title .article-title a {font-weight: 800; text-transform: uppercase; color: $dk_aqua}
 // .blog .container {max-width: 1000px; margin-bottom: 30px }
 
 
-.related-widget .tabs {}
+// .related-widget .tabs {}
 
-.related-widget .tabs li {width: 30%; height: 30px }
-.related-widget .tab-panel .link-list li {padding: 20px 10px}
+// .related-widget .tabs li {width: 30%; height: 30px }
+// .related-widget .tab-panel .link-list li {padding: 20px 10px}
 
 
 .widget .social-row {width: 30px; height: 30px; }
 .widget .social-row  li i { font-size: 24px;}
+
+.widget.mailing-list {height: 100px}
 
 .sidebar .about-us, .sidebar .about-us a {font-weight: 800; font-size: 36px; text-transform: uppercase}
 // .social i{ font-size: 42px; color: $lt_aqua}
@@ -140,3 +172,30 @@ padding: 20px
 // #comments
 
 #comments {}
+
+.social-row   { vertical-align: middle; margin-top: 10px; margin-bottom: 10px}
+.social-row li { margin: 0 5px; width: 52px; height: 52px; background: $lt_aqua;
+  padding: 11px 0px 0px 3px; text-align: center;  vertical-align: middle}
+
+ .social-row li i { font-size: 30px; color: #fff; vertical-align: middle}
+
+// #footer .social-row   li{ margin: 0 5px; width: 65px; height: 65px; 
+//   padding: 15px 0px 0px 6px; }
+//  #footer.social-row  li i { font-size: 34px; }
+ .social-row  li:hover , #footer-social .social-row  li:hover{ opacity: 0.4;
+    filter: alpha(opacity=40); /* For IE8 and earlier */}
+
+
+
+ 
+
+
+// footer
+#footer-info {text-align: center;}
+#footer-info li, #footer-info li a {text-align: center; font-size: 12px; color: $lt_gray; text-transform: uppercase; letter-spacing: 2px;
+margin: 0 5px;}
+
+
+.privacy-info {font-size: 10px; color: $lt_gray; }
+.privacy-info a {font-weight: normal;; color: $md_gray}
+

@@ -71,15 +71,18 @@ module MetaTagsHelper
   #cleaning up controllers
 
   def blog_article_show_meta_tags
+    section_title = @article.section.title if @article.section.present?
+    author_name = @article.author.name if @article.author.present?
+    image_url = @article.hero_img.url
      prepare_meta_tags(title: default_blog_meta_title,
                       description: @article.meta_property_description || default_blog_meta_description,
                       keywords: @article.meta_property_keywords  || default_blog_meta_keywords,
-                      image: @article.hero_img.url || default_blog_meta_image,
+                      image: image_url || default_blog_meta_image,
                       type: "article",
                       article: {published_time:  @article.published_datetime || Date.today + 5.weeks, 
                                 modified_time: @article.updated_at,
-                                section: @article.section.title || "articles",
-                                author: @article.author.name || "Octopus Staff",
+                                section: section_title || "articles",
+                                author: author_name || "Octopus Staff",
                                 # @article.tags.each do |tag|
                                 #   tag:  tag.name 
                                 # end
