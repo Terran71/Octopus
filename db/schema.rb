@@ -812,6 +812,8 @@ ActiveRecord::Schema.define(version: 20160302125617) do
     t.string   "scheduled_datetime"
     t.string   "url"
     t.integer  "status",             default: 1
+    t.integer  "about_octopus",      default: 1
+    t.string   "share_platform_uid"
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
   end

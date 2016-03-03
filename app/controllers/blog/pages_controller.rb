@@ -12,7 +12,7 @@ class Blog::PagesController < ApplicationController
   
 
   def index
-    @pages = BlogPage.all
+    @pages = BlogPostStaticPage.all
   end
 
   def show

@@ -134,6 +134,7 @@ namespace :db do
     post.generate_default_ranking
     section = rand(1..9)
     post.blog_section_id = section
+    post.save
   end
 
 

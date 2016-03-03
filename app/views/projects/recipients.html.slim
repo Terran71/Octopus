@@ -20,10 +20,8 @@ css:
         = link_to project_participants_path(project_id: @project.id)
           |Project Participants
       li.active
-        - if  params[:participant_role] == 4 or params[:participant_role].blank?
-          |Add Helpers
-        - elsif  params[:participant_role] == 3
-          |Add Recipients
+      
+        |Add Recipients
           
   .row.invite-participants
     / .col-xs-12.col-sm-4
@@ -70,6 +68,22 @@ css:
         = simple_form_for @project, url: project_invite_recipients_path(id: @project.id, participant_role: @participant_role), multipart: true do |f|
 
           .panel-body
+            - if @project.project_recipients.blank? 
+              hr/            
+
+              .form-group
+                label Email Recipients Guests
+                br/
+                                
+                = f.simple_fields_for :honored_guests do |ff|
+                  .form-group
+
+                    .controls.form-inline.honored-guest-invites.mb10
+                      = ff.text_field :name,  class: 'form-control'
+                      = ff.text_field :email, required: true,  placeholder: "Recipient Email ",  class: 'form-control mr10 ml10'
+                        / = f.input :passive,  label: "skip emailing this honored guest", as: :boolean
+
+              
             - if @project.project_recipients.present?
               .form-group
                 = @project.project_recipients.map{ |r| link_to(r.name,project_participant_path(project_id: r.project_id, id: r.id))}.join(" & ").html_safe
@@ -99,12 +113,12 @@ css:
                       |   on  
                       = honored_guest.updated_at.strftime("%D")
                   
-             
+           
 
-            - if @project.honored_guests.invitable.present? 
+            - if @project.honored_guests.invitable.present?  
               hr/
               .form-group
-                label Email  Honored Guests
+                label Email Recipients
                 br/
                 
                 / - @project.honored_guests.each do |honored_guest|

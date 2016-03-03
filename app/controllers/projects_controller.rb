@@ -139,8 +139,8 @@ def kinds
 end
 
 def recipients
-  @participant_role = params[:participant_role] || 4
-    # @project.honored_guests.build
+  @participant_role = params[:participant_role] || 3
+    @project.honored_guests.build
   end
 
   def invite_recipients

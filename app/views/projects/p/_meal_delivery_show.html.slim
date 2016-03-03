@@ -29,14 +29,14 @@
           - if @project.addresses.present?
             - if @project.has_complete_address?
              = render "/projects/p/address", project: @project
-              =link_to edit_project_path(source: 's', id: @project.id), class: 'btn btn-orange-alt btn-sm '
+              =link_to edit_project_path(source: 's', id: @project.id),  data: {no_turbolink: true}, class: 'btn btn-orange-alt btn-sm '
                 |EDIT
 
             - else
-              =link_to edit_project_path(source: 's', id: @project.id)
+              =link_to edit_project_path(source: 's', id: @project.id),  data: {no_turbolink: true}
                 | FINISH ADDRESS
           -else 
-            =link_to edit_project_path(source: 's', id: @project.id), class: 'btn btn-orange-alt btn-md '
+            =link_to edit_project_path(source: 's', id: @project.id),  data: {no_turbolink: true}, class: 'btn btn-orange-alt btn-md '
               | ADD ADDRESS
           hr/
           .panel-section-title

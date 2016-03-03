@@ -41,6 +41,10 @@ class BlogPost < ActiveRecord::Base
    validates :status, presence: true
    validates :slug, uniqueness: {message: "Oops! You've already used this slug! Try adding a number to the end."}
 
+  scope :published_as_of, -> (date) do
+    where('published_datetime <= ?',date)
+  end 
+
   def self.types
     [
      BlogPostLive,

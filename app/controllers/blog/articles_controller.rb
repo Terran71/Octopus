@@ -51,7 +51,7 @@ class Blog::ArticlesController < ApplicationController
   end
 
   def index
-    @articles = BlogPost.all
+    @articles = BlogPostOriginal.all
 
 
   end

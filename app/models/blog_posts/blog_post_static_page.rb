@@ -3,8 +3,4 @@ class BlogPostStaticPage < BlogPost
   has_many :meta_properties, class_name: "MetaProperty", foreign_type: "BlogPostStaticPage", foreign_key: 'owner_id', dependent: :destroy
 
 
-
-
-
-
 end

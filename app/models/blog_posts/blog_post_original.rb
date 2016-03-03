@@ -3,7 +3,6 @@ class BlogPostOriginal < BlogPost
   has_many :meta_properties, class_name: "MetaProperty", foreign_type: "BlogPostOriginal", foreign_key: 'owner_id', dependent: :destroy
 
 
-
  # after_create :set_meta_information
 
  # def set_meta_information

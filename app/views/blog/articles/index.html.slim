@@ -1,7 +1,7 @@
 .container
   .row
     .col-md-8.col-sm-7.pt10
-      - BlogPost.all.each do |article|
+      - @articles.each do |article|
         = render "blog/shared/article_lists", article: article
       br/
     .col-md-4.col-sm-5

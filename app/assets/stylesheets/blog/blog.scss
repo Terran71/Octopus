@@ -130,7 +130,7 @@ padding: 20px
  filter: alpha(opacity=70); /* For IE8 and earlier */}
   .related-articles-list .hero-img img{ width: 100%}
   .related-articles-list li > .article-info{ float: left; text-align: left; width: 210px; padding-left: 6px; margin-top: -4px }
-  .related-articles-list .article-info .article-title, .related-articles-list .article-info .article-title a {color: #333; font-weight: bold; font-size: 16px; width: 100%}
+  .related-articles-list .article-info .article-title, .related-articles-list .article-info .article-title a {color: #333; font-weight: bold; font-size: 14px; width: 100%}
  .related-articles-list .article-info .article-lead, .related-articles-list .article-info .article-lead a {color: #777; line-height: normal; letter-spacing: normal; 
   font-weight: normal; font-size: 12px; width: 100%; text-align: left;}
 
@@ -166,8 +166,8 @@ padding: 20px
 .blog .published, .blog .published i  {font-size: 12px; color: $md_gray}
 
 .blog .article-lead, .blog .article-body,  .blog .article-body {  text-align: justify;
-  text-justify: inter-word; color: #555; letter-spacing: 1.7; 
-  font-family: $font-stack; }
+  text-justify: inter-word; color: #555; letter-spacing: 1.7; font-size: 17px; line-height: 31px;
+  font-family: $blog-font-stack; }
   .blog .article-lead a:hover, .blog .article-body a:hover {text-decoration: underline}
 
   .blog .article-lead { font-size: 22px; margin-bottom: 20px; line-height:28px;}
@@ -176,7 +176,7 @@ padding: 20px
   .blog  .preview-tile-box {height: 120px}
   .blog .preview-tiles {text-align: justify; font-size: 14px; line-height: 18px;
     text-justify: inter-word; color: #555; letter-spacing: 1.5; 
-    font-family: $font-stack;}
+    font-family: $blog-font-stack;}
 
 
 .blog  .preview-tile-box .preview-tiles-lead {font-size: 13px; color: $md_gray}

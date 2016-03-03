@@ -14,7 +14,7 @@ class Inside::BlogPostsController < Inside::DashboardController
   layout 'inside'
 
   def index
-    @articles = BlogPost.includes(:author).includes(:blog_editor).all
+    @articles = BlogPostOriginal.includes(:author).includes(:blog_editor).all
     @articles = @articles.page params[:page]
   end
 

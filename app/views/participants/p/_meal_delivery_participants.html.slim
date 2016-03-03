@@ -69,7 +69,8 @@ css:
         = link_to new_project_participant_path(project_id: @project.id, participant_role: 4), class: 'btn btn-orange'
           i.fa.fa-pencil
           |ADD PARTICIPANTS
-      = link_to new_project_participant_path(project_id: @project.id, participant_role: 3), class: 'btn btn-orange-alt'
+      = link_to project_add_recipients_path(project_id: @project.id, participant_role: 3),  class: 'btn btn-orange-alt'
+
         i.fa.fa-pencil
         |ADD RECIPIENTS
     = render partial: '/projects/p/widget_project_info'
