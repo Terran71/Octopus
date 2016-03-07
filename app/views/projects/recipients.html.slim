@@ -68,7 +68,7 @@ css:
         = simple_form_for @project, url: project_invite_recipients_path(id: @project.id, participant_role: @participant_role), multipart: true do |f|
 
           .panel-body
-            - if @project.project_recipients.blank? 
+            - if @project.project_recipients.blank?  && @project.honored_guests.blank?
               hr/            
 
               .form-group

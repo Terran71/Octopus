@@ -21,7 +21,7 @@ class ProjectRsvpJob < ActiveJob::Base
         puts "logged email #{project} #{email_kind.label}"
 
         email_recipient = organizer
-        # AddEmailLogJob.perform(email_recipient, email_kind)
+        AddEmailLogJob.perform(email_recipient, email_kind)
       end
 
      end

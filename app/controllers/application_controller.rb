@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user! , only: [:sidebar]
   # before_action :global
   before_action :sidebar
-  before_action :configure_permitted_parameters, if: :devise_controller?
+  # before_action :configure_permitted_parameters, if: :devise_controller?
   layout 'application'
   
   # 
@@ -96,22 +96,22 @@ class ApplicationController < ActionController::Base
   protected
 
 
-  def configure_permitted_parameters
+  # def configure_permitted_parameters
     
-    devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:id, :first_name, :last_name, :email, :gender, :avatar, :birth_date,
-      :password, :password_confirmation, :accept_terms, :level, :provider, :uid, :editor_user_id, :locale, :location, :oauth_expires_at, :oauth_token) }
-    devise_parameter_sanitizer.for(:account_update){ |u| u.permit(:first_name, :last_name, :email, :gender, :avatar, :level, :role,
-         :password, :password_confirmation, :current_password, :oauth_expires_at, :oauth_token,
-                  )}
-    # devise_parameter_sanitizer.permit(:sign_up) do |user_params|
-    #     user_params.permit(:id, :first_name, :last_name, :email, :gender, :avatar,
-    #   :password, :password_confirmation, :accept_terms, :level, :provider, :uid, :editor_user_id, :oauth_expires_at, :oauth_token,)
-    #   end
+  #   devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:id, :first_name, :last_name, :email, :gender, :avatar, :birth_date,
+  #     :password, :password_confirmation, :accept_terms, :level, :provider, :uid, :editor_user_id, :locale, :location, :oauth_expires_at, :oauth_token) }
+  #   devise_parameter_sanitizer.for(:account_update){ |u| u.permit(:first_name, :last_name, :email, :gender, :avatar, :level, :role,
+  #        :password, :password_confirmation, :current_password, :oauth_expires_at, :oauth_token,
+  #                 )}
+  #   # devise_parameter_sanitizer.permit(:sign_up) do |user_params|
+  #   #     user_params.permit(:id, :first_name, :last_name, :email, :gender, :avatar,
+  #   #   :password, :password_confirmation, :accept_terms, :level, :provider, :uid, :editor_user_id, :oauth_expires_at, :oauth_token,)
+  #   #   end
 
-    # devise_parameter_sanitizer.permit(:sign_in) do |user_params|
-    #   user_params.permit(:username, :email)
-    # end
-  end
+  #   # devise_parameter_sanitizer.permit(:sign_in) do |user_params|
+  #   #   user_params.permit(:username, :email)
+  #   # end
+  # end
 
   def capture_referal
     session[:referral] = params[:ref] if params[:ref]

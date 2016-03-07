@@ -9,7 +9,7 @@ class EventResponseJob < ActiveJob::Base
     #sends to even scheduler
     
     ProjectMailer.event_response(event,  email_kind, response).deliver_later
-        puts "logged email #{event.project.category} #{email_kind.label}"
+    puts "logged email #{event.project.category} #{email_kind.label}"
 
     AddEmailLogJob.perform(event.participant, email_kind)
 

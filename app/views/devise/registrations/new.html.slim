@@ -41,40 +41,43 @@
               / = link_to user_omniauth_authorize_path(:twitter), class: 'btn btn-twitter btn-block btn-lg'
               /   |Sign up with Twitter
             span.line-thru OR
-          / form.form-horizontal
-          /   fieldset
-          /     .form-group
-          /       .row.p0
-          /         .col-sm-6
-          /           .input-group.input-group-md
-          /             = f.text_field :first_name, required: true, autofocus: true, label: false, class: 'form-control', placeholder: 'FIRST NAME'
-          /         .col-sm-6
-          /           .input-group
-          /             = f.text_field :last_name, required: true, autofocus: true, label: false, class: 'form-control', placeholder: 'LAST NAME'
-          /   fieldset
-          /     .form-group
-          /       .input-group.input-group-md
-          /         span.input-group-addon
-          /           i.fa.fa-envelope
-          /         = f.input :email, required: true, autofocus: true, label: false
-          /     .form-group
-          /       .input-group.input-group-md
-          /         span.input-group-addon
-          /           i.fa.fa-lock.fa-lg
-          /         = f.input :password, required: true, label: false
-          /         / = f.input :password, required: true, label: false,  hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length)
-          /         / = f.password_field :password, required: true , label: false, class: 'form-control', placeholder: 'PASSWORD'
-          /     .form-group
-          /       .input-group.input-group-md
-          /         span.input-group-addon
-          /           i.fa.fa-lock.fa-lg
-          /         = f.input :password_confirmation, required: true , label: false
-          /     .form-group
-          /       small
-          /         label.mr5 Accept Terms & Conditions
-          /       = f.check_box :accept_terms
-          /     .form-group
-          /       = f.button :submit, "Log in", class: 'btn btn-aqua btn-block btn-lg'
+          form.form-horizontal
+            fieldset
+              .form-group
+                .row.p0
+                  .col-sm-6
+                    .input-group.input-group-md
+                      = f.text_field :first_name, required: true, autofocus: true, label: false, class: 'form-control', placeholder: 'FIRST NAME'
+                  .col-sm-6
+                    .input-group
+                      = f.text_field :last_name, required: true, autofocus: true, label: false, class: 'form-control', placeholder: 'LAST NAME'
+            fieldset
+              .form-group
+                .input-group.input-group-md
+                  span.input-group-addon
+                    i.fa.fa-envelope
+                  = f.input :email, required: true, autofocus: true, label: false
+              .form-group
+                .input-group.input-group-md
+                  span.input-group-addon
+                    i.fa.fa-lock.fa-lg
+                  = f.input :password, required: true, label: false
+                  / = f.input :password, required: true, label: false,  hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length)
+                  / = f.password_field :password, required: true , label: false, class: 'form-control', placeholder: 'PASSWORD'
+              .form-group
+                .input-group.input-group-md
+                  span.input-group-addon
+                    i.fa.fa-lock.fa-lg
+                  = f.input :password_confirmation, required: true , label: false
+              .form-group.custom-checkboxes 
+                / small
+                  
+                / = label_tag :accept_terms, value: "Accept Terms & Conditions", class: 'label mr5 '
+                = check_box_tag :accept_terms, "", true
+                = label_tag :accept_terms, 'Accept Terms & Conditions'
+
+              .form-group
+                = f.button :submit, "Sign Up", class: 'btn btn-aqua btn-block btn-lg'
 
           section
             p.text-center
@@ -86,5 +89,5 @@
             p.text-center.text-muted.text-small
               | Already have an account?
               = link_to new_user_session_path
-                | Sign In
+                |  Sign In
 

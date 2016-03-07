@@ -4,6 +4,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   prepend_before_action :require_no_authentication, only: [ :signup_success, :new, :create, :cancel]
   prepend_before_action :authenticate_scope!, only: [:edit, :update, :destroy, :autocomplete ]
   # protect_from_forgery except:  [  :update, :edit ]
+  # before_action :configure_permitted_parameters
 
 
   def signup_success
@@ -20,30 +21,31 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
 
 
-  def create
+  # def create
+    # super
+    # @user = User.new(sign_up_params)
+    # @user.save
 
-    build_resource(sign_up_params)
+    # # build_resource(sign_up_params)
+    # # resource.save
+    # yield @user  if block_given?
+    # if @user.persisted?
 
-
-    resource.save
-    yield resource if block_given?
-    if resource.persisted?
-
-      if resource.active_for_authentication?
-        set_flash_message :notice, :signed_up if is_flashing_format?
-        sign_up(resource_name, resource)
-        respond_with resource, location: after_sign_up_path_for(resource)
-      else
-        set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}" if is_flashing_format?
-        expire_data_after_sign_in!
-        respond_with resource, location: after_inactive_sign_up_path_for(resource)
-      end
-    else
-      clean_up_passwords resource
-      set_minimum_password_length
-      respond_with resource
-    end
-  end
+    #   if @user.active_for_authentication?
+    #     set_flash_message :notice, :signed_up if is_flashing_format?
+    #     sign_up(resource_name, resource)
+    #     respond_with @user, location: after_sign_up_path_for(@user)
+    #   else
+    #     set_flash_message :notice, :"signed_up_but_#{@user.inactive_message}" if is_flashing_format?
+    #     expire_data_after_sign_in!
+    #     respond_with resource, location: after_inactive_sign_up_path_for(@user)
+    #   end
+    # else
+    #   clean_up_passwords @user
+    #   set_minimum_password_length
+    #   respond_with @user
+    # end
+  # end
 
 
 def destroy
@@ -126,15 +128,6 @@ end
 
 
 
-
- #  def add_default_preferences
- #   @user.user_preferences.create!(user_id: @user.id, preference_id: 5, answer: 'organizer')
- #   @user.user_preferences.create!(user_id: @user.id, preference_id: 7, answer: 'organizer')
- #   @user.user_preferences.create!(user_id: @user.id, preference_id: 9, answer: 'yes')
- #   Profile.create!(user_id: @user.id, country: 'USA', language: 'en-us')
- # end
-
-
  def after_update_path_for(resource)
   #
   end
@@ -145,17 +138,43 @@ end
     self.resource = send(:"current_#{resource_name}")
   end
 
-  def sign_up_params
-    devise_parameter_sanitizer.sanitize(:sign_up)
-  end
+  # def sign_up_params
+  #   devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:id, :first_name, :last_name, :email, :gender, :avatar, :birth_date,
+  #     :password, :password_confirmation, :accept_terms, :level, :provider, :uid, :editor_user_id, :locale, :location, :oauth_expires_at, :oauth_token) }
+  # end
 
   def account_update_params
-    devise_parameter_sanitizer.sanitize(:account_update)
+    devise_parameter_sanitizer.for(:account_update){ |u| u.permit(:first_name, :last_name, :email, :gender, :avatar, :level, :role,
+         :password, :password_confirmation, :current_password, :oauth_expires_at, :oauth_token,
+                  )}
   end
 
   def translation_scope
     'devise.registrations'
   end
+
+  def sign_up_params
+     params.require(:user).permit(:id,  :first_name, :last_name, :email, :gender, :avatar, :birth_date,
+      :password, :password_confirmation, :accept_terms, :level, :provider, :uid, :editor_user_id, :locale, :location, :oauth_expires_at, :oauth_token)
+  end
+
+   # def configure_permitted_parameters
+
+    
+   #  devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:id, :first_name, :last_name, :email, :gender, :avatar, :birth_date,
+   #    :password, :password_confirmation, :accept_terms, :level, :provider, :uid, :editor_user_id, :locale, :location, :oauth_expires_at, :oauth_token) }
+   #  devise_parameter_sanitizer.for(:account_update){ |u| u.permit(:first_name, :last_name, :email, :gender, :avatar, :level, :role,
+   #       :password, :password_confirmation, :current_password, :oauth_expires_at, :oauth_token,
+   #                )}
+    # devise_parameter_sanitizer.permit(:sign_up) do |user_params|
+    #     user_params.permit(:id, :first_name, :last_name, :email, :gender, :avatar,
+    #   :password, :password_confirmation, :accept_terms, :level, :provider, :uid, :editor_user_id, :oauth_expires_at, :oauth_token,)
+    #   end
+
+    # devise_parameter_sanitizer.permit(:sign_in) do |user_params|
+    #   user_params.permit(:username, :email)
+    # end
+  # end
 
 
 end
