@@ -44,6 +44,7 @@ gem 'acts-as-taggable-on', '~> 3.4'
 gem 'acts_as_list', '~> 0.7.2'
 gem 'factory_girl_rails'
 gem 'friendly_id', '~> 5.1.0'
+gem 'acts_as_paranoid', '~> 0.5.0.beta2'
 
 # gem 'addressable', '~> 2.3.8'
 gem 'responders', '~> 2.1.0'

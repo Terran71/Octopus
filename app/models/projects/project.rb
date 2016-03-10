@@ -1,6 +1,7 @@
 class Project < ActiveRecord::Base
   include ProjectsHelper
-
+  
+  acts_as_paranoid
 
   def self.types
     [
