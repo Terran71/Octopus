@@ -14,7 +14,7 @@ namespace :db do
       EmailKind.create!(email_kind)
     end
 
-    u = User.create!(first_name: 'Ada', last_name: 'SystemBrain', email: 'ada@ouroctopus.com', password: 'onesandzeros6738282764293876',
+    u = User.create!(first_name: 'Ada', last_name: 'SystemBrain', email: 'ada@ouroctopus.com', password: 'secretpassword123',
      confirmed_at: Time.now, gender: 'other', editor_user_id: 1, level: 'system', accept_terms: true)
     p = Profile.find_by_user_id(u.id)
     p.birth_date = Date.today
@@ -28,7 +28,7 @@ namespace :db do
     puts 'added Ada'
 
 
-    u = User.create!(first_name: 'Emily', last_name: 'Wing', email: 'emilypwing@gmail.com', password: '888edo4thewin',
+    u = User.create!(first_name: 'Emily', last_name: 'Wing', email: 'emilypwing@gmail.com', password: 'secretpassword123',
      confirmed_at: Time.now, gender: 'female', editor_user_id: 1, level: 'Maker', accept_terms: true)
     p = Profile.find_by_user_id(u.id)
     p.birth_date = Date.today - 37.years
@@ -56,6 +56,7 @@ namespace :db do
 
 
     puts 'adding internal social accounts'
+    #refactor
     SocialAccount.create!(platform: "twitter", username: 'ouroctopus',  encrypted_password: 'SomePassword', )
     SocialAccount.create!(platform: "facebook", username: 'ouroctopus',  encrypted_password: 'SomePassword', )
     SocialAccount.create!(platform: "twitter", username: 'omghowmanycats',  encrypted_password: 'SomePassword', )

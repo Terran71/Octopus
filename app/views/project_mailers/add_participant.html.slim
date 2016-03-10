@@ -6,6 +6,7 @@ table style="background: #fff; width: 600px; padding: 20px; margin-left: auto; m
           |Hi&nbsp;
           = @participant_role.participant.user.first_name
           |,
+          br/
         strong
           =@participant_role.grantor.name
         - if @participant_role.is_helper?

@@ -6,7 +6,7 @@ class ParticipantInviteJob < ActiveJob::Base
 
     user = User.find_by_email(participant_role.participant.email)
     if user.present?
-    puts 'Yes it formed' * 1000
+    # puts 'Yes it formed' * 1000
       participant_role.participant.user_id = user.id 
       participant_role.participant.save
     end

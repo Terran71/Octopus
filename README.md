@@ -80,7 +80,6 @@ this:
 rake full_reset:dev
 ```
 
-(Note that full_reset does nothing with the legacy database)
 
 ### If you're going to do deployments
 
@@ -103,7 +102,7 @@ heroku keys:add --remote prod
 
 ### Windows
 
-You're on your own. Sorry.
+No info.
 
 
 ## Development Server
@@ -116,16 +115,6 @@ foreman start
 ```
 
 Then browse to http://localhost:3000
-
-
-## Legacy database migration
-
-If you're working on the legacy database migration, then you'll need
-to set up the legacy database and populate it with test data.
-
-*The following commands work on Ubuntu; for OSX you'll probably need
-to drop the `sudo -u postgres` part.*
-
 
 
 ## Alpha Environment
