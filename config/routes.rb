@@ -44,6 +44,7 @@ Rails.application.routes.draw do
     get 'signout', to: 'users/sessions#destroy', as: 'signout'
     get 'users/:id/finish_signup' => 'users#finish_signup', via: [:get, :patch], :as => :finish_signup
     get 'users/auth/google_oauth2', to:  'users/omniauth_callbacks#passthru'
+    get 'passwords/check_email_for_password', to:  'users/passwords#check_email_for_password', as: :check_email_for_password
 
 
   end
