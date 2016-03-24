@@ -8,6 +8,8 @@ css:
     thead
       th width= "40px"
         |#
+      th width= '50px'
+        |STATUS
       th width= '250px'
         |Household Name
       th 
@@ -27,8 +29,10 @@ css:
           td
             = household.contacts.count
           td
-            = household.name
             = household.status
+          td
+            = household.name
+
             .household-members
               
               = household.contacts.each.map{ |r| r.name }.join(" & ") 

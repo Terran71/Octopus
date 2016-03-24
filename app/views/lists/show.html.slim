@@ -19,7 +19,7 @@ css:
             .fa.fa-envelope-o
             = @list.name
       .panel-body
-        fieldset.add-recipients
+        / fieldset.add-recipients
           |UPLOAD CUSTOM CSV
           = form_tag  import_lists_path(list_id: @list.id), multipart: true 
             .form-group

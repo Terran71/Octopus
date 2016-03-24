@@ -1,4 +1,5 @@
-
+css:
+ .panel-octopus .simple_form label .collection_radio_buttons   {font-weight: normal; color: #555; font-size: 14px; margin-right: 5px}
 = simple_form_for @list, multipart: true do |f|
 
   .panel-body
@@ -14,10 +15,14 @@
   
     .form-group
       = f.input :custom_name, label: "Do you Want a custom name for your list?"
-    
     .form-group
-      = f.input :has_limit, label: "Does your list have a maximum amount of recipients?"
-      = f.input :limit, label: "Enter Limit"
+      = f.label :has_limit, label: "Does your list have a maximum amount of recipients?"
+      br/
+
+      = f.collection_radio_buttons :has_limit, [[false, "No, There Is No Limit."], [true, 'Yes, I need to limit the recipients']], :first, :last,  label: 'Does your list have a maximum amount of recipients?', style: 'width: 100%;', checked:  :false
+    .form-group
+      / = f.input :has_limit, label: "Does your list have a maximum amount of recipients?"
+      = f.input :limit, label: "Enter Limit", style: "width: 60px", placeholder: "Limit #"
 
      
     / add rsvp & meals in future

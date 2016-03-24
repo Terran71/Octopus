@@ -29,8 +29,9 @@ css:
               - else
                 - first_contact = household.contact.first.name
             td
-              = check_box_tag "household_ids[]", household.id
-              = label_tag "YES"
+              .custom-checkboxes
+                = check_box_tag "household_ids[]", household.id
+                = label_tag "YES"
 
 
       

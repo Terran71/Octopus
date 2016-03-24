@@ -1,7 +1,7 @@
 class CountryCode
 
-  def find_code(country_name)
-    return unless user
+  def self.find_code(country_name)
+    return unless country_name
 
     case country_name
     when "US"

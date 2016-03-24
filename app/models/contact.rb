@@ -176,10 +176,13 @@ end
   end
 
   def find_first_name(which_name)
+    self.first_name.split(/&/) 
+    names = self.first_name.split(/&/) 
     if which_name == "first"
-      "FirstContact"
+      # this needs to be the first name in the string FirstContact & SecondContact
+      names.first
     elsif which_name == "second"
-       "SecondContacts"
+       names.second
     end
   end
 

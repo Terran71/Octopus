@@ -3,7 +3,7 @@ css:
   .missing-address {color: #ccc}
 = form_tag split_households_path(list_id: params[:list_id]), method: :patch  
 
-  div style="max-width: 500px; margin-left: auto; margin-right: auto"
+  div style="max-width: 500px; margin-left: auto; margin-right: auto;"
     h1
       = @households.pending_split.count
       |  PENDING CONTACTS SPLIT
@@ -29,8 +29,9 @@ css:
               - else
                 - first_contact = household.contact.first.name
             td
-              = check_box_tag "household_ids[]", household.id, id: dom_id(household)
-              = label_tag "YES"
+              .custom-checkboxes
+                = check_box_tag "household_ids[]", household.id, id: dom_id(household)
+                = label_tag "YES"
 
       
     div
