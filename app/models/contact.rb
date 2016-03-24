@@ -18,23 +18,26 @@ class Contact < ActiveRecord::Base
   scope :not_pending_discard, -> { where.not(status: 3) }
 
     # default_scope -> { where(status: 4)}
+    default_scope -> { includes(:addresses)}
+    default_scope -> { includes(:household)}
+    default_scope -> { includes(:guests)}
 
 
 
-def self.import(file, set_list_id)
+# def self.import(file, set_list_id)
   
-  # header = spreadsheet.row(1)
-  # (2..spreadsheet.last_row).each do |i|
-  #   row = Hash[[header, spreadsheet.row(i)].transpose]
-  CSV.foreach(file.path, headers: true) do |row|
-      contact_hash = row.to_hash
-      # row.strip.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
-      c = Contact.new(first_name: ["contact_hash"]["first_name"])
-      c.save!
-      # c.add_contact_to_guest_list(set_list_id)
-    end
+#   # header = spreadsheet.row(1)
+#   # (2..spreadsheet.last_row).each do |i|
+#   #   row = Hash[[header, spreadsheet.row(i)].transpose]
+#   CSV.foreach(file.path, headers: true) do |row|
+#       contact_hash = row.to_hash
+#       # row.strip.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
+#       c = Contact.new(first_name: ["contact_hash"]["first_name"])
+#       c.save!
+#       # c.add_contact_to_guest_list(set_list_id)
+#     end
 
-end
+# end
 
 def is_member_of_household?
   self.household.present?

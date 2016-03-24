@@ -12,7 +12,9 @@ class ContactsController < ApplicationController
   respond_to :html
 
   def index
-    @contacts = current_user.imported_contacts
+    @contacts = current_user.imported_contacts.includes(:address).includes(:household).includes(:guests)
+
+
   end
 
   def import_results

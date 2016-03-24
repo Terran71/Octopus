@@ -159,7 +159,7 @@ class User < ActiveRecord::Base
   # accepts_nested_attributes_for :project
 
   #scopes
-  default_scope -> { includes(:profile)}
+  # default_scope -> { includes(:profile)}
 
   # before_save :set_editor_user_id
 

@@ -58,6 +58,7 @@ If OSX
 ```
 createuser -P -S -R -d octopus
 ```
+
 For everyone
 ```
 cp config/database.local.yml config/database.yml
@@ -72,9 +73,6 @@ sudo -u postgres createdb -Ooctopus -Eutf8 octopus_development
 sudo -u postgres createdb -Ooctopus -Eutf8 octopus_test
 ```
 
-If later you want to reset your local Rails database and file
-storange, and go back to the demo data set that's used on Alpha, do
-this:
 
 ```
 rake full_reset:dev

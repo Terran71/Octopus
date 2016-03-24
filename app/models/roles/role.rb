@@ -3,6 +3,9 @@ class Role < ActiveRecord::Base
   belongs_to :user
   belongs_to :editor, class_name: "User",  foreign_key: "editor_user_id"
 
+
+   # --- VALIDATIONS ---
+
   #STI Requires Type
   validates :type, presence: true, allow_blank: false
 
@@ -41,6 +44,9 @@ class Role < ActiveRecord::Base
   def ended?
     !current?
   end
+
+  
+  # --- CALLBACKS ---
 
   before_save :calculate_end_date, if: :new_record?
   before_save :calculate_start_date, if: :new_record?

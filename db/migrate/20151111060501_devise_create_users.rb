@@ -55,6 +55,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.datetime :originally_created_at
       t.string :locale
       t.string :location
+      t.string :time_zone, default: "Central Time (US & Canada)"
 
       t.timestamps null: false
 
