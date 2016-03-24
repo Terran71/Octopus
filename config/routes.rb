@@ -95,7 +95,10 @@ Rails.application.routes.draw do
 
 
 
-    resources :lists, except: [:show]
+
+    # resources :card_lists, :controller => 'lists', except: [:new]
+    # resources :baby_announcement_card_lists, :controller => 'lists', except: [:new]
+
     resources :participants
     resources :project_dates, only: [:show]
     patch 'add_event/:project_date_id', to: 'project_dates#add_event', as: :add_event
@@ -103,7 +106,6 @@ Rails.application.routes.draw do
       resources :project_dates , except: [:new] do 
         # resources :events, except: [:create]
         # post 'events/add_event', to: 'events#add_event', as: :add_event
-
         
       end
  
@@ -129,20 +131,21 @@ Rails.application.routes.draw do
 
   get 'rsvp/:id/:rsvp', to: 'invites#rsvp', as: :rsvp
 
-  resources :lists, except: [:show]
+
+   resources :lists, except: [:show]
+    resources :guest_lists, controller: 'lists', except: [:new]
+    resources :card_lists, controller: 'lists', except: [:new]
+    resources :lists, except: [:show] do
+      collection { post :import }
+    end
+
   get 'lists/list_types', to: 'lists#list_types', as: :list_types
   get 'lists/list_project', to: 'lists#list_project', as: :list_project
 
   resources :feedbacks, only: [:new, :create]
-  resources :lists, :controller => 'lists', except: [:show]
   get 'lists/:id', to: 'lists#show', as: :mailing_list
 
-  resources :lists, except: [:show] do
-    collection { post :import }
-  end
-  resources :card_lists, :controller => 'lists', except: [:new]
-  resources :baby_announcement_card_lists, :controller => 'lists', except: [:new]
-
+  
 
 
   namespace :blog , path: "" do

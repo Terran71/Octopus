@@ -32,7 +32,6 @@ class ListsController < DashboardController
 
   def import
     Contact.import(params[:file], params[:list_id], current_user.id, params[:auto_add_to_list], params[:import_source])
-    FindHouseholdsJob.perform(current_user)
     redirect_to import_results_url(list_id: params[:list_id]), notice: "Recipients imported."
   end
 
@@ -53,7 +52,7 @@ class ListsController < DashboardController
     
     respond_to do |format|
       if @list.save
-        format.html { redirect_to @list, notice: "#{@list.name}  was successfully created." }
+        format.html { redirect_to mailing_list_path(@list), notice: "#{@list.name}  was successfully created." }
         format.json { render :show, status: :created, location: @list }
       else
         format.html { render :new }

@@ -2,7 +2,8 @@ css:
   .address-missing-label li {padding: 2px 8px; border-radius: 2px; color: #fff; background: #cc0000; margin: 3px; text-transform: uppercase}
   .missing-address {color: #ccc}
   .household-members {color: #999; font-style: italic; font-size: 11px}
-- if current_user.imported_households.present?
+- user = User.includes(:imported_households).find(current_user.id)
+- if user.imported_households.present?
   table.octopus-table
     thead
       th width= "40px"
@@ -21,7 +22,7 @@ css:
    
     tbody
 
-      - current_user.imported_households.order(name: :asc).each do |household|
+      - user.imported_households.order(name: :asc).each do |household|
         tr
           td
             = household.contacts.count

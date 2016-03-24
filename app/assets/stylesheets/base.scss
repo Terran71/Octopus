@@ -13,13 +13,17 @@ body, body .signed_out  {
 
 body .notfound  {
   background: $md_gray;
+  font-family:  $font-stack;
 }
 
 
 body .signed_in {
   background: $xlt_aqua;
+  font-family:  $font-stack;
 }
 
+
+// nav {font-family: 'Open Sans', 'Lucida Grande', 'Lucida Sans Unicode', Helvetica, sans-serif;}
 #footer {
 clear:both;
 background:#FFFAF0;

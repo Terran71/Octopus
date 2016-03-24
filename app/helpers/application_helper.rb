@@ -20,11 +20,6 @@ module ApplicationHelper
     true
   end
 
-
-  def standard_date(time)
-    time.respond_to?(:strftime) ? time.strftime("%B %e, %Y at %I:%M %p") : ""
-  end
-
   def title
     base_title = "Octopus || Need 8 Hands?"
     @title.nil? ? base_title : "Octopus || #{@title}"
@@ -35,9 +30,49 @@ module ApplicationHelper
   def active_page(root_path)
     # @active == active_page ? "active" : ""
     ' class="active"' if current_page?(root_path)
-
   end
 
+
+  def standard_date(time)
+    time.respond_to?(:strftime) ? time.strftime("%B %e, %Y at %I:%M %p") : ""
+  end
+
+  def weekday_friendly_datetime(datetime)
+    # date = datetime.in_time_zone.strftime('%m/%e/%Y').gsub( /0?(\d)\/0?(\d)\/(\d{2})/,'\1/\2/\3')
+    date = datetime.in_time_zone
+    time = time_ago_in_words(datetime)
+    "#{date.month}/#{date.day}/#{date.year} (#{time} ago)"
+  end
+
+  def month_friendly_datetime(datetime)
+    # date = datetime.in_time_zone.strftime('%m/%e/%Y').gsub( /0?(\d)\/0?(\d)\/(\d{2})/,'\1/\2/\3')
+    date = datetime.in_time_zone
+    time = time_ago_in_words(datetime)
+    "#{date.month}/#{date.day}/#{date.year} (#{time} ago)"
+  end
+
+  def number_friendly_datetime(datetime)
+    # date = datetime.in_time_zone.strftime('%m/%e/%Y').gsub( /0?(\d)\/0?(\d)\/(\d{2})/,'\1/\2/\3')
+    date = datetime.in_time_zone
+    time = time_ago_in_words(datetime)
+    "#{date.month}/#{date.day}/#{date.year} (#{time} ago)"
+  end
+
+  def days_ago_in_words(time)
+    days = ((Time.now - time.to_time) / 86400.0).round
+    if days > 1
+      I18n.t :x_days, :count => days, :scope => :'datetime.distance_in_words'
+    else
+      time_ago_in_words(time)
+    end
+  end
+
+  def days_ago(time)
+    days = ((Time.now - time.to_time) / 86400.0).round
+    if days > 1
+     days
+    end
+  end
 
 
   
@@ -58,21 +93,7 @@ module ApplicationHelper
   #   "#{"day".pluralize(diff.to_i / 86400)} ago"
   # end
 
-  def days_ago_in_words(time)
-    days = ((Time.now - time.to_time) / 86400.0).round
-    if days > 1
-      I18n.t :x_days, :count => days, :scope => :'datetime.distance_in_words'
-    else
-      time_ago_in_words(time)
-    end
-  end
-
-  def days_ago(time)
-    days = ((Time.now - time.to_time) / 86400.0).round
-    if days > 1
-     days
-    end
-  end
+  
 
   
 

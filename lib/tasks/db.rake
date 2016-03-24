@@ -14,7 +14,7 @@ namespace :db do
       EmailKind.create!(email_kind)
     end
 
-    u = User.create!(first_name: 'Ada', last_name: 'SystemBrain', email: 'ada@ouroctopus.com', password: 'secretpassword123',
+    u = User.create!(first_name: 'Ada', last_name: 'SystemBrain', email: 'ada@ouroctopus.com', password: 'secretpassword123', time_zone: "Pacific Time (US & Canada)",
      confirmed_at: Time.now, gender: 'other', editor_user_id: 1, level: 'system', accept_terms: true)
     p = Profile.find_by_user_id(u.id)
     p.birth_date = Date.today
@@ -28,7 +28,7 @@ namespace :db do
     puts 'added Ada'
 
 
-    u = User.create!(first_name: 'Emily', last_name: 'Wing', email: 'emilypwing@gmail.com', password: 'secretpassword123',
+    u = User.create!(first_name: 'Emily', last_name: 'Wing', email: 'emilypwing@gmail.com', password: 'secretpassword123', time_zone: "Pacific Time (US & Canada)",
      confirmed_at: Time.now, gender: 'female', editor_user_id: 1, level: 'Maker', accept_terms: true)
     p = Profile.find_by_user_id(u.id)
     p.birth_date = Date.today - 37.years
@@ -45,7 +45,7 @@ namespace :db do
 
     puts 'added Emily'
 
-    u = User.create!(first_name: 'DevFirst', last_name: 'DevLast', email: 'dev@ouroctopus.com', password: 'secretpassword123',
+    u = User.create!(first_name: 'DevFirst', last_name: 'DevLast', email: 'dev@ouroctopus.com', password: 'secretpassword123', time_zone: "Pacific Time (US & Canada)",
      confirmed_at: Time.now, gender: 'other', editor_user_id: 1, level: 'system', accept_terms: true)
     p = Profile.find_by_user_id(u.id)
     p.birth_date = Date.today
