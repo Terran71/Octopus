@@ -27,11 +27,11 @@ class ImportContactsJob < ActiveJob::Base
         home_address.owner_id = contact.id
         home_address.save!
         if auto_add_to_list == "true"
-          puts 'EDO ' * 2000
           AddContactToGuestListJob.perform(contact, set_list_id)
         end
       end  
     elsif import_source == "google"
+
        CSV.foreach(file.path, headers: true)do |row|
         import_hash = row.to_hash
         contact_hash = ImporterTool.find_contact_hash_from(current_user_id, import_source, import_hash)
@@ -47,20 +47,23 @@ class ImportContactsJob < ActiveJob::Base
           contact = Contact.create!(contact_hash)
           # contact.save!
         end
-        if import_hash["Home Address"].present?
-          home_address_hash = ImporterTool.find_address_hash_from(current_user_id, import_source, import_hash, "home")
-          home_address = Address.create!(home_address_hash)
-          home_address.owner_type = "Contact"
-          home_address.owner_id = contact.id
-          home_address.save!
-        end
-        if import_hash["Work Address"].present? 
-          work_address_hash = ImporterTool.find_address_hash_from(current_user_id, import_source, import_hash, "work")
-          work_address_hash = Address.create!(work_address_hash)
-          work_address_hash.owner_type = "Contact"
-          work_address_hash.owner_id = contact.id
-          work_address_hash.save!
-        end
+        # ImporterTool.find_address_hash_from(current_user_id, import_source, import_hash, "home")
+        ImporterTool.add_google_addresses(current_user_id, import_hash, contact)
+
+        # if import_hash["Home Address"].present?
+        #   home_address_hash = ImporterTool.find_address_hash_from(current_user_id, import_source, import_hash, "home")
+        #   home_address = Address.create!(home_address_hash)
+        #   home_address.owner_type = "Contact"
+        #   home_address.owner_id = contact.id
+        #   home_address.save!
+        # end
+        # if import_hash["Work Address"].present? 
+        #   work_address_hash = ImporterTool.find_address_hash_from(current_user_id, import_source, import_hash, "work")
+        #   work_address_hash = Address.create!(work_address_hash)
+        #   work_address_hash.owner_type = "Contact"
+        #   work_address_hash.owner_id = contact.id
+        #   work_address_hash.save!
+        # end
 
         if auto_add_to_list == "true"
           AddContactToGuestListJob.perform(contact, set_list_id)

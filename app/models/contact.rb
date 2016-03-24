@@ -45,7 +45,7 @@ end
 
 
 def self.import(file, set_list_id, current_user_id, auto_add_to_list, import_source)
-    ImportContactsJob.perform(file, set_list_id, current_user_id, import_source, auto_add_to_list, self.file_type(file))#put category  
+  ImportContactsJob.perform(file, set_list_id, current_user_id, import_source, auto_add_to_list, self.file_type(file))#put category  
 end
 
 def add_contact_to_guest_list(list_id)
