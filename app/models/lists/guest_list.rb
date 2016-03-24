@@ -4,8 +4,8 @@ class GuestList < List
     def self.types
     [
       GuestList,
-      # WeddingSaveTheDateGuestList,
-      # WeddingGuestList,
+      WeddingSaveTheDateGuestList,
+      WeddingGuestList,
       # ShowerGuestList.types,
       # PartyGuestList,
       ].flatten

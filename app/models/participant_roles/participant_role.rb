@@ -23,11 +23,12 @@ class ParticipantRole < ActiveRecord::Base
 
   
 
+  # --- VALIDATIONS ---
   #STI Requires Type
   validates :type, presence: true, allow_blank: false
 
 
-  default_scope -> { includes(:project)}
+  # default_scope -> { includes(:project)}
 
   def kind
     '???'

@@ -26,7 +26,7 @@ class Participant < ActiveRecord::Base
   accepts_nested_attributes_for :honored_guest
 
   enum status: [:unknown , :unseen, :pending, :accepted, :maybe, :declined]
-  default_scope -> { includes(:participant_roles)}
+  # default_scope -> { includes(:participant_roles)}
 
   scope :accepted, -> { where(status: 3) }
   scope :unseen, -> { where(status: 1) }

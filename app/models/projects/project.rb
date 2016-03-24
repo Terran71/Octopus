@@ -36,9 +36,16 @@ class Project < ActiveRecord::Base
 
   belongs_to :editor, class_name: "User",  foreign_key: "editor_user_id"
   enum status: [:draft, :active, :archived]
+
+
+  # --- VALIDATIONS ---
   #STI Requires Type
   validates :type, presence:  {message: "Please enter a Kind of project."}
 
+  # --- CALLBACKS ---
+  before_save :set_default_times
+  after_update :add_dates
+  # after_create :create_organizer
 
  # accepts_nested_attributes_for :events, allow_destroy: true
   accepts_nested_attributes_for :participants, allow_destroy: true, reject_if: proc { |a| a["email"].blank? }
@@ -50,9 +57,9 @@ class Project < ActiveRecord::Base
   accepts_nested_attributes_for :participant_roles, allow_destroy: true, reject_if: proc { |a| a["participant_id"].blank? }
   accepts_nested_attributes_for :honored_guests, allow_destroy: true, reject_if: proc { |a| a["name"].blank? }
 
- accepts_nested_attributes_for :lists, allow_destroy: true
-  accepts_nested_attributes_for :guest_lists, allow_destroy: true
- accepts_nested_attributes_for :guests, allow_destroy: true
+   accepts_nested_attributes_for :lists, allow_destroy: true
+   accepts_nested_attributes_for :guest_lists, allow_destroy: true
+   accepts_nested_attributes_for :guests, allow_destroy: true
 
  # accepts_nested_attributes_for :milestones, allow_destroy: true
  # accepts_nested_attributes_for :guests, allow_destroy: true, reject_if: :all_blank
@@ -366,9 +373,7 @@ end
   end
   
   
-  before_save :set_default_times
-  after_update :add_dates
-  # after_create :create_organizer
+
 
 
   def reformat_dates

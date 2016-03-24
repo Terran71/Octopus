@@ -36,6 +36,8 @@ class BlogPost < ActiveRecord::Base
   #Add new statuses to the end of the list. If you change this order of these than it will break the data.  
   enum status: STATUSES
 
+  
+   # --- VALIDATIONS ---
    validates :title, presence: {message: "Please enter a Title."}
    validates :slug, presence: {message: "Please enter a Slug."}
    validates :status, presence: true
