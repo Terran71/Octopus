@@ -3,7 +3,7 @@ css:
   .missing-address {color: #ccc}
   .household-members {color: #999; font-style: italic; font-size: 11px}
 - user = User.includes(:imported_households).find(current_user.id)
-- if user.imported_households.present?
+- if user.imported_contacts.present?
   table.octopus-table
     thead
       th width= "40px"
@@ -24,33 +24,61 @@ css:
    
     tbody
 
-      - user.imported_households.order(name: :asc).each do |household|
-        tr
-          td
-            = household.contacts.count
-          td
-            = household.status
-          td
-            = household.name
+      - user.imported_contacts.order(last_name: :asc).each do |contact|
+        - if contact.household.present?
+          tr
+            td
+              = contact.household.contacts.count
+            td
+              = contact.household.status
+            td
+              = contact.household.name
 
-            .household-members
-              
-              = household.contacts.each.map{ |r| r.name }.join(" & ") 
-          td
-            - if household.default_address.present?
-              small
-                = household.default_address.full_address
-            -elsif household.addresses.first.present?
-              em
-                .missing-address
-                  = household.addresses.first.full_address
-              ul.list-inline.address-missing-label
-                  - household.addresses.first.missing.each do |missing_info|
-                    - if missing_info.present?
-                      li
-                        = missing_info
-            -else
-              |HOUSEHOLD DOES NOT HAVE ADDRESS
+              .household-members
+                
+                = contact.household.contacts.each.map{ |r| r.name }.join(" & ") 
+            td
+              - if contact.household.default_address.present?
+                small
+                  = contact.household.default_address.full_address
+              -elsif contact.household.addresses.first.present?
+                em
+                  .missing-address
+                    = contact.household.addresses.first.full_address
+                ul.list-inline.address-missing-label
+                    - contact.household.addresses.first.missing.each do |missing_info|
+                      - if missing_info.present?
+                        li
+                          = missing_info
+              -else
+                |HOUSEHOLD DOES NOT HAVE ADDRESS
+        - else
+          tr
+            td
+              |1
+            td
+              = contact.status
+            td
+              = contact.name
+
+              .household-members
+                
+                = contact.name
+            td
+              - if contact.default_address.present?
+                small
+                  = contact.default_address.full_address
+              -elsif contact.addresses.first.present?
+                em
+                  .missing-address
+                    = contact.addresses.first.full_address
+                ul.list-inline.address-missing-label
+                    - contact.addresses.first.missing.each do |missing_info|
+                      - if missing_info.present?
+                        li
+                          = missing_info
+              -else
+                |CONTACT DOES NOT HAVE ADDRESS
               
           / td
           /   small
