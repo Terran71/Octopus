@@ -19,5 +19,6 @@ class ContactsController < ApplicationController
 
   def import_results
     @list = List.find(params[:list_id]) unless params[:list_id].blank?
+    
   end
 end

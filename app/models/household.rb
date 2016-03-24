@@ -11,27 +11,24 @@ class Household < ActiveRecord::Base
 
 
 
-  #     self.addresses.primary.first
-  # end
-
+     #rework this
     def default_address
-      if     self.addresses.primary.first.present?
-            self.addresses.primary.first
-      else
-            self.addresses.first
+      #use complete address
+      if self.addresses.present?
+        self.addresses.first
+      # if self.default_address_id.present?
+      #   Address.find(self.default_address_id)
+      # elsif   self.contacts.first.default_address.present?
+      #       self.contacts.first.default_address
+      # else
+      #       self.addresses.first
       end
     end
 
 
 
-
-    def default_address_id
-      if    self.default_address.present?
-            self.default_address.id
-      else
-        nil
-      end
-    end
+    #rework this
+  
 
     def default_name(contact_array, *)
       formality = formality || 22

@@ -30,8 +30,9 @@ class User < ActiveRecord::Base
         # user.password = Devise.friendly_token[0,20]
          user.save!
         user
-
       end
+
+      
     elsif auth.provider == "facebook"
       puts 'Exo '* 1000
       puts auth

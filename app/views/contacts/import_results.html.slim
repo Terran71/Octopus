@@ -20,7 +20,7 @@
               .fa.fa-envelope-o
               = @list.name
       .panel-body
-        - @households = Household.all #refactor
+        - @households = current_user.imported_households #refactor
         - if @households.pending_split.present?
           = render partial: "/contacts/split_households_table"
 
