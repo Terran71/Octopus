@@ -80,6 +80,10 @@ class ParticipantRole < ActiveRecord::Base
     self.participant.name
  end
 
+  def email 
+    self.participant.set_email
+  end
+
   def is_recipient?
     false
   end

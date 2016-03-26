@@ -18,7 +18,7 @@
   accept_terms: true
   gender: 1
 
-- email: 'leonard@ouroctopus.com'
+- email: 'lcohen@ouroctopus.com'
   first_name: Not-Leonard
   last_name: Cohen
   password: secretpassword

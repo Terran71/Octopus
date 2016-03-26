@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
         user
       end
 
-      
+
     elsif auth.provider == "facebook"
       puts 'Exo '* 1000
       puts auth
@@ -103,9 +103,9 @@ class User < ActiveRecord::Base
   validates :first_name, presence: {message: "Please enter a first name."}
   validates :last_name, presence: {message: "Please enter a last name."}
   validates :email, presence: {message: "Please enter an email."}
-  validates_format_of :email, :with => EMAIL_REGEX, :message => "This is not an email"
+  validates_format_of :email, with:  EMAIL_REGEX, :message => "This is not an email"
   validates :password, presence: true, :confirmation => true, length: {minimum: 6}, :if => :password
-  validates :accept_terms, :acceptance => {:accept => true,  :message => "Please accept the terms of service"}
+  # validates :accept_terms, :acceptance => {:accept => true,  :message => "Please accept the terms of service"}
   validates :email,
     uniqueness: {case_sensitive: false,   message: "Looks like you're already registered! Login now or click on the forgotten password link to recover your account."}, 
     if: 'email.present?'

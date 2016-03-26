@@ -727,6 +727,7 @@ ActiveRecord::Schema.define(version: 20160310160139) do
     t.integer  "approver_user_id"
     t.boolean  "approved",                 default: false
     t.datetime "approved_at"
+    t.string   "time_zone"
     t.datetime "created_at",                               null: false
     t.datetime "updated_at",                               null: false
     t.datetime "deleted_at"

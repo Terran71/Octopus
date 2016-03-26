@@ -173,6 +173,15 @@ namespace :db do
        # ProjectMailer.invite(par, pr, p.kind).deliver_later
      end
 
+     patti = Participant.find_by_email("horses@ouroctopus.com")
+     patti.update_attributes!(status: "accepted")
+     pr = ParticipantRole.find_by_participant_id(patti.id)
+     pr.update_attributes!(status: "accepted", type: "RecipientParticipantRole" )
+     leonard = Participant.find_by_email("lcohen@ouroctopus.com")
+     # leonard.update_attributes!(status: "accepted")
+     pr = ParticipantRole.find_by_participant_id(leonard.id)
+     pr.update_attributes!( type: "RecipientParticipantRole" )
+
      puts 'adding social shares'
      FactoryGirl.create_list(:social_share, 32)
      new_social_shares = SocialShare.all

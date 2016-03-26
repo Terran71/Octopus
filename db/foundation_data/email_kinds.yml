@@ -54,6 +54,15 @@
     subject: "You created a Meal Delivery Appointment!"
     max_sends: 1
 
+-   type: UserEmailKind
+    project_type: Meal Delivery
+    role_type: RecipientParticipantRole
+    category: events
+    label: add-attendee
+    subject: "#{person} has created a Visit Appointment -- RSVP Now"
+    max_sends: 1
+
+
 
 -   type: UserEmailKind
     project_type: Project
@@ -90,6 +99,7 @@
     label: daily-roundup
     subject: Your Daily Roundup
     max_sends: 1
+
 
 
 

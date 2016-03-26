@@ -76,6 +76,14 @@ class Address < ActiveRecord::Base
     "http://maps.google.com/?q= #{self.full_address}"
   end
 
+  after_create :check_timezone
+
+  def check_timezone
+    if owner_type == "Project"
+      puts "Add Check Timezone" * 1000
+    end
+  end
+
 end
 
 

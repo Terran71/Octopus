@@ -238,6 +238,7 @@ end
       false
     end
   end
+  
   def project_recipients
     self.participant_roles.accepted.find_all{|r| r.is_recipient? }
 

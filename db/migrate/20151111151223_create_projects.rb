@@ -31,6 +31,7 @@ class CreateProjects < ActiveRecord::Migration
       t.integer :approver_user_id
       t.boolean :approved, default: false
       t.datetime :approved_at
+      t.string :time_zone
 
       t.timestamps null: false
     end

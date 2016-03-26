@@ -22,7 +22,8 @@ class ProjectsController < DashboardController
   end
 
   def roles
-    @project = Project.new(type: project_code_to_type(params[:project_type_code]))
+    @project = Project.new(type: project_code_to_type(params[:project_type_code]),
+                           time_zone: current_user.time_zone)
     @project.participants.build
     @project.participant_roles.build
   end

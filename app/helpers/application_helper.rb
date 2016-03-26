@@ -32,9 +32,16 @@ module ApplicationHelper
     ' class="active"' if current_page?(root_path)
   end
 
+  def standard_date(date)
+    date.respond_to?(:strftime) ? date.in_time_zone.strftime("%B %e, %Y") : ""
+  end
 
-  def standard_date(time)
-    time.respond_to?(:strftime) ? time.strftime("%B %e, %Y at %I:%M %p") : ""
+  def standard_time(time)
+    time.respond_to?(:strftime) ? time.in_time_zone.strftime("%I:%M %p") : ""
+  end
+
+  def standard_date_and_time(time)
+    time.respond_to?(:strftime) ? time.in_time_zone.strftime("%B %e, %Y at %I:%M %p") : ""
   end
 
   def weekday_friendly_datetime(datetime)

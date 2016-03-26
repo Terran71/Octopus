@@ -75,6 +75,14 @@ class Participant < ActiveRecord::Base
     end
   end
 
+  def set_email
+    if has_user?
+      user.email 
+    else
+      email 
+    end
+  end
+
   def has_user?
     if self.user.present?
       true
