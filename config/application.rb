@@ -75,6 +75,7 @@ module Octopus
     config.autoload_paths << "#{Rails.root}/app/models/blog_posts"
     config.autoload_paths << "#{Rails.root}/app/models/email_kinds"
     config.autoload_paths << "#{Rails.root}/app/models/lists"
+    config.autoload_paths << "#{Rails.root}/app/models/notifications"
 
     config.exceptions_app = self.routes
 

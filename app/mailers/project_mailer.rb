@@ -19,6 +19,11 @@ class ProjectMailer < ActionMailer::Base
       # ref = crypt.encrypt_and_sign("participant_id = ")
       @ref = "Edo"
       # @ref = ReferralCategory.get_category(email_kind, @participant_role.grantor.user)
+      if @email_kind.category == "first-invite"
+        @subject = @event.participant.name +  @email_kind.subject
+      else
+        @subject = @email_kind.subject
+      end
       mail(to: @participant_role.participant.email, 
         subject: @email_kind.subject, 
         template_path: '/project_mailers', 
@@ -43,25 +48,26 @@ class ProjectMailer < ActionMailer::Base
         )
     end
 
-    def event_created(event, recipient, email_kind)
+    def event_created(event, recipient, email_kind, subject)
       @email_kind = email_kind
       @event = event
       @recipient = recipient
+     
       @ref = "Edo"
         mail(to: @recipient.email, 
-        subject: @email_kind.subject, 
+        subject: subject,
         template_path: '/project_mailers', 
         template_name: 
         'event_created.html',
         )
     end
 
-    def event_response(event, email_kind, response)
+    def event_response(event, email_kind, response, responder, subject)
       @event = event
       @email_kind = email_kind
       @ref = "Edo"
         mail(to: @event.participant.user.email, 
-        subject: @email_kind.subject, 
+        subject: subject,
         template_path: '/project_mailers', 
         template_name: 
         'event_response.html',
