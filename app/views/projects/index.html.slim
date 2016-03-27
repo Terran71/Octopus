@@ -1,16 +1,9 @@
 - @title ="Projects" 
-css:
-  .project-accordion .panel-heading  {background: #eee; font-size: 18px}
-  .project-accordion .panel-heading a, .project-accordion .panel-heading  .accordionTitle a {text-decoration: none; color: #333}
-  .project-accordion table td {padding: 8px; border: solid 1px #ccc}
-  .project-accordion table td i {font-size: 24px}
-  .project-accordion table tr:hover {background: #eee}
 
-  .label-kind-1 {background: #333}
-  .label-kind-2 {background: #777}
 .container
-  br/
-  h1.super
+  .mt30
+    = render "/shared/notifications"
+  h1.super.mt30
     |Your Projects 
   = render "/shared/invites"
 

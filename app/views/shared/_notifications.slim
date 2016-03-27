@@ -1,0 +1,10 @@
+
+- if current_user.current_unviewed_notifications("UserNotification").present?
+
+    ul.list-unstyled
+      - current_user.current_unviewed_notifications("UserNotification").each do |notification|
+        li
+          div class="alert alert-#{notification.notification_kind.alert_level} alert-dismissable"
+            = link_to notification.link
+              = notification.information
+      

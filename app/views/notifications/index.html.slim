@@ -1,0 +1,26 @@
+- @title ="Notifications" 
+
+.container.notifications
+  - if @notifications.unviewed_before_timenow.present?
+
+    h1.super.mt30
+      |Your Unseen Notifications 
+
+    ul.list-unstyled
+      - @notifications.unviewed_before_timenow.each do |notification|
+        li class="notification bg-#{notification.notification_kind.alert_level} "
+            = link_to notification.link
+              = notification.information(notification.category, 1)
+
+  hr/
+  - if @notifications.viewed_before_timenow.present?
+
+    h1.super.mt30
+      |Your Past Notifications 
+
+
+    ul.list-unstyled
+      - @notifications.viewed_before_timenow.each do |notification|
+        li class="notification viewed-#{notification.viewed} "
+          = link_to notification.link
+            = notification.information(notification.category, 1)

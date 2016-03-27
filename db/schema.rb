@@ -581,8 +581,8 @@ ActiveRecord::Schema.define(version: 20160327165725) do
 
   create_table "notification_kinds", force: :cascade do |t|
     t.string   "owner_type"
-    t.integer  "owner_id"
     t.integer  "alert_level"
+    t.integer  "category"
     t.string   "label"
     t.string   "text"
     t.datetime "created_at",  null: false
@@ -590,16 +590,22 @@ ActiveRecord::Schema.define(version: 20160327165725) do
   end
 
   create_table "notifications", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "participant_id"
+    t.integer  "notification_kind_id"
     t.string   "editor_user_id"
-    t.string   "type",              default: "",    null: false
-    t.integer  "notification_kind"
-    t.boolean  "viewed",            default: false
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.string   "type",                 default: "",    null: false
+    t.integer  "owner_id"
+    t.boolean  "viewed",               default: false
+    t.datetime "viewed_at"
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
   end
 
   add_index "notifications", ["editor_user_id"], name: "index_notifications_on_editor_user_id", using: :btree
-  add_index "notifications", ["notification_kind"], name: "index_notifications_on_notification_kind", using: :btree
+  add_index "notifications", ["notification_kind_id"], name: "index_notifications_on_notification_kind_id", using: :btree
+  add_index "notifications", ["participant_id"], name: "index_notifications_on_participant_id", using: :btree
+  add_index "notifications", ["user_id"], name: "index_notifications_on_user_id", using: :btree
 
   create_table "pages", force: :cascade do |t|
     t.integer  "editor_user_id", default: 1

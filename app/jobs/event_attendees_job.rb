@@ -14,7 +14,7 @@ class EventAttendeesJob < ActiveJob::Base
         if project.is_meal_delivery?
 
           if  project.project_recipients.present?
-            notification_kind = NotificationKind.where(category: "event_info", label: "new-meal-delivery-event").first
+            @notification_kind = NotificationKind.event_info.where( label: "new-meal-delivery-event").first
               
             project.project_recipients.each do |recipient|
               Attendee.create!(event_id: event.id, participant_id: recipient.id,  invitor_participant_id: event.participant_id )
@@ -23,8 +23,7 @@ class EventAttendeesJob < ActiveJob::Base
                 @subject = event.participant.name + " " + email_kind.subject
               email_kind =  EmailKind.projecttype_category_label(project.category, "events", "add-attendee")
               ProjectMailer.event_created(event, recipient, email_kind, @subject).deliver_later
-
-              AddNotificationJob.perform("UserNotification", notification_kind.id, recipient.participant )
+              AddNotificationJob.perform("UserNotification", @notification_kind, event.participant, recipient.participant, event.id )
             end
           end
           event.status = "pending"

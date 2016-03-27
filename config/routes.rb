@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   resources :project_restrictions
   resources :project_dates
   root 'home#index'
+  resources :notifications, only: [:index]
 
 
   #Omniauth

@@ -88,6 +88,8 @@ namespace :db do
     YAML.load_file('db/foundation_data/us_states.yml').each { |state| USState.create!(state) }
 
     YAML.load_file('db/foundation_data/countries.yml').each { |country| Country.create!(country) }
+    YAML.load_file('db/foundation_data/notification_kinds.yml').each { |notification_kind| NotificationKind.create!(notification_kind) }
+
     # YAML.load_file('db/demo_data/demo_projects.yml').each do |p|
     #   Project.create!(p)
     # end

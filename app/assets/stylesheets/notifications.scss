@@ -1,3 +1,11 @@
-// Place all the styles related to the Notifications controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+  .notifications ul {background: #fff; padding: 5px}
+  .notifications ul li {border-bottom: solid 1px $lt_aqua; padding: 5px;}
+  // .notifications ul li a {color: #777}
+  .notifications ul  li a:hover {color: #f0ad4e}
+  .notifications ul li:hover {background: #fff}
+  .notifications ul .notification  .viewed-false {background: #fff}
+  .notifications ul .notification  .viewed-true {background: $xlt_gray}
+
+  // .notifications  .button-list li, .invites  .button-list li:hover {border:none; background: inherit; color: inherit}
+  // .notifications  .button-list li:hover {border:none; background: inherit; color: #fff}
+  // .notifications .button-list li a {color: inherit}
