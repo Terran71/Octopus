@@ -6,6 +6,7 @@ class Notification < ActiveRecord::Base
 
   scope :viewed, -> { where(viewed: true) }
   scope :unviewed, -> { where(viewed: false) }
+  scope :unviewed_before_timenow, -> { where("viewed_at >= ?", Time.now - 1.minute) }
 
 
   def self.types

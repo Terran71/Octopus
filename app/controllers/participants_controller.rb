@@ -1,12 +1,9 @@
 class ParticipantsController < DashboardController
   include ProjectsHelper
-  before_action :store_location
-  before_action :authenticate_user!
   before_action :set_nested_project
   before_action :set_participant, except: [:new, :index, :create, :destroy, :invite_participants, :invite_recipients ]
   before_action :set_current_user_participation, only: [:new, :invite_participants, :index, :show]
   before_action :verify_editor_privileges, only: [:invite_participants, :new]
-  [Project,  ParticipantRole, Role] if Rails.env == 'development'
 
   def index
     @participants = @project.participants

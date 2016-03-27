@@ -1,11 +1,7 @@
 class ListsController < DashboardController
       include ListsHelper
-
-  before_action :store_location
-  before_action :authenticate_user!
   before_action :set_list, only: [:destroy, :update, :show, :edit]
   before_action :set_nested_project, only: []
-  [Project,  ParticipantRole, Role, List] if Rails.env == 'development'
   before_action :set_current_user_participation,  only: []
 
   

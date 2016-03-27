@@ -1,8 +1,8 @@
 class EventsController < DashboardController
+
   before_action :set_nested_project, only: [ :approval_response]
   before_action :set_event, only: [:approval_response]
   before_action :set_current_user_participation, only: [:approval_response]
-  before_action :store_location, only: []
 
   # GET /events
   # GET /events.json

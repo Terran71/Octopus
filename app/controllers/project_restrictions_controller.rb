@@ -1,5 +1,4 @@
 class ProjectRestrictionsController < DashboardController
-  before_action :store_location
   before_action :set_project_restriction, only: [:show, :edit, :update, :destroy]
 
   # GET /project_restrictions

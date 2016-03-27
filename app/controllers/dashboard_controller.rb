@@ -5,6 +5,7 @@ class DashboardController < ApplicationController
   before_action :set_nested_project, only: [:index]
   # before_action :set_project_details, only: []
   before_action :set_current_user_participation, only: [:index]
+  [Project,  ParticipantRole, Role, List, Notification] if Rails.env == 'development'
 
   # before_action :authenticate_participation
 

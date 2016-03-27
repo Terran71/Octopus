@@ -102,6 +102,11 @@
                     =current_user.global_notifications.count
               b.caret
             ul.dropdown-menu.custom-drop role="menu" aria-labelledby="drop1" style=""
+              - if current_user.current_unviewed_notifications("UserNotification").present?
+                li
+                  span.label.label-danger
+                    = current_user.current_unviewed_notifications("UserNotification").count
+                  |  Notifications
               - if current_user.unseen_invites.present?
              
                 - current_user.unseen_invites.each do |invite|

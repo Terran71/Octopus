@@ -1,0 +1,41 @@
+-   alert_level: success
+    owner_type: "Event"
+    category : event_info
+    label: new-meal-delivery-event
+    text: "New Event"
+
+-   alert_level: danger
+    owner_type: "Event"
+    category : event_response
+    label: reschedule-event
+    text: "Rescedule Request"
+
+-   alert_level: success
+    owner_type: "Event"
+    category : event_response
+    label: approved-event
+    text: "Approved Event"
+
+-   alert_level: danger
+    category : event_response
+    owner_type: "Event"
+    label: cancelled-meal-delivery-event
+    text: "Cancelled Event"
+
+-   alert_level: danger
+    category : project_info
+    owner_type: "Project"
+    label: cancelled-project
+    text: "Cancelled Project"
+
+-   alert_level: info
+    owner_type: "Project"
+    category : project_rsvp
+    label: accepted-rsvp
+    text: "New Accepted RSVP"
+
+-   alert_level: info
+    owner_type: "Project"
+    category : project_rsvp
+    label: accepted-rsvp
+    text: "New Declined RSVP"

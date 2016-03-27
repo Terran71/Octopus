@@ -1,6 +1,4 @@
 class InvitesController < DashboardController
-  before_action :store_location
-  before_action :authenticate_user!
   before_action :set_participant, except: [:index, :create, :resend_invite]
   before_action :verify_invite,  only: [:show, :rsvp]
   before_action :mark_seen, only: [:show]
@@ -80,8 +78,7 @@ class InvitesController < DashboardController
   end
 
   def verify_invite
-    if  current_user.email == @participant.email or current_user.id ==  @participant.user_id
-    else
+    unless current_user.current_project_participant(@project.id)
       redirect_to no_access_path
       NoAccessLog.create!(user_id: current_user.id , previous_page: request.fullpath)
     end

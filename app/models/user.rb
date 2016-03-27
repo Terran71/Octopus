@@ -144,6 +144,7 @@ class User < ActiveRecord::Base
   has_many :email_lists, dependent: :destroy
   has_many :lists,  through: :projects_organized
   has_many :contacts, dependent: :destroy
+  has_many :notifications, dependent: :destroy
 
   # has_many :profile_socials, through: :profiles
   # has_many :profiles_edited,  class_name: "Profile",  foreign_key: "editor_user_id"
@@ -453,6 +454,7 @@ class User < ActiveRecord::Base
     notification_type.all
   end
     after_create :add_new_user_defaults
+    after_create :participation_information
 
   private
 
@@ -463,6 +465,9 @@ class User < ActiveRecord::Base
     AddNewUserDefaultsJob.perform(self)
   end
 
+  def participation_information
+    UpdateParticipationInformationJob.perform(self)
+  end
 
   # def tweet(tweet)
   #   client = Twitter::REST::Client.new do |config|

@@ -1,14 +1,10 @@
 class ProjectsController < DashboardController
   include ProjectsHelper
-
-  before_action :store_location
-  before_action :authenticate_user!
   before_action :set_project, only: [:destroy, :update, :show, :edit, :invite_recipients, :new, :update_date_range]
   before_action :set_nested_project, only: [:restrictions, :update_restrictions, :available_dates, :update_available_dates, :recipients,
     :edit_date_range, :update_date_range, :edit_date_range]
     before_action :set_project_details, except: [:new, :index, :create, :destroy, :update, :start]
     before_action :set_source, except: [:new, :index, :create, :available_dates]
-    [Project,  ParticipantRole, Role] if Rails.env == 'development'
   # include ProjectsHelper
   before_action :set_current_user_participation,  except: [:new, :index, :create, :available_dates, :roles, :recipients, :kinds]
 

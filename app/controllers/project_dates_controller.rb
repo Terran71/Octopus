@@ -1,6 +1,4 @@
 class ProjectDatesController < DashboardController
-  before_action :store_location, only: [:show]
-  before_action :authenticate_user!
   before_action :set_project_date, only: [ :edit, :update, :destroy, :add_event, :show]
   before_action :set_nested_project, only: [ :edit, :update, :destroy, :show, :add_event]
   
