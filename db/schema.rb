@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160310160139) do
+ActiveRecord::Schema.define(version: 20160327165725) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -578,6 +578,28 @@ ActiveRecord::Schema.define(version: 20160310160139) do
   end
 
   add_index "no_access_logs", ["user_id"], name: "index_no_access_logs_on_user_id", using: :btree
+
+  create_table "notification_kinds", force: :cascade do |t|
+    t.string   "owner_type"
+    t.integer  "owner_id"
+    t.integer  "alert_level"
+    t.string   "label"
+    t.string   "text"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.string   "editor_user_id"
+    t.string   "type",              default: "",    null: false
+    t.integer  "notification_kind"
+    t.boolean  "viewed",            default: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+  end
+
+  add_index "notifications", ["editor_user_id"], name: "index_notifications_on_editor_user_id", using: :btree
+  add_index "notifications", ["notification_kind"], name: "index_notifications_on_notification_kind", using: :btree
 
   create_table "pages", force: :cascade do |t|
     t.integer  "editor_user_id", default: 1

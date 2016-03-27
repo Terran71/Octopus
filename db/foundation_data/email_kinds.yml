@@ -19,7 +19,7 @@
     role_type: RecipientParticipantRole
     category: invites
     label: first-invite
-    subject: "You are getting meal deliveries!"
+    subject: "is organizing meal deliveries for you!"
     max_sends: 1
 
 -   type: UserEmailKind
@@ -35,7 +35,7 @@
     role_type: HelperParticipantRole
     category: invites
     label: first-invite
-    subject: "You''ve been invited to help bring meals!"
+    subject: "has invited you to help bring meals!"
     max_sends: 1
 
 -   type: UserEmailKind
@@ -59,7 +59,7 @@
     role_type: RecipientParticipantRole
     category: events
     label: add-attendee
-    subject: "#{person} has created a Visit Appointment -- RSVP Now"
+    subject: "has created a Visit Appointment -- RSVP Now"
     max_sends: 1
 
 
@@ -72,7 +72,12 @@
     subject: visitng tomorrow
     max_sends: 1
 
-
+-   type: UserEmailKind
+    project_type: Meal Delivery
+    role_type: HelperParticipantRole
+    category: events
+    label: event-response
+    max_sends: 1
 
 
 

@@ -3,6 +3,7 @@ class Event < ActiveRecord::Base
   has_many :attendees, dependent: :destroy
   belongs_to :participant
   accepts_nested_attributes_for :attendees
+  belongs_to :project
 
   enum status: [:unknown , :unfinished, :finished, :pending, :approved, :reschedule]
 

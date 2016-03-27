@@ -443,6 +443,15 @@ class User < ActiveRecord::Base
   # end
 
 
+  def current_unviewed_notifications(type)
+    notification_type = type.constantize
+    notification_type.all.unviewed
+  end
+
+  def all_notifications(type)
+    notification_type = type.constantize
+    notification_type.all
+  end
     after_create :add_new_user_defaults
 
   private

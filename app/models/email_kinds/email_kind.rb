@@ -19,7 +19,6 @@ class EmailKind < ActiveRecord::Base
     scope :roundups, -> { where(category: "roundups") }
 
 
-
     def self.projecttype_roletype_category_label(project_category, participant_role, category, label)
       UserEmailKind.where(category: category).where(project_type: project_category).where(role_type: participant_role).find_by_label(label)|| EmailKind.find(1)
     end

@@ -19,11 +19,11 @@ class EventsController < DashboardController
     if params[:approval] == "false"
       @event.update_attributes(status: "reschedule", editor_participant_id: @current_user_participation.id)
       # BlockedTime.create!(time_start: @event.time_start, time_end: @event.time_end, project_date_id: @event.project_date_id)
-      # EventResponseJob.perform_later(@event, @event.status)
+      EventResponseJob.perform(@event, current_user)
       redirect_to project_project_date_path(project_id: @event.project_id, id: @event.project_date_id), data: {no_turbolink: true} ,   notice: 'Appointment was approved.'
     elsif params[:approval] == "true"
       @event.update_attributes(status: "approved", editor_participant_id: @current_user_participation.id)
-      # EventResponseJob.perform_later(@event, @event.status)
+      EventResponseJob.perform(@event, current_user)
       redirect_to project_project_date_path(project_id: @event.project_id, id: @event.project_date_id), data: {no_turbolink: true} ,  notice: 'Appointment was approved.'
     else
     end

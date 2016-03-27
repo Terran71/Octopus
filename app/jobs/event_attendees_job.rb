@@ -7,16 +7,20 @@ class EventAttendeesJob < ActiveJob::Base
            email_kind =  EmailKind.projecttype_category_label(project.category, "events", "event-created")
 
         # email_kind = UserEmailKind.events.where(project_type: project.category).find_by_label("event-created")|| EmailKind.find(1)
-        ProjectMailer.event_created(event, event.participant, email_kind).deliver_later
+        @subject =  email_kind.subject
+        ProjectMailer.event_created(event, event.participant, email_kind, @subject).deliver_later
         puts "logged email #{project.category} #{email_kind.label} response-#{job_action}"
         puts "logged email #{email_kind.subject} "
         if project.is_meal_delivery?
+
           if  project.project_recipients.present?
             project.project_recipients.each do |recipient|
               Attendee.create!(event_id: event.id, participant_id: recipient.id,  invitor_participant_id: event.participant_id )
               # email_kind = UserEmailKind.events.where(project_type: project.category).find_by_label("add-attendee")|| EmailKind.find(1)
+              
+                @subject = event.participant.name + " " + email_kind.subject
               email_kind =  EmailKind.projecttype_category_label(project.category, "events", "add-attendee")
-              ProjectMailer.event_created(event, recipient, email_kind).deliver_later
+              ProjectMailer.event_created(event, recipient, email_kind, @subject).deliver_later
             end
           end
           event.status = "pending"
