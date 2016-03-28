@@ -231,9 +231,8 @@ class User < ActiveRecord::Base
    puts "#{self.name} has set time: #{set_time.strftime("%r").to_time} & user zoned: #{user_zoned.strftime("%r").to_time} " 
    user_zoned = user_zoned.strftime("%r").to_time
    set_time = set_time.strftime("%r").to_time
-
-   if user_zoned >= (set_time - 15.minutes) && user_zoned <= (set_time + 15.minutes)
-    true
+    if user_zoned >= (set_time - 15.minutes) && user_zoned <= (set_time + 15.minutes)
+      true
     end
  
   end
