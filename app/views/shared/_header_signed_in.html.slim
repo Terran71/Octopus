@@ -96,17 +96,20 @@
           li.dropdown
             a#drop1.dropdown-toggle-octo href="#" role="button" data-toggle="dropdown"
               i.fa.fa-globe.fa-2x style="margin-top: -5px"
-              - if current_user.global_notifications.present?
+              - if current_user.current_unviewed_notifications("UserNotification").present?
                 sup
                   .badge.badge-success
-                    =current_user.global_notifications.count
+                    =current_user.current_unviewed_notifications("UserNotification").count
               b.caret
             ul.dropdown-menu.custom-drop role="menu" aria-labelledby="drop1" style=""
-              - if current_user.current_unviewed_notifications("UserNotification").present?
-                li
-                  span.label.label-danger
-                    = current_user.current_unviewed_notifications("UserNotification").count
+              li
+                = link_to notifications_path
                   |  Notifications
+                  - if current_user.current_unviewed_notifications("UserNotification").present?
+
+                    span.label.label-danger
+                      = current_user.current_unviewed_notifications("UserNotification").count
+                  
               - if current_user.unseen_invites.present?
              
                 - current_user.unseen_invites.each do |invite|
@@ -116,11 +119,11 @@
                       = link_to invite_path(id: invite.id, project_id: invite.project_id)
                         strong
                           = invite.invitor.name
-                    = link_to invite_path(id: invite.id, project_id: invite.project_id), class: 'btn btn-orange btn-xs ml5'
+                    = link_to invite_path(id: invite.id, project_id: invite.project_id)
                       |VIEW
-              li
-                a href="#"
-                  |Notifications
+              / li
+              /   a href="#"
+              /     |Notifications
               li 
                 a href="#"
                   |Messages

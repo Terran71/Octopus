@@ -13,18 +13,18 @@
     puts " finished weekly admin roundup"
   end
 
-  task :admin_roundup_monthly => :environment do
+  task admin_roundup_monthly: :environment do
     AdminRoundupJob.perform("monthly")
     puts " finished weekly admin roundup"
   end
 
-  task :project_rsvps => :environment do
+  task project_rsvps: :environment do
     ProjectRsvpJob.perform
     puts " project_rsvps"
   end
 
-  task :event_changes => :environment do
-    ProjectRsvpJob.perform
+  task event_changes: :environment do
+    # ProjectRsvpJob.perform
     puts " finished checking for appointment changes"
   end
 

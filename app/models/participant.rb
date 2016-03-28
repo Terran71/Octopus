@@ -35,7 +35,11 @@ class Participant < ActiveRecord::Base
   scope :pending, -> { where(status: 2) }
   scope :undecided, -> {where.not(status: 5).where.not(status: 3)}
 
-  scope :firm_answers, -> { where("status = ? or status = ?", 3, 5)}
+  scope :firm_rsvps, -> { where.not(status: 1).where.not(status: 2).where.not(status: 4).where("status = ? or status = ?", 3, 5)}
+
+  scope :has_updated_role_since, lambda { |datetime|
+    joins(:participant_roles).firm_answers.where("participant_roles.updated_at > ?", datetime)
+  }
 
 
   def name
@@ -45,6 +49,14 @@ class Participant < ActiveRecord::Base
       self.honored_guest.invited_name
     else
       self.email
+    end
+  end
+
+  def adjusted_name(current_user)
+    if user_id == current_user.id
+      "You"
+    else
+      name
     end
   end
 

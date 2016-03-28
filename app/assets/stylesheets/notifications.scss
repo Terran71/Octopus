@@ -5,6 +5,7 @@
   .notifications ul li:hover {background: #fff}
   .notifications ul .notification  .viewed-false {background: #fff}
   .notifications ul .notification  .viewed-true {background: $xlt_gray}
+  .notifications ul .notification  .viewed-true a {font-weight: normal; color: $md_gray}
 
   // .notifications  .button-list li, .invites  .button-list li:hover {border:none; background: inherit; color: inherit}
   // .notifications  .button-list li:hover {border:none; background: inherit; color: #fff}

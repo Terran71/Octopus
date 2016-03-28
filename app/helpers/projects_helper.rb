@@ -46,8 +46,8 @@ module ProjectsHelper
         "NewBabyMealDeliveryProject"
       when 2
         "WeddingPartyProject"
-      # when 3
-      #   "NewBabyMealDeliveryProject"
+      when 3
+        "CareSupportMealDeliveryProject"
 
       # when 4
       #   "NewBabyMealDeliveryProject"

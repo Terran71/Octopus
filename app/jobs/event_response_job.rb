@@ -3,6 +3,8 @@ class EventResponseJob < ActiveJob::Base
   def self.perform(event, current_user)
     @event  = event
     email_kind =  EmailKind.type_category_label(@event.project.category, "events", "event-response")
+    notification_kind = NotificationKind.event_response.where( label: "#{@event.status}-event").first
+
     if @event.status == "accepted"
         @subject = "#{current_user.first_name} has approved your Visit"
     else
@@ -16,6 +18,7 @@ class EventResponseJob < ActiveJob::Base
     puts "logged email #{event.project.category} #{email_kind.label}"
 
     AddEmailLogJob.perform(@event.participant, email_kind)
+    AddNotificationJob.perform("UserNotification", notification_kind, current_user, @event.participant, event.id )
 
   end
 

@@ -18,7 +18,7 @@ class CareSupportMealDeliveryProject < MealDeliveryProject
   end
 
   def code
-    2
+    3
   end 
 
   def is_meal_delivery?

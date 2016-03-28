@@ -22,7 +22,7 @@ class WeddingProject < PartyProject
   end
 
   def code
-    5
+    2
   end 
 
   def kind

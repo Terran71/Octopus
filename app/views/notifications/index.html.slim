@@ -9,8 +9,8 @@
     ul.list-unstyled
       - @notifications.unviewed_before_timenow.each do |notification|
         li class="notification bg-#{notification.notification_kind.alert_level} "
-            = link_to notification.link
-              = notification.information(notification.category, 1)
+            = link_to root_path
+              = notification.information(notification.category, 1, current_user)
 
   hr/
   - if @notifications.viewed_before_timenow.present?
@@ -22,5 +22,5 @@
     ul.list-unstyled
       - @notifications.viewed_before_timenow.each do |notification|
         li class="notification viewed-#{notification.viewed} "
-          = link_to notification.link
-            = notification.information(notification.category, 1)
+          = link_to root_path
+            = notification.information(notification.category, 1, current_user)

@@ -251,9 +251,18 @@ end
     self.participant_roles.accepted.find_all{|r| r.can_organize? }
   end
 
-   
+  def new_rsvps_since(datetime)
+    ParticipantRole.not_project_creator.includes(:participant).firm_answers.updated_since(datetime).where(project_id: self.id)
+    
+  end
+  
+  def has_rsvp_since?(datetime)
+    new_rsvps_since(datetime).present?
+  end
 
-
+   # def unused_content
+   #    Content.includes(:publisher).where.not(id: Content.includes(:posts).where(posts: {influencer_id: self.id, status: ['queued', 'scheduled', 'customized',  'saved', 'shared', ]}).map(&:id))
+   #  end
 
   # def project_recipients_group(length)
   #   if length == 'short'

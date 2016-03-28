@@ -19,9 +19,20 @@ class ParticipantRole < ActiveRecord::Base
   # belongs_to :editor, class_name: "User",  foreign_key: "editor_user_id"
   enum status: [:unknown , :unseen, :pending, :accepted, :maybe, :declined]
 
-  scope :firm_answers, -> { where("status = ? or status = ?", 3, 5)}
+  scope :firm_answers, -> { where.not(status: 1).where.not(status: 2).where.not(status: 4).where("status = ? or status = ?", 3, 5)}
+  scope :accepted, -> { where(status: 3) }
+  scope :unseen, -> { where(status: 1) }
+  scope :maybe, -> { where(status: 4) }
+  scope :declined, -> { where(status: 5) }
+  scope :pending, -> { where(status: 2) }
+  scope :undecided, -> {where.not(status: 5).where.not(status: 3)}
+  scope :not_project_creator, -> {where.not(type: "OrganizerParticipantRole")}
 
-  
+
+
+ scope :updated_since, lambda { |datetime|
+    where("participant_roles.updated_at > ?", datetime)
+  }
 
   # --- VALIDATIONS ---
   #STI Requires Type

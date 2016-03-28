@@ -68,6 +68,14 @@ class Event < ActiveRecord::Base
     end
   end
 
+  def action_text(current_user)
+    if current_user.is_recipient(self.project_date.project_id)
+      "approve/reschedule"
+    else
+      "view"
+    end
+  end
+
   before_save :default_date_start
   after_create :add_attendees
   after_update :response_info, unless: :new_record?

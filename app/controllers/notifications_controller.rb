@@ -5,7 +5,7 @@ class NotificationsController < DashboardController
   before_action :set_current_user_participation, only: []
 
   def index
-    @notifications = UserNotification.includes(:notification_kind)
+    @notifications = UserNotification.includes(:notification_kind).order(created_at: :desc)
     @notifications.unviewed.each do |notification|
       notification.update_attributes!(viewed: true, viewed_at: Time.now)
     end

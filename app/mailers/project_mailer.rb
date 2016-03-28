@@ -32,16 +32,33 @@ class ProjectMailer < ActionMailer::Base
         )
     end
 
-    def project_rsvps(project,  email_kind, participant, updated_after_date)
-      @project = project
-      updated_after_date = updated_after_date.to_date
+    # def project_rsvps(project,  email_kind, participant, updated_after_date)
+    #   @project = project
+    #   updated_after_date = updated_after_date.to_date
+    #   @participant = participant
+    #   @participant_roles = ParticipantRole.firm_answers.updated_after(updated_after_date)
+    #   @new_rsvps = @participant_roles.where(project_id: @project.id) 
+    #   @email_kind = email_kind
+    #   @ref = "Edo"
+    #     mail(to: @participant.user.email, 
+    #     subject: @email_kind.subject, 
+    #     template_path: '/project_mailers', 
+    #     template_name: 
+    #     'project_rsvps.html',
+    #     )
+    # end
+
+     def project_rsvp_roundup(participant, email_kind, subject, updated_after_datetime)
+      @project = participant.project
+      @updated_after_datetime = updated_after_datetime
       @participant = participant
-      @participant_roles = ParticipantRole.firm_answers.updated_after(updated_after_date)
-      @new_rsvps = @participant_roles.where(project_id: @project.id) 
+      @rsvps = @project.new_rsvps_since(updated_after_datetime)
+      @rsvps = @rsvps.firm_answers
       @email_kind = email_kind
+      @subject = subject
       @ref = "Edo"
         mail(to: @participant.user.email, 
-        subject: @email_kind.subject, 
+        subject: @subject, 
         template_path: '/project_mailers', 
         template_name: 
         'project_rsvps.html',

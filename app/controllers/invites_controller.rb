@@ -25,6 +25,9 @@ class InvitesController < DashboardController
     end
 
     if @participant.update_attributes(editor_participant_id: @participant.id, status: params[:rsvp] )
+
+      RsvpNotificationJob.perform(@participant)
+
       redirectpath
       else
       redirectpath
@@ -78,7 +81,7 @@ class InvitesController < DashboardController
   end
 
   def verify_invite
-    unless current_user.current_project_participant(@project.id)
+    unless current_user.current_project_participant(@participant.project_id)
       redirect_to no_access_path
       NoAccessLog.create!(user_id: current_user.id , previous_page: request.fullpath)
     end

@@ -37,5 +37,5 @@
 -   alert_level: info
     owner_type: "Project"
     category : project_rsvp
-    label: accepted-rsvp
+    label: declined-rsvp
     text: "New Declined RSVP"

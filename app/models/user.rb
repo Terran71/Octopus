@@ -317,6 +317,14 @@ class User < ActiveRecord::Base
     first_name + " " + last_name rescue first_name + "" rescue "" + last_name rescue "User"
   end
 
+  def adjusted_name(current_user)
+    if id == current_user.id
+      "You"
+    else
+      name
+    end
+  end
+
   ###sidebar
   def invites
     orphan_invites  = Participant.where(user_id: nil).where(email: self.email) 
@@ -366,24 +374,24 @@ class User < ActiveRecord::Base
     
   end
 
-  def all_notifications
-     orphan_notifications  = Notification.where(user_id: nil).where(email: self.email) 
-    if orphan_notifications.present?
-      orphan_notifications.each do |o|
-        o.user_id = self.id
-        o.save
-      end
-    end
-      self.notifications
-  end
+  # def all_notifications
+  #    orphan_notifications  = Notification.where(user_id: nil).where(email: self.email) 
+  #   if orphan_notifications.present?
+  #     orphan_notifications.each do |o|
+  #       o.user_id = self.id
+  #       o.save
+  #     end
+  #   end
+  #     self.notifications
+  # end
 
-  def global_notifications
-    self.unseen_invites 
-  end
+  # def global_notifications
+  #   self.unseen_invites 
+  # end
 
-  def unseen_notifications
-    self.all_notifications.select{|f|f.status == 'unseen'  }
-  end
+  # def unseen_notifications
+  #   self.all_notifications.select{|f|f.status == 'unseen'  }
+  # end
 
   def is_queen?
     if self.roles.where(type: "QueenAdminRole").present?
@@ -446,12 +454,12 @@ class User < ActiveRecord::Base
 
   def current_unviewed_notifications(type)
     notification_type = type.constantize
-    notification_type.all.unviewed
+    notification_type.where(user_id: self.id).all.unviewed
   end
 
   def all_notifications(type)
     notification_type = type.constantize
-    notification_type.all
+    notification_type.where(user_id: self.id).all
   end
     after_create :add_new_user_defaults
     after_create :participation_information
