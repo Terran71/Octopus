@@ -11,8 +11,8 @@ class ParticipantInviteJob < ActiveJob::Base
       participant_role.participant.save
     end
     if first_invite.blank?
-       puts "* " * 100
-       puts "first invite #{project.category} #{participant_role.type} invites first-invite"
+       # puts "* " * 100
+       # puts "first invite #{project.category} #{participant_role.type} invites first-invite"
        email_kind =  EmailKind.projecttype_roletype_category_label(project.category,  participant_role.type,  "invites", "first-invite")
         # email_kind = UserEmailKind.invites.where(project_type: project.category).where(role_type: participant_role.type).find_by_label("first-invite")|| EmailKind.find(1)
        
@@ -27,8 +27,8 @@ class ParticipantInviteJob < ActiveJob::Base
 
     else
        email_kind =  EmailKind.projecttype_roletype_category_label(project.category,  participant_role.type,  "invites", "reminder-invite")
-        puts "* " * 100
-       puts "reminder invite #{project.category}  #{participant_role.type} invites reminder-invite"
+       #  puts "* " * 100
+       # puts "reminder invite #{project.category}  #{participant_role.type} invites reminder-invite"
 
     end
 

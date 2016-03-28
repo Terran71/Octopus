@@ -109,6 +109,10 @@ class User < ActiveRecord::Base
   validates :email,
     uniqueness: {case_sensitive: false,   message: "Looks like you're already registered! Login now or click on the forgotten password link to recover your account."}, 
     if: 'email.present?'
+  # validates_inclusion_of :time_zone, in: ActiveSupport::TimeZone.zones_map(&:name), 
+  #   if: 'time_zone.present?'
+    
+
   #enums
     GENDERS = [:unspecified, :female, :male, :other]
   enum gender: GENDERS

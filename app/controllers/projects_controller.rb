@@ -192,7 +192,7 @@ def recipients
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit( :type, :id, :organizer_participant_id, :status, :user_id, :description, :in_honor,
+      params.require(:project).permit( :type, :id, :organizer_participant_id, :time_zone, :status, :user_id, :description, :in_honor,
         :kind_id, :prep_start_datetime, :notes, :prep_end_datetime, :time_start, :time_end, :editor_participant_id, :max_visits, :long_description,
         participants_attributes: [:user_id, :project_id, :email, :status, :invitor_user_id, :editor_participant_id,
           participant_roles_attributes: [:id, :type, :participant_id]

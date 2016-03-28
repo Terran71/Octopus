@@ -11,7 +11,7 @@ Bundler.require(*Rails.groups)
 
 module Octopus
   class Application < Rails::Application
-    # config.time_zone = 'Central Time (US & Canada)'
+    config.time_zone = 'Central Time (US & Canada)'
       env_file = Rails.root.join("config", 'environment_variables.yml').to_s
 
       if File.exists?(env_file)
@@ -55,6 +55,7 @@ module Octopus
 
     config.google_client_id = ENV['GOOGLE_CLIENT_ID'] || "GooClixxxxxxxxxxxxx" 
     config.google_client_secret = ENV['GOOGLE_CLIENT_SECRET'] || "GooSecxxxxxxxxSecret" 
+    config.google_api_key = ENV['GOOGLE_API_KEY'] || "GooApiixxxxxxxxxxxxx" 
 
     config.new_relic_license_key = ENV["NEW_RELIC_LICENSE_KEY"] || "newrlxxxxx"
     

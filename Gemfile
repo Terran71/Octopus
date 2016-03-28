@@ -50,7 +50,11 @@ gem 'cocoon', '~> 1.2', '>= 1.2.7'
 gem 'datetimepicker-rails', git: 'git://github.com/zpaulovics/datetimepicker-rails', branch: 'master', submodules: true
 gem 'momentjs-rails', '~> 2.9',  :github => 'derekprior/momentjs-rails'
 gem 'tzinfo', '~> 1.2', '>= 1.2.2'
-
+gem 'tzinfo-data'
+gem 'temporal-rails', '~> 0.2.4'
+gem 'geocoder', '~> 1.3', '>= 1.3.1'
+gem 'timezone', '~> 0.99.1'
+gem 'bitly', '~> 0.10.4'
 gem 'sidekiq', '~> 3.5.0'
 
 gem 'gon', '~> 6.0', '>= 6.0.1'

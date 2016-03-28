@@ -157,7 +157,7 @@ namespace :db do
   task :sample_data => :environment do
     u = User.find(2)
     p = NewBabyMealDeliveryProject.create!( prep_start_datetime: Date.today,  status: 1, long_description: 'desc',
-      prep_end_datetime: Date.today + 2.weeks, max_visits: 5 )
+      prep_end_datetime: Date.today + 2.weeks, max_visits: 5, time_zone: u.time_zone)
     Address.create!(owner_type: "Project", owner_id: p.id, title: "CBGBs", address_1: "315 Bowery", city: "New York", us_state_id: 35 , postal_code: 10003 )
     HonoredGuest.create!(name: "Patti Smith", project_id: p.id)
     HonoredGuest.create!(name: "Leonard Cohen", project_id: p.id)

@@ -9,7 +9,7 @@ class AdminRoundupJob < ActiveJob::Base
       if last_of_this_email.present?
         since_date = last_of_this_email.created_at
       else
-        since_date = Time.now - 10.days
+        since_date = Time.zone.now - 10.days
       end
       mailing_lists = EmailList.where(email_kind_id: email_kind.id) 
 

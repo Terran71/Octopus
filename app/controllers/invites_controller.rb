@@ -14,7 +14,11 @@ class InvitesController < DashboardController
 
   def show
     @current_user_participation = current_user.current_project_participant(@participant.project_id)
+    # tz = TZInfo::Timezone.get @participant.project.time_zone 
+    # local = tz.utc_to_local order.purchased_on
+    # @timezoned = local.strftime "%Y-%m-%d"
 
+    
   end
 
   def rsvp

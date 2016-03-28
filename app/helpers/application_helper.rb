@@ -66,7 +66,7 @@ module ApplicationHelper
   end
 
   def days_ago_in_words(time)
-    days = ((Time.now - time.to_time) / 86400.0).round
+    days = ((Time.zone.now - time.to_time) / 86400.0).round
     if days > 1
       I18n.t :x_days, :count => days, :scope => :'datetime.distance_in_words'
     else
@@ -75,7 +75,7 @@ module ApplicationHelper
   end
 
   def days_ago(time)
-    days = ((Time.now - time.to_time) / 86400.0).round
+    days = ((Time.zone.now - time.to_time) / 86400.0).round
     if days > 1
      days
     end

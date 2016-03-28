@@ -16,8 +16,8 @@ class CreateAddresses < ActiveRecord::Migration
       t.string :venue #
       t.string :title #
       t.boolean :primary, default: true
-
-
+      t.float :latitude
+      t.float :longitude
       t.timestamps null: false
     end
   end

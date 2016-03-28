@@ -11,7 +11,7 @@ class ProjectRsvpJob < ActiveJob::Base
     if last_email.present?
       updated_after_datetime = last_email.created_at 
     else
-      updated_after_datetime = Time.now - 1.week 
+      updated_after_datetime = Time.zone.now - 1.week 
     end
 
     @participant_roles = ParticipantRole.includes(:participant).firm_answers.updated_after(updated_after_datetime)

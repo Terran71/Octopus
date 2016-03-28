@@ -112,11 +112,11 @@ class Participant < ActiveRecord::Base
   end
 
   def can_be_reminded?
-    self.unseen? && self.updated_at != Date.today && self.times_contacted << 2
+    self.unseen? && self.updated_at != Time.zone.today && self.times_contacted << 2
   end
 
   def dormant_five_days?
-    self.unseen? && self.updated_at >= (Time.now + 4.days ) && self.times_contacted << 3
+    self.unseen? && self.updated_at >= (Time.zone.now + 4.days ) && self.times_contacted << 3
   end
 
 

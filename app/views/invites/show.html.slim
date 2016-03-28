@@ -67,6 +67,35 @@ css:
                 |ADDRESS:
               = link_to @participant.project.default_address.google_maps_link, target: "_blank"
                 = @participant.project.default_address.full_address
+          li
+            strong
+              = Time.zone.now.strftime("%B %e, %Y at %I:%M %p")
+            br/
+            .subheading
+              |TIME ZONE:
+            = @participant.project.time_zone
+            br/
+            |ZONE CREATED AT:&nbsp;
+            = standard_date_and_time(@participant.created_at)
+            br/
+            |DEFAULT CREATED AT:&nbsp;
+            = @participant.created_at.strftime("%B %e, %Y at %I:%M %p")
+            br/
+            |USER TIME PROJECT CREATED AT:&nbsp;
+            = @participant.created_at.strftime("%B %e, %Y at %I:%M %p")
+            hr/
+            br/
+            |ZONE TIME NOW:&nbsp;
+            = standard_date_and_time(Time.zone.now)
+            br/
+            |DEFAULT TIME NOW:&nbsp;
+            = Time.zone.now.strftime("%B %e, %Y at %I:%M %p")
+            br/
+            |PROJECT TIME NOW:&nbsp;
+            / = standard_date_and_time(Time.now)
+           
+            / = @timezones.each do |tz|
+            /  = tz
 
 
       
