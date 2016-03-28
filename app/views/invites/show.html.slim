@@ -73,7 +73,7 @@ css:
             br/
             .subheading
               |TIME ZONE:
-            = @participant.project.time_zone
+            = @participant.project.set_time_zone
             br/
             |ZONE CREATED AT:&nbsp;
             = standard_date_and_time(@participant.created_at)
@@ -92,6 +92,8 @@ css:
             = Time.zone.now.strftime("%B %e, %Y at %I:%M %p")
             br/
             |PROJECT TIME NOW:&nbsp;
+            - address = Address.first
+            = address.address_timezone
             / = standard_date_and_time(Time.now)
            
             / = @timezones.each do |tz|

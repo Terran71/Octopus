@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user! , only: [:sidebar]
   # before_action :global
   before_action :sidebar
-  around_action :user_time_zone, if: :current_user
+  # around_action :user_time_zone, if: :current_user
 
   # before_action :configure_permitted_parameters, if: :devise_controller?
   layout 'application'

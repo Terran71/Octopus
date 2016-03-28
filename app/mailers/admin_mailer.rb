@@ -42,6 +42,19 @@ class AdminMailer < ActionMailer::Base
      
     end
 
+    def timezone_test(user, local_time)
+      @local_time = local_time
+      @user = user
+      @subject = "#{@local_time} in #{@user.time_zone}"
+      @ref = "Edo"
+        mail(to: @user.email, 
+        subject: @subject,
+        template_path: '/admin_mailers', 
+        template_name: 
+        'timezone_test.html',
+        )
+    end
+
    
 
 end

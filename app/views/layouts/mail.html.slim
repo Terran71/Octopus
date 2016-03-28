@@ -63,7 +63,7 @@ body
                                                     br/
                                               tr
                                                 td align="center" style="color:#999999;font-size:11px" valign="top" 
-                                                  - if @email_kind.is_invite?
+                                                  - if @email_kind.blank? or @email_kind.is_invite?
                                                     p style="line-height:14px" 
                                                       | You are receiving this email because you have been invited to a...by "name"
                                                       a href="D" style="color:#999999" target="_blank"  Unsubscribe

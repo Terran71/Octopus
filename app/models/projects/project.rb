@@ -263,6 +263,14 @@ end
     new_rsvps_since(datetime).present?
   end
 
+  def set_time_zone
+    if has_complete_address?
+      default.address_timezone
+    else
+      self.time_zone
+    end
+  end
+
    # def unused_content
    #    Content.includes(:publisher).where.not(id: Content.includes(:posts).where(posts: {influencer_id: self.id, status: ['queued', 'scheduled', 'customized',  'saved', 'shared', ]}).map(&:id))
    #  end

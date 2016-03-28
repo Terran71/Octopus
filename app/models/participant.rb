@@ -111,6 +111,10 @@ class Participant < ActiveRecord::Base
     end
   end
 
+  def is_in_time_around(time)
+    user.is_in_time_around(time)
+  end
+
   def can_be_reminded?
     self.unseen? && self.updated_at != Time.zone.today && self.times_contacted << 2
   end

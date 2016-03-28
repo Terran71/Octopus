@@ -225,6 +225,18 @@ class User < ActiveRecord::Base
     end
   end
 
+  def is_in_time_around(set_time)
+   set_time = set_time.to_time
+   user_zoned =  self.user_time(set_time).to_time
+   if user_zoned >= set_time - 15.minutes && user_zoned <= set_time + 15.minutes
+    true
+    end
+  end
+
+
+  def user_time(time)
+    time.in_time_zone(self.time_zone)
+  end
  
 
   def active_projects

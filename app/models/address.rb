@@ -79,24 +79,17 @@ class Address < ActiveRecord::Base
   after_create :check_timezone
   after_validation :geocode
   geocoded_by :full_address
-  
-  # def geocode
-  #  result = Geocoder.search(self.full_address).first
-  #  if result.present?
-  #   self.update_attributes!(lat: result.latitude, long: result.longitude)
-  #  end
-  # end
+
 
   def address_timezone
-    Timezone.lookup(self.lat, self.long)
+    Timezone.lookup(self.latitude, self.longitude)
   end
 
   def check_timezone
-    if owner_type == "Project"
-      puts "Add Check Timezone" * 1000
+    # if owner_type == "Project"
+      
      
-
-    end
+    # end
   end
 
 end

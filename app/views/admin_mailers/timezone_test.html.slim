@@ -1,0 +1,18 @@
+table style="background: #fff; width: 600px; padding: 20px; margin-left: auto; margin-right:auto"
+  tr
+    td width="100%"
+
+      h1 
+        strong
+          |Hi  
+          =@user.first_name
+          |,
+        br/
+
+      |This email should have been sent at&nbsp; 
+      = @local_time.to_time.strftime("%T")
+      |&nbsp;in zone&nbsp;
+      =@user.time_zone
+       
+      = link_to  root_url(ref: @ref), target:"_blank", style: "text-transform:uppercase, font-weight: bold; font-size: 20px;"
+        |SEE ALL

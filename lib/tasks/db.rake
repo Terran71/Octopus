@@ -199,6 +199,20 @@ namespace :db do
     end
 
     puts 'loaded sample data'
+
+    zones = ActiveSupport::TimeZone.all.sort
+    zones.each do |zone|
+      u = User.all.order(updated_at: :desc).last
+        u.time_zone = zone.name
+        u.save
+    end
+
+    zones = ActiveSupport::TimeZone.us_zones
+    zones.each do |zone|
+      u = User.all.order(updated_at: :desc).last
+        u.time_zone = zone.name
+        u.save
+    end
   end
 
    task :tweaks => :environment do #local dev tweeks

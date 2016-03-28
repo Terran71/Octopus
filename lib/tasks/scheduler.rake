@@ -28,5 +28,10 @@
     puts " finished checking for appointment changes"
   end
 
+  task timezone_test: :environment do
+    TimezoneTestJob.perform
+    puts " timezone_test"
+  end
+
 
 
