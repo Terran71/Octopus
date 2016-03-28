@@ -7,7 +7,8 @@ class TimezoneTestJob < ActiveJob::Base
         # local_time = Time.now + 17.minutes
 
         d = Date.current
-        t = Time.now + 7.minutes
+        t = "08:57:42 -0700 "
+        t = t.to_time
         local_time = DateTime.new(d.year, d.month, d.day, t.hour, t.min, t.sec, t.zone)
         local_time = local_time.to_s
         zone = Time.zone
