@@ -65,20 +65,42 @@
                 = link_to inside_social_shares_path
                   i.fa.fa-start
                   | SOCIAL SHARES
+          li.dropdown
+            a#drop1.dropdown-toggle-octo href="#" role="button" data-toggle="dropdown"
+              i.fa.fa-plus
+                strong
+                  | MANAGE
+                b.caret
+            ul.dropdown-menu.custom-drop.active role="menu" aria-labelledby="drop1" style=""
 
-          li.dropdown
-            = link_to root_path
-              |Our Picks
-          li.dropdown
-            = link_to root_path
-              |FAQ
+              li
+                = link_to inside_users_path
+                  |USERS
+              / li
+              /   = link_to inside_projects_path
+              /     |PROJECTS
+              / li
+              /   = link_to inside_faqs_path
+              /     |FAQS
+              / li.divider
+              / li
+              /   = link_to inside_curateds_path
+              /     |CURATEDS
+              / li
+              /   = link_to inside_affiliates_path
+              /     |AFFILIATES
+              / li.divider
+              / li
+              /   = link_to inside_surveys_path
+              /     |SURVEYS
+
           li.dropdown
             a#drop1.dropdown-toggle-octo href="#" role="button" data-toggle="dropdown"
               i.fa.fa-globe.fa-2x style="margin-top: -5px"
-              - if current_user.global_notifications.present?
+              - if current_user.current_unviewed_notifications("AdminNotification").present?
                 sup
                   .badge.badge-success
-                    =current_user.global_notifications.count
+                    =current_user.current_unviewed_notifications("AdminNotification").count
               b.caret
             ul.dropdown-menu.custom-drop.active role="menu" aria-labelledby="drop1" style=""
             

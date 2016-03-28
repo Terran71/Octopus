@@ -1,0 +1,48 @@
+css:
+  .panel-inside table {width: 100%; max-width: 700px; margin-left: auto; margin-right: auto}
+  .panel-inside table th {padding: 5px; border: solid 1px #eee; font-size: 16px; font-weight: bold}
+  .panel-inside table td {padding: 5px; border: solid 1px #eee}
+  .panel-inside table td {font-size: 14px}
+  .panel-inside table  .txt-sm {font-size: 12px}
+  .panel-inside table .icon {text-align: center; font-size: 22px}
+
+.container.pt50.inside
+  .panel-row
+    .panel.panel-inside
+      .panel-heading
+        .panel-title
+          |USERS
+      .panel-body
+        table
+          thead
+            / th width="40px"
+            /   |STATUS
+            th 
+              |NAME
+            th width="90px"
+              |USER FOR
+            th width="120px"
+              |TIME ZONE
+            th width="90px"
+              |TIME NOW
+            th width="90px"
+              |#  Projects
+            th width="100px"
+              |LAST UPDATED
+          tbody
+            - @users.each do |user|
+              tr
+                td
+                  = user.name
+                td
+                  = days_ago_in_words(user.created_at)
+                td.txt-sm
+                  = user.time_zone
+                td.txt-sm
+                  = user.user_time(Time.now).strftime("%r")
+                td.txt-sm
+                  = user.all_projects.accepted.count
+                  | /
+                  = user.all_projects.count
+                td 
+                  = user.updated_at.strftime("%D")

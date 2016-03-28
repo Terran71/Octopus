@@ -227,15 +227,24 @@ class User < ActiveRecord::Base
 
   def is_in_time_around(set_time)
    set_time = set_time.to_time
-   user_zoned =  self.user_time(set_time).to_time
-   if user_zoned >= set_time - 15.minutes && user_zoned <= set_time + 15.minutes
+   user_zoned =  set_time.in_time_zone(self.time_zone)
+   puts "#{self.name} has set time: #{set_time.strftime("%r").to_time} & user zoned: #{user_zoned.strftime("%r").to_time} " 
+   user_zoned = user_zoned.strftime("%r").to_time
+   set_time = set_time.strftime("%r").to_time
+
+   if user_zoned >= (set_time - 15.minutes) && user_zoned <= (set_time + 15.minutes)
     true
     end
+ 
   end
 
 
-  def user_time(time)
-    time.in_time_zone(self.time_zone)
+  def user_time(set_time)
+    set_time.in_time_zone(self.time_zone)
+  end
+
+  def is_in_timezone(zone)
+    zone.name == self.time_zone
   end
  
 

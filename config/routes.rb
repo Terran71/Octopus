@@ -63,6 +63,7 @@ Rails.application.routes.draw do
      resources :blog_references, only: []
      resources :social_accounts
      resources :social_shares
+     resources :users, only: [:index]
 
   end
   # get '/page/:page_id' => 'site#page', as: :site_page

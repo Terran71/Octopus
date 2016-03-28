@@ -1,4 +1,4 @@
-class UserNotification < Notification
+class AdminNotification < Notification
 
   def name
     "Admin Notification"
