@@ -201,8 +201,8 @@ class ParticipantRole < ActiveRecord::Base
     !current?
   end
 
-  def has_active_flags?
-    flags.any?{|f|f.active?}
+  def status
+    participant.status
   end
 
 

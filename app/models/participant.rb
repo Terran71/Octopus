@@ -35,10 +35,10 @@ class Participant < ActiveRecord::Base
   scope :pending, -> { where(status: 2) }
   scope :undecided, -> {where.not(status: 5).where.not(status: 3)}
 
-  scope :firm_rsvps, -> { where.not(status: 1).where.not(status: 2).where.not(status: 4).where("status = ? or status = ?", 3, 5)}
+  scope :firm_rsvps, -> { where.not(status: 1).where.not(status: 2).where.not(status: 4)}
 
-  scope :has_updated_role_since, lambda { |datetime|
-    joins(:participant_roles).firm_answers.where("participant_roles.updated_at > ?", datetime)
+   scope :updated_since, lambda { |datetime|
+    where("participants.updated_at >= ?", datetime)
   }
 
 
@@ -228,10 +228,20 @@ class Participant < ActiveRecord::Base
 
   # after_create :send_invitation
   after_update :set_original_role 
+  after_update :set_role_statuses, if: :status_changed?
 
   def set_original_role
     if self.is_first_participant_role?
       self.participant_roles.first.update_attributes!(status: self.status)
+    end
+  end
+
+  def set_role_statuses
+    roles = self.participant_roles.where.not(status: status)
+    if roles.present?
+      roles.each do |role|
+        role.update_attributes!(status: status)
+      end
     end
   end
 

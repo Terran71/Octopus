@@ -21,25 +21,26 @@ table style="background: #fff; width: 600px; padding: 20px; margin-left: auto; m
           span style="color: #cc0000"
             |&nbsp;ACCEPTED
         table style="width: 100%; border: #eee 1px solid "
-          - @rsvps.accepted.order(status: :asc).each do |participant_role|
+          - @rsvps.accepted.order(status: :asc).each do |participant|
             tr
               td style="padding: 5px; border: #eee 1px solid; "
-                = participant_role.participant.name
+                = participant.name
               td style="padding: 5px; border: #eee 1px solid; width: 100px "
-                = participant_role.participant.status
+                = participant.status
       - if @rsvps.declined.present?
         hr/
-        strong
-          = @rsvps.declined.count
-        span style="color: #cc0000"
-          |DECLINED
+        h2
+          strong
+            = @rsvps.declined.count
+          span style="color: #cc0000"
+            |&nbsp;DECLINED
         table style="width: 100%; border: #eee 1px solid "
-          - @rsvps.declined.order(status: :asc).each do |participant_role|
+          - @rsvps.declined.order(status: :asc).each do |participant|
             tr
               td style="padding: 5px; border: #eee 1px solid; "
-                = participant_role.participant.name
+                = participant.name
               td style="padding: 5px; border: #eee 1px solid; width: 100px "
-                = participant_role.participant.status
+                = participant.status
       div style="text-align: center; font-size: 22px"
         = link_to  project_participants_url(project_id: @project.id, ref: @ref), style: "text-transform:uppercase, font-weight: bold;  color:#fff;  display: inline-block; padding: 6px 12px; margin-bottom: 0; line-height: 1.42857143; text-align: center; white-space: nowrap; vertical-align: middle;  background-image: none; border: 1px solid transparent;border-radius: 4px; background-color: #7F1418; border-color: #933F32;     text-decoration: none; ", target:"_blank"
           |CLICK HERE TO VIEW

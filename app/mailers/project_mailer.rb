@@ -53,7 +53,7 @@ class ProjectMailer < ActionMailer::Base
       @updated_after_datetime = updated_after_datetime
       @participant = participant
       @rsvps = @project.new_rsvps_since(updated_after_datetime)
-      @rsvps = @rsvps.firm_answers
+      @rsvps = @rsvps.firm_rsvps
       @email_kind = email_kind
       @subject = subject
       @ref = "Edo"

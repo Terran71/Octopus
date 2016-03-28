@@ -252,8 +252,11 @@ end
   end
 
   def new_rsvps_since(datetime)
-    ParticipantRole.not_project_creator.includes(:participant).firm_answers.updated_since(datetime).where(project_id: self.id)
-    
+    # ParticipantRole.not_project_creator.includes(:participant).firm_answers.updated_since(datetime).where(project_id: self.id)
+    # Participant.where(project_id: self.id).where.not(id: self.organizer_participant_id).firm_rsvps.updated_since(datetime)
+    # Participant.where(project_id: project.id).where.not(id: project.organizer_participant_id).firm_rsvps.updated_since(datetime)
+    Participant.where(project_id: self.id).firm_rsvps.updated_since(datetime)
+
   end
   
   def has_rsvp_since?(datetime)
